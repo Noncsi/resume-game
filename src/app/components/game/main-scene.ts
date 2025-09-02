@@ -2,6 +2,7 @@
 import Phaser from 'phaser';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
+import { AssetKeys } from '../../models/constants';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
@@ -15,29 +16,30 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('grass', '/assets/images/grass.png');
-    this.load.image('forest', '/assets/images/forest.png');
-    this.load.tilemapTiledJSON('map', '/assets/map.json');
-
-    this.load.spritesheet('player', '/assets/images/player.png', {
-      frameWidth: 16,
-      frameHeight: 16,
-    });
+    this.load.image(AssetKeys.player, `assets/tiles/${AssetKeys.player}.png`);
+    this.load.image(AssetKeys.water, `assets/tiles/${AssetKeys.water}.png`);
+    this.load.image(AssetKeys.grass, `assets/tiles/${AssetKeys.grass}.png`);
+    this.load.image(AssetKeys.forest, `assets/tiles/${AssetKeys.forest}.png`);
+    this.load.tilemapTiledJSON(AssetKeys.map, `assets/${AssetKeys.map}.json`);
   }
 
   create() {
+    this.cameras.main.fadeIn(1000);
     // --- MAP ---
-    const map = this.make.tilemap({ key: 'map' });
-    const grassTileSet = map.addTilesetImage('Grass', 'grass');
-    const forestTileSet = map.addTilesetImage('Forest', 'forest');
+    const map = this.make.tilemap({ key: AssetKeys.map });
+    
+    const waterTileSet = map.addTilesetImage(AssetKeys.water);
+    const grassTileSet = map.addTilesetImage(AssetKeys.grass);
+    const forestTileSet = map.addTilesetImage(AssetKeys.forest);
 
-    map.createLayer('Grass', grassTileSet, 0, 0);
-    map.createLayer('Forest', forestTileSet);
+    map.createBlankLayer('waterLayer', waterTileSet).fill(1);
+    const island = map.createLayer('grassLayer', grassTileSet, 0, 0);
+    map.createLayer('layerForest', forestTileSet);
 
-    this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+    this.physics.world.setBounds(0, 0, island.width, island.height);
 
     // --- PLAYER ---
-    this.player = this.physics.add.sprite(50, 50, 'player');
+    this.player = this.physics.add.sprite(16, 16, AssetKeys.player);
     this.player.setCollideWorldBounds(true);
 
     // --- INPUT ---
@@ -50,13 +52,13 @@ export class MainScene extends Phaser.Scene {
     this.player.setVelocity(0);
 
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-100);
+      this.player.setVelocityX(-500);
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(100);
+      this.player.setVelocityX(500);
     } else if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-100);
+      this.player.setVelocityY(-500);
     } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(100);
+      this.player.setVelocityY(500);
     } else {
       this.player.anims.stop();
     }
