@@ -27,19 +27,18 @@ export class MainScene extends Phaser.Scene {
     this.cameras.main.fadeIn(1000);
     // --- MAP ---
     const map = this.make.tilemap({ key: AssetKeys.map });
+    this.physics.world.setBounds(800, 200, 320, 320);
     
     const waterTileSet = map.addTilesetImage(AssetKeys.water);
     const grassTileSet = map.addTilesetImage(AssetKeys.grass);
     const forestTileSet = map.addTilesetImage(AssetKeys.forest);
 
     map.createBlankLayer('waterLayer', waterTileSet).fill(1);
-    const island = map.createLayer('grassLayer', grassTileSet, 0, 0);
+    const island = map.createLayer('grassLayer', grassTileSet);
     map.createLayer('layerForest', forestTileSet);
 
-    this.physics.world.setBounds(0, 0, island.width, island.height);
-
     // --- PLAYER ---
-    this.player = this.physics.add.sprite(16, 16, AssetKeys.player);
+    this.player = this.physics.add.sprite(800, 200, AssetKeys.player);
     this.player.setCollideWorldBounds(true);
 
     // --- INPUT ---
