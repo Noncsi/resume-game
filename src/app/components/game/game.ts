@@ -25,6 +25,7 @@ export class Game implements AfterViewInit {
       },
       parent: 'game-container',
       input: { keyboard: true },
+      backgroundColor: '#7BAE58',
     };
     new Phaser.Game(config);
   }

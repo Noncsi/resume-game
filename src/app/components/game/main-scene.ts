@@ -2,7 +2,7 @@
 import Phaser from 'phaser';
 import { Store } from '@ngrx/store';
 import { Injectable } from '@angular/core';
-import { AssetKeys } from '../../models/constants';
+import { AssetKey, Direction, MOVEMENT_MAP } from '../../models/constants';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
@@ -16,50 +16,81 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(AssetKeys.player, `assets/tiles/${AssetKeys.player}.png`);
-    this.load.image(AssetKeys.water, `assets/tiles/${AssetKeys.water}.png`);
-    this.load.image(AssetKeys.grass, `assets/tiles/${AssetKeys.grass}.png`);
-    this.load.image(AssetKeys.forest, `assets/tiles/${AssetKeys.forest}.png`);
-    this.load.tilemapTiledJSON(AssetKeys.map, `assets/${AssetKeys.map}.json`);
+    this.load.atlas('atlas', `assets/tiles/atlas.png`, 'assets/tiles/atlas.json');
+    this.load.spritesheet(AssetKey.player, 'assets/tiles/player-sheet.png', {
+      frameWidth: 19,
+      frameHeight: 27,
+    });
   }
 
   create() {
-    this.cameras.main.fadeIn(1000);
-    // --- MAP ---
-    const map = this.make.tilemap({ key: AssetKeys.map });
-    this.physics.world.setBounds(800, 200, 320, 320);
-    
-    const waterTileSet = map.addTilesetImage(AssetKeys.water);
-    const grassTileSet = map.addTilesetImage(AssetKeys.grass);
-    const forestTileSet = map.addTilesetImage(AssetKeys.forest);
+    this.cameras.main.fadeIn(500);
 
-    map.createBlankLayer('waterLayer', waterTileSet).fill(1);
-    const island = map.createLayer('grassLayer', grassTileSet);
-    map.createLayer('layerForest', forestTileSet);
+    // --- MAP ---
+    const mapEdgeForestGroup = this.physics.add.staticGroup();
+    const collidingElementsGroup = this.physics.add.staticGroup();
+
+    // World dimensions
+    const cols = 62;
+    const rows = 30;
+
+    // Meadow center (in grid coordinates, not pixels)
+    const meadowCenterX = Math.floor(cols / 2 - 1);
+    const meadowCenterY = Math.floor(rows / 2 - 1);
+    const meadowRadius = 12;
+
+    for (let y = 0; y < rows; y++) {
+      for (let x = 0; x < cols; x++) {
+        // Compute distance from center of meadow
+        const dx = x - meadowCenterX;
+        const dy = y - meadowCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        // Place tree only if OUTSIDE the circular radius
+        if (distance > meadowRadius) {
+          mapEdgeForestGroup.create(x * 32, y * 32, 'atlas', 'tree');
+        }
+      }
+    }
+
+    collidingElementsGroup.create(1000, 200, 'atlas', 'house').body.setSize(120, 70);
 
     // --- PLAYER ---
-    this.player = this.physics.add.sprite(800, 200, AssetKeys.player);
-    this.player.setCollideWorldBounds(true);
+    this.player = this.physics.add.sprite(1000, 300, 'player').setScale(1.5);
+    this.physics.add.collider(this.player, mapEdgeForestGroup);
+    this.physics.add.collider(this.player, collidingElementsGroup);
 
     // --- INPUT ---
     this.cursors = this.input.keyboard.createCursorKeys();
+    if (!this.cursors) return;
+
+    // --- ANIMATIONS ---
+    const createAnimation = (key: string, start: number, end: number) => {
+      this.anims.create({
+        key,
+        frames: this.anims.generateFrameNumbers(AssetKey.player, { start, end }),
+        frameRate: 10,
+        repeat: -1,
+      });
+    }
+    createAnimation(Direction.down, 0, 5);
+    createAnimation(Direction.left, 6, 11);
+    createAnimation(Direction.right, 12, 17);
+    createAnimation(Direction.up, 18, 24);
   }
 
   override update() {
-    if (!this.cursors) return;
-
+    // Player movement
     this.player.setVelocity(0);
 
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-500);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(500);
-    } else if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-500);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(500);
-    } else {
-      this.player.anims.stop();
-    }
+    const pressedDirection = Object.entries(this.cursors).find(
+      ([keyName, key]) => keyName in MOVEMENT_MAP && key.isDown
+    )?.[0];
+
+    if (!pressedDirection) return this.player.anims.stop();
+
+    const movement = MOVEMENT_MAP[pressedDirection];
+    this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+    return this.player.anims.play(movement.animation, true);
   }
 }
