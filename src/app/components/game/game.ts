@@ -12,11 +12,11 @@ export class Game implements AfterViewInit {
   ngAfterViewInit() {
     const config: Phaser.Types.Core.GameConfig = {
       type: Phaser.AUTO,
+      width: 1520,
+      height: 720,
       scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: '100%',
-        height: '100%',
       },
       scene: [MainScene],
       physics: {
