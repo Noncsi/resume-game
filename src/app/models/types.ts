@@ -1,4 +1,4 @@
-export type GameConfig = Phaser.Types.Core.GameConfig
+export type GameConfig = Phaser.Types.Core.GameConfig;
 export type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 export type Sprite = Phaser.GameObjects.Sprite;
 export type DynamicSprite = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -56,15 +56,19 @@ export interface IAnimationConfig {
   frameRate?: number;
   repeat?: number;
 }
- 
+
 export interface IMovement {
   animationKey: string;
   velocity: { x: number; y: number };
 }
 
 export enum EventKey {
-    interactWithWell = 'interactWithWell',
-    interactWithHouse = 'interactWithHouse',
+  interactWithWell = 'interactWithWell',
+  interactWithHouse = 'interactWithHouse',
+  interactWithMushrooms = 'interactWithMushrooms',
+  interactWithFlowers = 'interactWithFlowers',
+  interactWithStones = 'interactWithStones',
+  interactWithMailbox = 'interactWithMailbox',
 }
 
 export interface IInteractable {

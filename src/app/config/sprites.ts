@@ -11,8 +11,8 @@ export const SPRITE_CONFIGS: ISpriteConfig[] = [
 
 export const DYNAMIC_SPRITE_CONFIGS: IDynamicSpriteConfig[] = [
   {
-    x: 1200,
-    y: 280,
+    x: 945,
+    y: 350,
     texture: KEY.spritesheet.player,
     bodySize: { width: 10, height: 7 },
     bodyOffset: { x: 5, y: 19 },

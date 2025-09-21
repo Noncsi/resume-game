@@ -18,15 +18,22 @@ export class GameComponent {
   constructor(private gameService: GameService) {}
   ngOnInit() {
     this.game = new Phaser.Game(gameConfig);
+    this.registerEventListeners();
+  }
 
-    
-
-    EventBus.on(EventKey.interactWithWell, (payload) => {
-      this.gameService.openOverlay(payload)
+  private registerEventListeners(): void {
+    Object.values(EventKey).forEach((eventKey) => {
+      EventBus.on(eventKey, (payload) => {
+        this.gameService.openOverlay(payload);
+      });
     });
   }
 
   ngOnDestroy() {
+    Object.values(EventKey).forEach((eventKey) => {
+      EventBus.off(eventKey);
+    });
+
     if (this.game) {
       this.game.destroy(true);
     }

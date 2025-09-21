@@ -48,7 +48,11 @@ export const KEY = {
   },
   area: {
     well: 'well',
-    house: 'house'
+    house: 'house',
+    stones: 'stones',
+    flowers: 'flowers',
+    mushroom: 'mushroom',
+    mailbox: 'mailbox'
   },
 };
 
