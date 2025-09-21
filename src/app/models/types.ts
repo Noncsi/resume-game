@@ -11,19 +11,19 @@ export type CollideCallback = Phaser.Types.Physics.Arcade.ArcadePhysicsCallback;
 export type StaticGroup = Phaser.Physics.Arcade.StaticGroup;
 export type Animation = Phaser.Animations.Animation;
 
-export interface SpriteConfig {
+export interface ISpriteConfig {
   x: number;
   y: number;
   texture: string;
 }
 
-export interface DynamicSpriteConfig extends SpriteConfig {
+export interface IDynamicSpriteConfig extends ISpriteConfig {
   bodySize: { width: number; height: number };
   bodyOffset: { x: number; y: number };
   origin: { x: number; y: number };
 }
 
-export interface LayerConfig {
+export interface ILayerConfig {
   layerID: string;
   tilesetKeys: string[];
   x?: number;
@@ -42,14 +42,14 @@ export enum CollisionType {
   overlap,
 }
 
-export interface CollisionConfig {
+export interface ICollisionConfig {
   collisionType: CollisionType;
   spriteKey: string;
   layerKey: string;
   callback?: CollideCallback;
 }
 
-export interface AnimationConfig {
+export interface IAnimationConfig {
   key: string;
   spritesheetKey: string;
   frameConfig: { start: number; end: number } | { frames: number[] };
@@ -57,7 +57,23 @@ export interface AnimationConfig {
   repeat?: number;
 }
  
-export interface Movement {
+export interface IMovement {
   animationKey: string;
   velocity: { x: number; y: number };
+}
+
+export enum EventKey {
+    interactWithWell = 'interactWithWell',
+    interactWithHouse = 'interactWithHouse',
+}
+
+export interface IInteractable {
+  eventKey: string;
+}
+
+export interface IInteractableAreaConfig extends IInteractable {
+  key: string;
+  title: string;
+  content: string;
+  links?: { label: string; href: string }[];
 }

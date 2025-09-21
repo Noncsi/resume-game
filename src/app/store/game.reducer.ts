@@ -1,38 +1,30 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
-
-export interface OverlayPayload {
-  title: string;
-  content: string; // can be plain text or HTML-safe string
-  links?: { label: string; href: string }[];
-}
+import { IInteractableAreaConfig } from '../models/types';
 
 export interface GameState {
   overlayOpen: boolean;
-  overlayPayload?: OverlayPayload;
-  promptText?: string; // the "Press [E] to interact" prompt text
+  interactableArea?: IInteractableAreaConfig;
+  promptText?: string;
 }
 
 export const initialGameState: GameState = {
   overlayOpen: false,
-  overlayPayload: null,
-  promptText: null,
+  interactableArea: null,
+  promptText: "Press [E] to interact",
 };
-
-
-export const gameFeatureKey = 'game';
 
 export const gameReducer = createReducer(
   initialGameState,
-  on(action.openOverlay, (state, { payload }) => ({
+  on(action.openOverlay, (state, { area }) => ({
     ...state,
     overlayOpen: true,
-    overlayPayload: payload,
+    interactableArea: area,
   })),
   on(action.closeOverlay, (state) => ({
     ...state,
     overlayOpen: false,
-    overlayPayload: null,
+    interactableArea: null,
   })),
   on(action.setPrompt, (state, { text }) => ({
     ...state,

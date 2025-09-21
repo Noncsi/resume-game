@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Game } from './game';
+import { OverlayComponent } from './overlay-component';
 
-describe('Game', () => {
-  let component: Game;
-  let fixture: ComponentFixture<Game>;
+describe('Overlay', () => {
+  let component: OverlayComponent;
+  let fixture: ComponentFixture<OverlayComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Game]
+      imports: [OverlayComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Game);
+    fixture = TestBed.createComponent(OverlayComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

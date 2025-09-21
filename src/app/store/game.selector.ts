@@ -1,9 +1,17 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GameState } from './game.reducer';
-import { gameFeatureKey } from './game.reducer';
 
-const selectGameFeature = createFeatureSelector<GameState>(gameFeatureKey);
+const selectGameState = createFeatureSelector<GameState>('game');
 
-export const selectOverlayOpen = createSelector(selectGameFeature, s => s.overlayOpen);
-export const selectOverlayPayload = createSelector(selectGameFeature, s => s.overlayPayload);
-export const selectPromptText = createSelector(selectGameFeature, s => s.promptText);
+export const selectOverlayOpen = createSelector(
+  selectGameState,
+  (state: GameState) => state.overlayOpen
+);
+export const selectOverlayPayload = createSelector(
+  selectGameState,
+  (state: GameState) => state.interactableArea
+);
+export const selectPromptText = createSelector(
+  selectGameState,
+  (state: GameState) => state.promptText
+);

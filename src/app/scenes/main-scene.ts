@@ -2,8 +2,9 @@ import Phaser from 'phaser';
 import { Injectable } from '@angular/core';
 import {
   ANIMATION_COLLECTION,
-  ASSET_KEY,
+  KEY,
   DYNAMIC_SPRITE_COLLECTION,
+  INTERACTABLE_AREAS,
   LAYER_COLLECTION,
   MOVEMENT_MAP,
   SPRITE_COLLECTION,
@@ -14,19 +15,21 @@ import {
   TilesetImageConfig,
   Sprite,
   SpriteSheetImageConfig,
-  SpriteConfig,
-  LayerConfig,
-  DynamicSpriteConfig,
+  ISpriteConfig,
+  ILayerConfig,
+  IDynamicSpriteConfig,
   CollisionType,
-  CollisionConfig,
-  AnimationConfig,
-  Movement,
+  ICollisionConfig,
+  IAnimationConfig,
+  IMovement,
+  IInteractableAreaConfig,
 } from '../models/types';
 import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { LAYER_CONFIGS } from '../config/layers';
 import { COLLISION_CONFIGS } from '../config/collisions';
 import { ANIMATION_CONFIGS } from '../config/animations';
+import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
@@ -57,11 +60,11 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addSprites(): void {
-    SPRITE_CONFIGS.forEach(({ x, y, texture }: SpriteConfig) => {
+    SPRITE_CONFIGS.forEach(({ x, y, texture }: ISpriteConfig) => {
       SPRITE_COLLECTION[texture] = this.add.sprite(x, y, texture);
     });
     DYNAMIC_SPRITE_CONFIGS.forEach(
-      ({ x, y, texture, bodySize, bodyOffset, origin }: DynamicSpriteConfig) => {
+      ({ x, y, texture, bodySize, bodyOffset, origin }: IDynamicSpriteConfig) => {
         DYNAMIC_SPRITE_COLLECTION[texture] = this.physics.add
           .sprite(x, y, texture)
           .setBodySize(bodySize.width, bodySize.height)
@@ -72,7 +75,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addLayers(): void {
-    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: LayerConfig) => {
+    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
       const tilesets = tilesetKeys.map((key) => TILESET_COLLECTION[key]);
       const layer = this.map.createLayer(layerID, tilesets, x, y);
       layer.setCollisionByExclusion([-1]);
@@ -82,7 +85,7 @@ export class MainScene extends Phaser.Scene {
 
   private addCollisions(): void {
     COLLISION_CONFIGS.forEach(
-      ({ collisionType, spriteKey, layerKey, callback }: CollisionConfig) => {
+      ({ collisionType, spriteKey, layerKey, callback }: ICollisionConfig) => {
         const obj1 = DYNAMIC_SPRITE_COLLECTION[spriteKey];
         const obj2 = LAYER_COLLECTION[layerKey];
         switch (collisionType) {
@@ -98,7 +101,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addAnimations(): void {
-    ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig }: AnimationConfig) => {
+    ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig }: IAnimationConfig) => {
       const animation = this.anims.create({
         key,
         frames: this.anims.generateFrameNumbers(spritesheetKey, frameConfig),
@@ -110,10 +113,19 @@ export class MainScene extends Phaser.Scene {
     });
   }
 
+  private addInteractableAreas(): void {
+    INTERACTABLE_AREA_CONFIGS.forEach(
+      ({ key, eventKey, title, content, links }: IInteractableAreaConfig) => {
+        INTERACTABLE_AREAS.set(key, {key, eventKey, title, content, links})
+      }
+    );
+  }
+
   preload() {
-    this.load.tilemapTiledJSON(ASSET_KEY.map, `assets/${ASSET_KEY.map}.json`);
+    this.load.tilemapTiledJSON(KEY.map, `assets/${KEY.map}.json`);
     this.loadTilesets();
     this.loadSpritesheets();
+    this.addInteractableAreas();
   }
 
   create() {
@@ -135,7 +147,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   override update() {
-    const player = DYNAMIC_SPRITE_COLLECTION[ASSET_KEY.spritesheet.player];
+    const player = DYNAMIC_SPRITE_COLLECTION[KEY.spritesheet.player];
     player.setVelocity(0);
 
     const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
@@ -153,7 +165,7 @@ export class MainScene extends Phaser.Scene {
 
     if (!pressedMovementKeys.length) return player.anims.stop();
 
-    const movement: Movement = MOVEMENT_MAP[newlyPressedKey];
+    const movement: IMovement = MOVEMENT_MAP[newlyPressedKey];
     player.setVelocity(movement.velocity.x, movement.velocity.y);
     return player.anims.play(movement.animationKey, true);
   }

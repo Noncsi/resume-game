@@ -1,18 +1,18 @@
-import { ASSET_KEY } from "../models/constants";
-import { LayerConfig } from "../models/types";
+import { KEY } from "../models/constants";
+import { ILayerConfig } from "../models/types";
 
-export const LAYER_CONFIGS: LayerConfig[] = [
-  { layerID: ASSET_KEY.layer.grass, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.road, tilesetKeys: [ASSET_KEY.tileset.exterior, ASSET_KEY.tileset.groundGrassDetails] },
-  { layerID: ASSET_KEY.layer.forest, tilesetKeys: [ASSET_KEY.tileset.forestTrees], y: -66 },
-  { layerID: ASSET_KEY.layer.stones, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.house, tilesetKeys: [ASSET_KEY.tileset.houseDetails, ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.fence, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.decorations, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.flowers, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.well, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.mushrooms, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.dirt, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.gardenPlants, tilesetKeys: [ASSET_KEY.tileset.exterior] },
-  { layerID: ASSET_KEY.layer.roof, tilesetKeys: [ASSET_KEY.tileset.houseDetails] },
+export const LAYER_CONFIGS: ILayerConfig[] = [
+  { layerID: KEY.layer.grass, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.road, tilesetKeys: [KEY.tileset.exterior, KEY.tileset.groundGrassDetails] },
+  { layerID: KEY.layer.forest, tilesetKeys: [KEY.tileset.forestTrees], y: -66 },
+  { layerID: KEY.layer.stones, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.house, tilesetKeys: [KEY.tileset.houseDetails, KEY.tileset.exterior] },
+  { layerID: KEY.layer.fence, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.decorations, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.flowers, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.well, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.mushrooms, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.dirt, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.gardenPlants, tilesetKeys: [KEY.tileset.exterior] },
+  { layerID: KEY.layer.roof, tilesetKeys: [KEY.tileset.houseDetails] },
 ];

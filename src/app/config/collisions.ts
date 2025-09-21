@@ -1,63 +1,50 @@
-import { ASSET_KEY } from '../models/constants';
-import { CollisionConfig, CollisionType } from '../models/types';
+import { KEY, INTERACTABLE_AREAS } from '../models/constants';
+import { ICollisionConfig, CollisionType, EventKey } from '../models/types';
+import { EventBus } from '../services/event-bus';
 
-export const interactWith = {
-  house: () => {
-    console.log('Entering house...');
-  },
-  well: () => {
-    console.log('open well...');
-  },
-  stones: () => {
-    console.log('open stones...');
-  },
-  mushrooms: () => {
-    console.log('open mushrooms...');
-  },
-  flowers: () => {
-    console.log('open flowers...');
-  },
-};
-
-export const COLLISION_CONFIGS: CollisionConfig[] = [
+export const COLLISION_CONFIGS: ICollisionConfig[] = [
   {
-    layerKey: ASSET_KEY.layer.house,
+    layerKey: KEY.layer.house,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
-    callback: interactWith.house,
+    spriteKey: KEY.spritesheet.player,
+    callback: () => EventBus.emit('interactWithHouse', this),
   },
   {
-    layerKey: ASSET_KEY.layer.forest,
+    layerKey: KEY.layer.forest,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
+    spriteKey: KEY.spritesheet.player,
   },
   {
-    layerKey: ASSET_KEY.layer.fence,
+    layerKey: KEY.layer.fence,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
+    spriteKey: KEY.spritesheet.player,
   },
   {
-    layerKey: ASSET_KEY.layer.stones,
+    layerKey: KEY.layer.stones,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
-    callback: interactWith.stones,
+    spriteKey: KEY.spritesheet.player,
+    callback: () => EventBus.emit('interactWithHouse', this),
   },
   {
-    layerKey: ASSET_KEY.layer.well,
+    layerKey: KEY.layer.well,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
-    callback: interactWith.well,
+    spriteKey: KEY.spritesheet.player,
+    callback: () =>
+      EventBus.emit(
+        INTERACTABLE_AREAS.get(KEY.area.well).eventKey,
+        INTERACTABLE_AREAS.get(KEY.area.well)
+      ),
   },
   {
-    layerKey: ASSET_KEY.layer.mushrooms,
+    layerKey: KEY.layer.mushrooms,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
-    callback: interactWith.mushrooms,
+    spriteKey: KEY.spritesheet.player,
+    callback: () => EventBus.emit('interactWithHouse', this),
   },
-    {
-    layerKey: ASSET_KEY.layer.flowers,
+  {
+    layerKey: KEY.layer.flowers,
     collisionType: CollisionType.collider,
-    spriteKey: ASSET_KEY.spritesheet.player,
-    callback: interactWith.flowers,
+    spriteKey: KEY.spritesheet.player,
+    callback: () => EventBus.emit('interactWithHouse', this),
   },
 ];

@@ -1,11 +1,21 @@
-import { Sprite, Tileset, TilemapLayer, StaticGroup, Animation, Movement, Direction, DynamicSprite } from './types';
+import {
+  Sprite,
+  Tileset,
+  TilemapLayer,
+  StaticGroup,
+  Animation,
+  IMovement,
+  Direction,
+  DynamicSprite,
+  IInteractableAreaConfig,
+} from './types';
 
 export const ASSET_PATH = {
   tilesets: 'assets/textures/tilesets',
   spritesheets: 'assets/textures/spritesheets',
 };
 
-export const ASSET_KEY = {
+export const KEY = {
   map: 'map',
   tileset: {
     exterior: 'exterior',
@@ -36,6 +46,10 @@ export const ASSET_KEY = {
     dirt: 'dirt',
     gardenPlants: 'gardenPlants',
   },
+  area: {
+    well: 'well',
+    house: 'house'
+  },
 };
 
 export const TILESET_COLLECTION: Record<string, Tileset> = {};
@@ -45,9 +59,11 @@ export const LAYER_COLLECTION: Record<string, TilemapLayer> = {};
 export const COLLISION_GROUP_COLLECTION: Record<string, StaticGroup> = {};
 export const ANIMATION_COLLECTION: Record<string, Animation> = {};
 
+export const INTERACTABLE_AREAS = new Map<string, IInteractableAreaConfig>();
+
 export const VELOCITY = 110;
 
-export const MOVEMENT_MAP: Record<Direction, Movement> = {
+export const MOVEMENT_MAP: Record<Direction, IMovement> = {
   [Direction.left]: { velocity: { x: -VELOCITY, y: 0 }, animationKey: Direction.left },
   [Direction.right]: { velocity: { x: VELOCITY, y: 0 }, animationKey: Direction.right },
   [Direction.up]: { velocity: { x: 0, y: -VELOCITY }, animationKey: Direction.up },
