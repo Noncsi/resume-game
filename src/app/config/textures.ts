@@ -35,11 +35,6 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
   {
     key: ASSET_KEY.spritesheet.birdFly,
     url: `${ASSET_PATH.spritesheets}/bird-fly.png`,
-    frameConfig: { frameWidth: 32, frameHeight: 32 },
-  },
-  {
-    key: ASSET_KEY.spritesheet.birdFly,
-    url: `${ASSET_PATH.spritesheets}/bird-fly.png`,
     frameConfig: { frameWidth: 144, frameHeight: 64 },
   },
   {

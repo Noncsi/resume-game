@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
+import { OverlayPayload } from './game.reducer';
 
-export const visitArea = createAction('[Game] Visit Area', props<{ area: string }>());
-export const collectSkill = createAction('[Game] Collect Skill', props<{ skill: string }>());
-export const openProject = createAction('[Game] Open Project', props<{ projectId: string }>());
-export const readJob = createAction('[Game] Read Job', props<{ jobId: string }>());
-export const reachEnd = createAction('[Game] Reach End');
+export const openOverlay = createAction('[Game] Open Overlay', props<{ payload: OverlayPayload }>());
+export const closeOverlay = createAction('[Game] Close Overlay');
+export const setPrompt = createAction('[Game] Set Prompt', props<{ text: string | null }>());

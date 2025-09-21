@@ -1,3 +1,4 @@
+export type GameConfig = Phaser.Types.Core.GameConfig
 export type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 export type Sprite = Phaser.GameObjects.Sprite;
 export type DynamicSprite = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
@@ -43,8 +44,8 @@ export enum CollisionType {
 
 export interface CollisionConfig {
   collisionType: CollisionType;
-  object1Key: string;
-  object2Key: string;
+  spriteKey: string;
+  layerKey: string;
   callback?: CollideCallback;
 }
 
@@ -55,7 +56,7 @@ export interface AnimationConfig {
   frameRate?: number;
   repeat?: number;
 }
-
+ 
 export interface Movement {
   animationKey: string;
   velocity: { x: number; y: number };

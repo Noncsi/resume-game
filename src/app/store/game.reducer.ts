@@ -1,42 +1,41 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
 
-export interface GameState {
-  visitedAreas: string[];
-  collectedSkills: string[];
-  openedProjects: string[];
-  readJobs: string[];
-  endReached: boolean;
+export interface OverlayPayload {
+  title: string;
+  content: string; // can be plain text or HTML-safe string
+  links?: { label: string; href: string }[];
 }
 
-export const initialState: GameState = {
-  visitedAreas: [],
-  collectedSkills: [],
-  openedProjects: [],
-  readJobs: [],
-  endReached: false
+export interface GameState {
+  overlayOpen: boolean;
+  overlayPayload?: OverlayPayload;
+  promptText?: string; // the "Press [E] to interact" prompt text
+}
+
+export const initialGameState: GameState = {
+  overlayOpen: false,
+  overlayPayload: null,
+  promptText: null,
 };
 
+
+export const gameFeatureKey = 'game';
+
 export const gameReducer = createReducer(
-  initialState,
-  on(action.visitArea, (state, { area }) => ({
+  initialGameState,
+  on(action.openOverlay, (state, { payload }) => ({
     ...state,
-    visitedAreas: [...new Set([...state.visitedAreas, area])],
+    overlayOpen: true,
+    overlayPayload: payload,
   })),
-  on(action.collectSkill, (state, { skill }) => ({
+  on(action.closeOverlay, (state) => ({
     ...state,
-    collectedSkills: [...new Set([...state.collectedSkills, skill])],
+    overlayOpen: false,
+    overlayPayload: null,
   })),
-  on(action.openProject, (state, { projectId }) => ({
+  on(action.setPrompt, (state, { text }) => ({
     ...state,
-    openedProjects: [...new Set([...state.openedProjects, projectId])],
-  })),
-  on(action.readJob, (state, { jobId }) => ({
-    ...state,
-    readJobs: [...new Set([...state.readJobs, jobId])],
-  })),
-  on(action.reachEnd, (state) => ({
-    ...state,
-    endReached: true,
+    promptText: text,
   }))
 );
