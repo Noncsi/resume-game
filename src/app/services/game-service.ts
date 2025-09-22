@@ -1,21 +1,30 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as action from '../store/game.actions';
-import { IInteractableAreaConfig } from '../models/types';
+import { EventKey, IInteractableAreaConfig } from '../models/types';
+import { closeOverlay, openOverlay, setPrompt } from '../store/game.actions';
+import { EventBus } from './event-bus';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
-  constructor(private store: Store) {}
+  store = inject(Store);
+
+  registerEventListeners(): void {
+    Object.values(EventKey).forEach((eventKey) => {
+      EventBus.on(eventKey, (payload) => {
+        openOverlay(payload);
+      });
+    });
+  }
 
   openOverlay(area: IInteractableAreaConfig) {
-    this.store.dispatch(action.openOverlay({ area }));
+    this.store.dispatch(openOverlay({ area }));
   }
 
   closeOverlay() {
-    this.store.dispatch(action.closeOverlay());
+    this.store.dispatch(closeOverlay());
   }
 
   setPrompt(text: string) {
-    this.store.dispatch(action.setPrompt({ text }));
+    this.store.dispatch(setPrompt({ text }));
   }
 }
