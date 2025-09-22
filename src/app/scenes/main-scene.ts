@@ -2,7 +2,6 @@ import Phaser from 'phaser';
 import { Injectable } from '@angular/core';
 import {
   ANIMATION_COLLECTION,
-  KEY,
   DYNAMIC_SPRITE_COLLECTION,
   INTERACTABLE_AREAS,
   LAYER_COLLECTION,
@@ -30,6 +29,7 @@ import { LAYER_CONFIGS } from '../config/layers';
 import { COLLISION_CONFIGS } from '../config/collisions';
 import { ANIMATION_CONFIGS } from '../config/animations';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
+import { KEY } from '../models/keys';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
@@ -162,7 +162,7 @@ export class MainScene extends Phaser.Scene {
       const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
       pressedMovementKeys.splice(idx, 1);
     }
-
+    
     if (!pressedMovementKeys.length) return player.anims.stop();
 
     const movement: IMovement = MOVEMENT_MAP[newlyPressedKey];

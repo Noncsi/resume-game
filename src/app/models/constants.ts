@@ -13,48 +13,7 @@ import {
 export const ASSET_PATH = {
   tilesets: 'assets/textures/tilesets',
   spritesheets: 'assets/textures/spritesheets',
-};
-
-export const KEY = {
-  map: 'map',
-  tileset: {
-    exterior: 'exterior',
-    houseDetails: 'houseDetails',
-    forestTrees: 'forestTrees',
-    groundGrassDetails: 'groundGrassDetails',
-  },
-  spritesheet: {
-    player: 'player',
-    chimney: 'chimney',
-    trees: 'trees',
-    cat: 'cat',
-    birdFly: 'birdFly',
-    birdJump: 'birdJump',
-  },
-  layer: {
-    grass: 'grass',
-    road: 'road',
-    forest: 'forest',
-    stones: 'stones',
-    house: 'house',
-    fence: 'fence',
-    roof: 'roof',
-    decorations: 'decorations',
-    flowers: 'flowers',
-    well: 'well',
-    mushrooms: 'mushrooms',
-    dirt: 'dirt',
-    gardenPlants: 'gardenPlants',
-  },
-  area: {
-    well: 'well',
-    house: 'house',
-    stones: 'stones',
-    flowers: 'flowers',
-    mushroom: 'mushroom',
-    mailbox: 'mailbox'
-  },
-};
+} as const;
 
 export const TILESET_COLLECTION: Record<string, Tileset> = {};
 export const SPRITE_COLLECTION: Record<string, Sprite> = {};

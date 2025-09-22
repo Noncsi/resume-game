@@ -62,15 +62,6 @@ export interface IMovement {
   velocity: { x: number; y: number };
 }
 
-export enum EventKey {
-  interactWithWell = 'interactWithWell',
-  interactWithHouse = 'interactWithHouse',
-  interactWithMushrooms = 'interactWithMushrooms',
-  interactWithFlowers = 'interactWithFlowers',
-  interactWithStones = 'interactWithStones',
-  interactWithMailbox = 'interactWithMailbox',
-}
-
 export interface IInteractable {
   eventKey: string;
 }

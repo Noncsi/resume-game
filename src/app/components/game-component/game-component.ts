@@ -3,7 +3,7 @@ import Phaser from 'phaser';
 import { gameConfig } from '../../config/game';
 import { GameService } from '../../services/game-service';
 import { EventBus } from '../../services/event-bus';
-import { EventKey } from '../../models/types';
+import { KEY } from '../../models/keys';
 
 @Component({
   selector: 'app-game',
@@ -22,7 +22,7 @@ export class GameComponent {
   }
 
   ngOnDestroy() {
-    Object.values(EventKey).forEach((eventKey) => {
+    Object.values(KEY.event).forEach((eventKey) => {
       EventBus.off(eventKey);
     });
 
