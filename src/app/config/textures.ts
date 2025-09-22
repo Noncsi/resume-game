@@ -1,4 +1,5 @@
-import { KEY, ASSET_PATH } from "../models/constants";
+import { ASSET_PATH } from "../models/constants";
+import { KEY } from "../models/keys";
 import { SpriteSheetImageConfig, TilesetImageConfig } from "../models/types";
 
 export const TILESET_IMAGE_CONFIGS: TilesetImageConfig[] = [
