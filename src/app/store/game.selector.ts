@@ -3,14 +3,16 @@ import { GameState } from './game.reducer';
 
 const selectGameState = createFeatureSelector<GameState>('game');
 
-export const selectOverlayOpen = createSelector(
+export const selectIsOverlayOpen = createSelector(
   selectGameState,
-  (state: GameState) => state.overlayOpen
+  (state: GameState) => state.isOverlayOpen
 );
-export const selectOverlayPayload = createSelector(
+
+export const selectInteractableArea = createSelector(
   selectGameState,
   (state: GameState) => state.interactableArea
 );
+
 export const selectPromptText = createSelector(
   selectGameState,
   (state: GameState) => state.promptText

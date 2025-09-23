@@ -22,10 +22,7 @@ export class GameComponent {
   }
 
   ngOnDestroy() {
-    Object.values(KEY.event).forEach((eventKey) => {
-      EventBus.off(eventKey);
-    });
-
+    this.gameService.unregisterEventListeners();
     this.game.destroy(true);
   }
 }

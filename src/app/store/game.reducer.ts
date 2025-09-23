@@ -3,13 +3,13 @@ import * as action from './game.actions';
 import { IInteractableAreaConfig } from '../models/types';
 
 export interface GameState {
-  overlayOpen: boolean;
+  isOverlayOpen: boolean;
   interactableArea?: IInteractableAreaConfig;
   promptText?: string;
 }
 
 export const initialGameState: GameState = {
-  overlayOpen: false,
+  isOverlayOpen: false,
   interactableArea: null,
   promptText: "Press [E] to interact",
 };
@@ -18,12 +18,12 @@ export const gameReducer = createReducer(
   initialGameState,
   on(action.openOverlay, (state, { area }) => ({
     ...state,
-    overlayOpen: true,
+    isOverlayOpen: true,
     interactableArea: area,
   })),
   on(action.closeOverlay, (state) => ({
     ...state,
-    overlayOpen: false,
+    isOverlayOpen: false,
     interactableArea: null,
   })),
   on(action.setPrompt, (state, { text }) => ({

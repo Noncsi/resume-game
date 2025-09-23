@@ -8,13 +8,25 @@ import { KEY } from '../models/keys';
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
+  private eventsRegistered = false;
 
   registerEventListeners(): void {
+    if (this.eventsRegistered) {
+      return;
+    }
+
     Object.values(KEY.event).forEach((eventKey) => {
-      EventBus.on(eventKey, (payload) => {
-        openOverlay(payload);
-      });
+      EventBus.on(eventKey, (payload) => this.openOverlay(payload));
     });
+
+    this.eventsRegistered = true;
+  }
+
+  unregisterEventListeners(): void {
+    Object.values(KEY.event).forEach((eventKey) => {
+      EventBus.off(eventKey);
+    });
+    this.eventsRegistered = false;
   }
 
   openOverlay(area: IInteractableAreaConfig) {

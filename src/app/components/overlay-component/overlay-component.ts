@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, inject, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectOverlayOpen, selectOverlayPayload } from '../../store/game.selector';
-import * as actions from '../../store/game.actions';
+import { selectIsOverlayOpen, selectInteractableArea } from '../../store/game.selector';
+import { closeOverlay } from '../../store/game.actions';
 import { CommonModule } from '@angular/common';
 import { IInteractableAreaConfig } from '../../models/types';
 
@@ -10,18 +9,14 @@ import { IInteractableAreaConfig } from '../../models/types';
   selector: 'app-overlay',
   imports: [CommonModule],
   templateUrl: './overlay-component.html',
-  styleUrl: './overlay-component.scss'
+  styleUrl: './overlay-component.scss',
 })
 export class OverlayComponent {
-  overlayOpen$: Observable<boolean>;
-  payload$: Observable<IInteractableAreaConfig | null>;
-
-  constructor(private store: Store) {
-    this.overlayOpen$ = this.store.select(selectOverlayOpen);
-    this.payload$ = this.store.select(selectOverlayPayload);
-  }
+  store = inject(Store);
+  isOverlayOpen: Signal<boolean> = this.store.selectSignal(selectIsOverlayOpen);
+  area: Signal<IInteractableAreaConfig | null> = this.store.selectSignal(selectInteractableArea);
 
   close() {
-    this.store.dispatch(actions.closeOverlay());
+    this.store.dispatch(closeOverlay());
   }
 }

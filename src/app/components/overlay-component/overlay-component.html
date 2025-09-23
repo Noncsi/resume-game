@@ -1,14 +1,14 @@
 <div class="overlay-root">
-  @if (overlayOpen$ | async) {
-    <div class="overlay-backdrop" (click)="close()"></div>
+  @if (isOverlayOpen()) {
+  <div class="overlay-backdrop" (click)="close()"></div>
 
-    <div class="parchment-card" role="dialog" aria-modal="true">
-      <button class="close-btn" aria-label="Close" (click)="close()">✕</button>
+  <div class="parchment-card" role="dialog" aria-modal="true">
+    <button class="close-btn" aria-label="Close" (click)="close()">✕</button>
 
-      @if (payload$ | async; as payload) {
-        <h2 class="title">{{ payload.title }}</h2>
-        <div class="content" [innerHTML]="payload.content"></div>
-      }
-    </div>
+    @if (area(); as area) {
+    <h2 class="title">{{ area.title }}</h2>
+    <div class="content" [innerHTML]="area.content"></div>
+    }
+  </div>
   }
 </div>

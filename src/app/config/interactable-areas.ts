@@ -1,10 +1,10 @@
-import { KEY } from '../models/constants';
-import { EventKey, IInteractableAreaConfig } from '../models/types';
+import { KEY } from '../models/keys';
+import { IInteractableAreaConfig } from '../models/types';
 
 export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   {
     key: KEY.area.well,
-    eventKey: EventKey.interactWithWell,
+    eventKey: KEY.event.interactWithWell,
     title: 'The Well of Knowledge',
     content: `<em>"Clear waters run deep; every ripple holds a lesson."</em><br/><br/>
     <strong>Skills:</strong><br/>
@@ -19,7 +19,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.house,
-    eventKey: EventKey.interactWithHouse,
+    eventKey: KEY.event.interactWithHouse,
     title: 'The Cozy Cabin',
     content: `<em>"A hearth where stories begin."</em><br/><br/>
     Welcome to my interactive résumé.<br/>
@@ -28,7 +28,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.mushroom,
-    eventKey: EventKey.interactWithMushrooms,
+    eventKey: KEY.event.interactWithMushrooms,
     title: 'The Mushroom Grove',
     content: `<em>"Hidden among the roots, small wonders thrive."</em><br/><br/>
     <strong>Projects:</strong><br/>
@@ -41,7 +41,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.flowers,
-    eventKey: EventKey.interactWithFlowers,
+    eventKey: KEY.event.interactWithFlowers,
     title: 'The Blooming Meadow',
     content: `<em>"Every petal tells a story of growth."</em><br/><br/>
     <strong>Values:</strong><br/>
@@ -53,7 +53,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.stones,
-    eventKey: EventKey.interactWithStones,
+    eventKey: KEY.event.interactWithStones,
     title: 'The Circle of Stones',
     content: `<em>"Silent witnesses to time and perseverance."</em><br/><br/>
     <strong>Experience:</strong><br/>
@@ -65,7 +65,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.mailbox,
-    eventKey: EventKey.interactWithMailbox,
+    eventKey: KEY.event.interactWithMailbox,
     title: 'Mailbox',
     content: `<em>"Leave a note by the door."</em><br/><br/>
     📧 <a href="mailto:your@email.com">your@email.com</a><br/>

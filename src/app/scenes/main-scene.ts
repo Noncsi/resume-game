@@ -147,7 +147,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   override update() {
-    const player = DYNAMIC_SPRITE_COLLECTION[KEY.spritesheet.player];
+    const player = DYNAMIC_SPRITE_COLLECTION[KEY.texture.spritesheet.player];
     player.setVelocity(0);
 
     const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
