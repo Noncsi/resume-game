@@ -10,6 +10,7 @@ export type Collider = Phaser.Types.Physics.Arcade.ArcadeColliderType;
 export type CollideCallback = Phaser.Types.Physics.Arcade.ArcadePhysicsCallback;
 export type StaticGroup = Phaser.Physics.Arcade.StaticGroup;
 export type Animation = Phaser.Animations.Animation;
+export type TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 
 export interface ISpriteConfig {
   x: number;
@@ -53,7 +54,6 @@ export interface IAnimationConfig {
   key: string;
   spritesheetKey: string;
   frameConfig: { start: number; end: number } | { frames: number[] };
-  frameRate?: number;
   repeat?: number;
 }
 
@@ -71,4 +71,11 @@ export interface IInteractableAreaConfig extends IInteractable {
   title: string;
   content: string;
   links?: { label: string; href: string }[];
+}
+
+export interface ITextConfig {
+  x: number;
+  y: number;
+  text: string;
+  style?: TextStyle;
 }

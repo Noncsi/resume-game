@@ -5,10 +5,10 @@ import {
   DYNAMIC_SPRITE_COLLECTION,
   INTERACTABLE_AREAS,
   LAYER_COLLECTION,
-  MOVEMENT_MAP,
   SPRITE_COLLECTION,
+  TEXT_COLLECTION,
   TILESET_COLLECTION,
-} from '../models/constants';
+} from '../models/collections';
 import {
   CursorKeys,
   TilesetImageConfig,
@@ -22,14 +22,17 @@ import {
   IAnimationConfig,
   IMovement,
   IInteractableAreaConfig,
+  ITextConfig,
 } from '../models/types';
 import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { LAYER_CONFIGS } from '../config/layers';
 import { COLLISION_CONFIGS } from '../config/collisions';
-import { ANIMATION_CONFIGS } from '../config/animations';
+import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 import { KEY } from '../models/keys';
+import { MOVEMENT_MAP } from '../config/movement';
+import { TEXT_CONFIGS } from '../config/texts';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
@@ -105,8 +108,8 @@ export class MainScene extends Phaser.Scene {
       const animation = this.anims.create({
         key,
         frames: this.anims.generateFrameNumbers(spritesheetKey, frameConfig),
-        frameRate: 10,
-        repeat: -1,
+        frameRate: FRAME_RATE,
+        repeat: REPEAT,
       });
       if (!animation) return;
       ANIMATION_COLLECTION[key] = animation;
@@ -116,7 +119,15 @@ export class MainScene extends Phaser.Scene {
   private addInteractableAreas(): void {
     INTERACTABLE_AREA_CONFIGS.forEach(
       ({ key, eventKey, title, content, links }: IInteractableAreaConfig) => {
-        INTERACTABLE_AREAS.set(key, {key, eventKey, title, content, links})
+        INTERACTABLE_AREAS.set(key, { key, eventKey, title, content, links });
+      }
+    );
+  }
+
+  private addTexts(): void {
+    TEXT_CONFIGS.forEach(
+      ({ x, y, text }: ITextConfig, idx) => {
+        TEXT_COLLECTION.set(idx.toString(), {x, y, text});
       }
     );
   }
@@ -126,10 +137,13 @@ export class MainScene extends Phaser.Scene {
     this.loadTilesets();
     this.loadSpritesheets();
     this.addInteractableAreas();
+    this.addTexts();
     this.load.audio(KEY.audio.backgroundMusic, 'assets/audios/background-music.mp3');
   }
 
   create() {
+    this.physics.world.createDebugGraphic();
+
     this.cameras.main.fadeIn(500);
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -164,7 +178,7 @@ export class MainScene extends Phaser.Scene {
       const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
       pressedMovementKeys.splice(idx, 1);
     }
-    
+
     if (!pressedMovementKeys.length) return player.anims.stop();
 
     const movement: IMovement = MOVEMENT_MAP[newlyPressedKey];
