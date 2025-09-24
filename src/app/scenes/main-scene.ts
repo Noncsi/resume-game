@@ -126,6 +126,7 @@ export class MainScene extends Phaser.Scene {
     this.loadTilesets();
     this.loadSpritesheets();
     this.addInteractableAreas();
+    this.load.audio(KEY.audio.backgroundMusic, 'assets/audios/background-music.mp3');
   }
 
   create() {
@@ -144,6 +145,7 @@ export class MainScene extends Phaser.Scene {
     Object.entries(SPRITE_COLLECTION).forEach((sprite: [string, Sprite]) => {
       sprite[1].play(sprite[0]);
     });
+    this.sound.play(KEY.audio.backgroundMusic);
   }
 
   override update() {

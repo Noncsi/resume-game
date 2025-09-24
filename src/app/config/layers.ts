@@ -1,18 +1,54 @@
-import { KEY } from "../models/keys";
-import { ILayerConfig } from "../models/types";
+import { KEY } from '../models/keys';
+import { ILayerConfig } from '../models/types';
 
 export const LAYER_CONFIGS: ILayerConfig[] = [
-  { layerID: KEY.texture.layer.grass, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.road, tilesetKeys: [KEY.texture.tileset.exterior, KEY.texture.tileset.groundGrassDetails] },
-  { layerID: KEY.texture.layer.forest, tilesetKeys: [KEY.texture.tileset.forestTrees], y: -66 },
-  { layerID: KEY.texture.layer.stones, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.house, tilesetKeys: [KEY.texture.tileset.houseDetails, KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.fence, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.decorations, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.flowers, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.well, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.mushrooms, tilesetKeys: [KEY.texture.tileset.exterior] },
-  { layerID: KEY.texture.layer.dirt, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.path, tilesetKeys: [KEY.texture.tileset.groundGrassDetails] },
+  { layerID: KEY.texture.layer.road, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.grassTerrain, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.stoneCircle, tilesetKeys: [KEY.texture.tileset.exterior] },
+  {
+    layerID: KEY.texture.layer.mushroomDecorations,
+    tilesetKeys: [KEY.texture.tileset.groundGrassDetails],
+  },
+  { layerID: KEY.texture.layer.mushroomField, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.flowerField, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.gardenDirt, tilesetKeys: [KEY.texture.tileset.exterior] },
   { layerID: KEY.texture.layer.gardenPlants, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.well, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.wellDecorations, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.fence, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.tiles, tilesetKeys: [KEY.texture.tileset.exterior] },
+  {
+    layerID: KEY.texture.layer.house,
+    tilesetKeys: [KEY.texture.tileset.houseDetails, KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.houseDecorationsLower,
+    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.houseDecorationsUpper,
+    tilesetKeys: [
+      KEY.texture.tileset.interior,
+      KEY.texture.tileset.exterior,
+      KEY.texture.spritesheet.trees,
+      KEY.texture.tileset.pines,
+    ],
+  },
+  {
+    layerID: KEY.texture.layer.natureDecorations,
+    tilesetKeys: [KEY.texture.tileset.exterior, KEY.texture.tileset.pines],
+  },
   { layerID: KEY.texture.layer.roof, tilesetKeys: [KEY.texture.tileset.houseDetails] },
+  { layerID: KEY.texture.layer.stumps, tilesetKeys: [KEY.texture.tileset.exterior] },
+  { layerID: KEY.texture.layer.forest, tilesetKeys: [KEY.texture.tileset.pines] },
+  { layerID: KEY.texture.layer.CVFragments, tilesetKeys: [KEY.texture.tileset.exterior] },
+  {
+    layerID: KEY.texture.layer.animals,
+    tilesetKeys: [
+      KEY.texture.spritesheet.cat,
+      KEY.texture.spritesheet.birdJump,
+      KEY.texture.spritesheet.birdFly,
+    ],
+  },
 ];

@@ -1,11 +1,16 @@
-import { ASSET_PATH } from "../models/constants";
-import { KEY } from "../models/keys";
-import { SpriteSheetImageConfig, TilesetImageConfig } from "../models/types";
+import { KEY } from '../models/keys';
+import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
+
+export const ASSET_PATH = {
+  tilesets: 'assets/textures/tilesets',
+  spritesheets: 'assets/textures/spritesheets',
+} as const;
 
 export const TILESET_IMAGE_CONFIGS: TilesetImageConfig[] = [
   { key: KEY.texture.tileset.exterior, url: `${ASSET_PATH.tilesets}/exterior.png` },
+  { key: KEY.texture.tileset.interior, url: `${ASSET_PATH.tilesets}/interior.png` },
   { key: KEY.texture.tileset.houseDetails, url: `${ASSET_PATH.tilesets}/house-details.png` },
-  { key: KEY.texture.tileset.forestTrees, url: `${ASSET_PATH.tilesets}/forest-trees.png` },
+  { key: KEY.texture.tileset.pines, url: `${ASSET_PATH.tilesets}/pines.png` },
   {
     key: KEY.texture.tileset.groundGrassDetails,
     url: `${ASSET_PATH.tilesets}/ground-grass-details.png`,
@@ -26,7 +31,12 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
   {
     key: KEY.texture.spritesheet.player,
     url: `${ASSET_PATH.spritesheets}/player.png`,
-    frameConfig: { frameWidth: 19, frameHeight: 27 },
+    frameConfig: { frameWidth: 64, frameHeight: 64 },
+  },
+  {
+    key: KEY.texture.spritesheet.player,
+    url: `${ASSET_PATH.spritesheets}/player.png`,
+    frameConfig: { frameWidth: 64, frameHeight: 64 },
   },
   {
     key: KEY.texture.spritesheet.cat,
