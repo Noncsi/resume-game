@@ -21,11 +21,9 @@ export class GameComponent {
       scene: new MainScene(this.gameService)
     }
     this.game = new Phaser.Game(config);
-    this.gameService.registerEventListeners();
   }
 
   ngOnDestroy() {
-    this.gameService.unregisterEventListeners();
     this.game.destroy(true);
   }
 }

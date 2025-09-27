@@ -1,36 +1,25 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
-import { closeOverlay, openOverlay, setPrompt } from '../store/game.actions';
-import { EventBus } from './event-bus';
+import {
+  closeOverlay,
+  openOverlay,
+  setPrompt,
+  showPrompt,
+  hidePrompt,
+} from '../store/game.actions';
 import { KEY } from '../models/keys';
+import { Prompt } from '../models/interaction-prompt';
+import { Observable } from 'rxjs';
+import { selectIsPromptVisible } from '../store/game.selector';
+import { INTERACTABLE_AREAS } from '../models/collections';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
-  private eventsRegistered = false;
 
   testService(): void {
     console.log('GameService is working!');
-  }
-
-  registerEventListeners(): void {
-    if (this.eventsRegistered) {
-      return;
-    }
-
-    Object.values(KEY.event).forEach((eventKey) => {
-      EventBus.on(eventKey, (payload) => this.openOverlay(payload));
-    });
-
-    this.eventsRegistered = true;
-  }
-
-  unregisterEventListeners(): void {
-    Object.values(KEY.event).forEach((eventKey) => {
-      EventBus.off(eventKey);
-    });
-    this.eventsRegistered = false;
   }
 
   openOverlay(area: IInteractableAreaConfig) {
@@ -41,7 +30,26 @@ export class GameService {
     this.store.dispatch(closeOverlay());
   }
 
-  setPrompt(text: string) {
-    this.store.dispatch(setPrompt({ text }));
+  selectPromptVisible(): Observable<boolean> {
+    return this.store.select(selectIsPromptVisible);
+  }
+
+  setPrompt(prompt: Prompt) {
+    this.store.dispatch(setPrompt({ prompt }));
+  }
+
+  showPrompt(x: number, y: number) {
+    this.store.dispatch(showPrompt({ x, y }));
+  }
+
+  hidePrompt() {
+    this.store.dispatch(hidePrompt());
+  }
+
+  handleInteraction(areaKey: string): void {
+    const area = INTERACTABLE_AREAS.get(areaKey);
+    if (area) {
+      this.store.dispatch(openOverlay({ area }));
+    }
   }
 }

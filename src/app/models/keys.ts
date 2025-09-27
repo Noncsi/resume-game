@@ -52,12 +52,7 @@ export const KEY = {
     stones: 'stones',
     mailbox: 'mailbox',
   },
-  event: {
-    interactWithWell: 'interactWithWell',
-    interactWithHouse: 'interactWithHouse',
-    interactWithMushrooms: 'interactWithMushrooms',
-    interactWithFlowers: 'interactWithFlowers',
-    interactWithStones: 'interactWithStones',
-    interactWithMailbox: 'interactWithMailbox',
-  },
+  text: {
+    prompt: 'prompt',
+  }
 } as const;
