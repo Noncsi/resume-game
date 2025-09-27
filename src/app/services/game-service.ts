@@ -10,6 +10,10 @@ export class GameService {
   store = inject(Store);
   private eventsRegistered = false;
 
+  testService(): void {
+    console.log('GameService is working!');
+  }
+
   registerEventListeners(): void {
     if (this.eventsRegistered) {
       return;

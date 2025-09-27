@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import Phaser from 'phaser';
 import { gameConfig } from '../../config/game';
 import { GameService } from '../../services/game-service';
-import { EventBus } from '../../services/event-bus';
-import { KEY } from '../../models/keys';
+import { MainScene } from '../../scenes/main-scene';
 
 @Component({
   selector: 'app-game',
@@ -17,7 +16,11 @@ export class GameComponent {
   constructor(private gameService: GameService) {}
 
   ngOnInit() {
-    this.game = new Phaser.Game(gameConfig);
+    const config = {
+      ...gameConfig,
+      scene: new MainScene(this.gameService)
+    }
+    this.game = new Phaser.Game(config);
     this.gameService.registerEventListeners();
   }
 

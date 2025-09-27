@@ -33,15 +33,19 @@ import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 import { KEY } from '../models/keys';
 import { MOVEMENT_MAP } from '../config/movement';
 import { TEXT_CONFIGS } from '../config/texts';
+import { GameService } from '../services/game-service';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
+  gameService: GameService;
   private cursors: CursorKeys;
   private map: Phaser.Tilemaps.Tilemap;
   private lastPressedKey = '';
 
-  constructor() {
+  constructor(gameService: GameService) {
     super('main');
+    this.gameService = gameService;
+    this.gameService.testService();
   }
 
   private loadTilesets(): void {
