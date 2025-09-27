@@ -34,31 +34,21 @@ import { KEY } from '../models/keys';
 import { MOVEMENT_MAP } from '../config/movement';
 import { TEXT_CONFIGS } from '../config/texts';
 import { GameService } from '../services/game-service';
+import { LoadService } from '../services/load-service';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
+  loadService: LoadService;
   gameService: GameService;
   private cursors: CursorKeys;
   private map: Phaser.Tilemaps.Tilemap;
   private lastPressedKey = '';
 
-  constructor(gameService: GameService) {
+  constructor(loadService: LoadService, gameService: GameService) {
     super('main');
     this.gameService = gameService;
-    this.gameService.testService();
-  }
-
-  private loadTilesets(): void {
-    TILESET_IMAGE_CONFIGS.forEach(({ key, url }: TilesetImageConfig) => {
-      this.load.image(key, url);
-    });
-  }
-
-  private loadSpritesheets(): void {
-    SPRITESHEET_IMAGE_CONFIGS.forEach(({ key, url, frameConfig }: SpriteSheetImageConfig) => {
-      this.load.spritesheet(key, url, frameConfig);
-    });
-  }
+    this.loadService = loadService;
+  };
 
   private addTilesets(): void {
     TILESET_IMAGE_CONFIGS.forEach(({ key }: TilesetImageConfig) => {
@@ -128,12 +118,9 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.tilemapTiledJSON(KEY.map, `assets/${KEY.map}.json`);
-    this.loadTilesets();
-    this.loadSpritesheets();
+    this.loadService.loadAssets(this);
     this.addInteractableAreas();
     this.addTexts();
-    this.load.audio(KEY.audio.backgroundMusic, 'assets/audios/background-music.mp3');
   }
 
   create() {

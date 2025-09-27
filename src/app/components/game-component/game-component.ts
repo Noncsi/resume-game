@@ -3,6 +3,7 @@ import Phaser from 'phaser';
 import { gameConfig } from '../../config/game';
 import { GameService } from '../../services/game-service';
 import { MainScene } from '../../scenes/main-scene';
+import { LoadService } from '../../services/load-service';
 
 @Component({
   selector: 'app-game',
@@ -13,12 +14,12 @@ export class GameComponent {
   game: Phaser.Game;
   sceneCallback: (scene: Phaser.Scene) => void;
 
-  constructor(private gameService: GameService) {}
+  constructor(private loadService: LoadService, private gameService: GameService) {}
 
   ngOnInit() {
     const config = {
       ...gameConfig,
-      scene: new MainScene(this.gameService)
+      scene: new MainScene(this.loadService, this.gameService)
     }
     this.game = new Phaser.Game(config);
   }
