@@ -17,4 +17,5 @@ export const gameConfig: GameConfig = {
   parent: 'game-container',
   input: { keyboard: true },
   backgroundColor: '#967e5d',
+  pixelArt: true,
 };
