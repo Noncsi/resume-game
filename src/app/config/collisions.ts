@@ -1,51 +1,33 @@
-import { INTERACTABLE_AREAS } from '../models/constants';
 import { KEY } from '../models/keys';
-import { ICollisionConfig, CollisionType, IInteractableAreaConfig } from '../models/types';
-import { EventBus } from '../services/event-bus';
+import { ICollidersConfig } from '../models/types';
 
-const createEmitter = (area: IInteractableAreaConfig) => {
-  return EventBus.emit(area.eventKey, area);
-};
-
-export const COLLISION_CONFIGS: ICollisionConfig[] = [
+export const COLLISION_CONFIGS: ICollidersConfig[] = [
   {
-    layerKey: KEY.texture.layer.house,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
-    callback: () => createEmitter(INTERACTABLE_AREAS.get(KEY.area.house)),
+    object2Key: KEY.texture.layer.house,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.forest,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
+    object2Key: KEY.texture.layer.forest,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.fence,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
+    object2Key: KEY.texture.layer.fence,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.stones,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
-    callback: () => createEmitter(INTERACTABLE_AREAS.get(KEY.area.stones)),
+    object2Key: KEY.texture.layer.stoneCircle,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.well,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
-    callback: () => createEmitter(INTERACTABLE_AREAS.get(KEY.area.well)),
+    object2Key: KEY.texture.layer.well,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.mushrooms,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
-    callback: () => createEmitter(INTERACTABLE_AREAS.get(KEY.area.mushroom)),
+    object2Key: KEY.texture.layer.mushroomField,
+    object1Key: KEY.texture.spritesheet.player,
   },
   {
-    layerKey: KEY.texture.layer.flowers,
-    collisionType: CollisionType.collider,
-    spriteKey: KEY.texture.spritesheet.player,
-    callback: () => createEmitter(INTERACTABLE_AREAS.get(KEY.area.flowers)),
+    object2Key: KEY.texture.layer.flowerField,
+    object1Key: KEY.texture.spritesheet.player,
   },
 ];

@@ -18,7 +18,7 @@ import {
   ILayerConfig,
   IDynamicSpriteConfig,
   CollisionType,
-  ICollisionConfig,
+  ICollidersConfig,
   IAnimationConfig,
   IMovement,
   IInteractableAreaConfig,
@@ -87,20 +87,11 @@ export class MainScene extends Phaser.Scene {
   }
 
   private addCollisions(): void {
-    COLLISION_CONFIGS.forEach(
-      ({ collisionType, spriteKey, layerKey, callback }: ICollisionConfig) => {
-        const obj1 = DYNAMIC_SPRITE_COLLECTION[spriteKey];
-        const obj2 = LAYER_COLLECTION[layerKey];
-        switch (collisionType) {
-          case CollisionType.collider:
-            this.physics.add.collider(obj1, obj2, callback);
-            break;
-          case CollisionType.overlap:
-            this.physics.add.overlap(obj1, obj2, callback);
-            break;
-        }
-      }
-    );
+    COLLISION_CONFIGS.forEach(({ object1Key, object2Key }: ICollidersConfig) => {
+      const obj1 = DYNAMIC_SPRITE_COLLECTION[object1Key];
+      const obj2 = LAYER_COLLECTION[object2Key];
+      this.physics.add.collider(obj1, obj2);
+    });
   }
 
   private addAnimations(): void {

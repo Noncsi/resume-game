@@ -43,11 +43,9 @@ export enum CollisionType {
   overlap,
 }
 
-export interface ICollisionConfig {
-  collisionType: CollisionType;
-  spriteKey: string;
-  layerKey: string;
-  callback?: CollideCallback;
+export interface ICollidersConfig {
+  object1Key: string;
+  object2Key: string;
 }
 
 export interface IAnimationConfig {
