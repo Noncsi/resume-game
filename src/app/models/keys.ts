@@ -9,6 +9,7 @@ export const KEY = {
       groundGrassDetails: 'groundGrassDetails',
     },
     spritesheet: {
+      exteriorAsSheet: 'exteriorAsSheet',
       player: 'player',
       chimney: 'chimney',
       trees: 'trees',
@@ -39,6 +40,8 @@ export const KEY = {
       stumps: 'stumps',
       CVFragments: 'CVFragments',
       animals: 'animals',
+      areaMarker: 'areaMarker',
+      mailbox: 'mailbox',
     },
   },
   audio: {

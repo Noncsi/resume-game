@@ -53,4 +53,9 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
     url: `${ASSET_PATH.spritesheets}/bird-jump.png`,
     frameConfig: { frameWidth: 32, frameHeight: 32 },
   },
+  {
+    key: KEY.texture.spritesheet.exteriorAsSheet,
+    url: `${ASSET_PATH.tilesets}/exterior.png`,
+    frameConfig: { frameWidth: 16, frameHeight: 16 },
+  },
 ];

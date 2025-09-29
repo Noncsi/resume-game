@@ -1,6 +1,16 @@
-import { ITextConfig } from "../models/types";
+import { KEY } from '../models/keys';
+import { ITextConfig } from '../models/types';
 
 export const TEXT_CONFIGS: ITextConfig[] = [
-    {x: 200, y:200, text: 'Press [E] to interact'},
-]
-// this.add.text(35, 50, 'Press [E] to interact').setFont('16px Arial').setColor('#d3ff11ff');
+  {
+    key: KEY.text.prompt,
+    position: {x: 200, y: 200},
+    text: 'Press [E] to interact',
+    style: {
+      fontSize: '16px',
+      color: '#d3ff11ff',
+      backgroundColor: '#051a17ff',
+      padding: { x: 8, y: 4 },
+    },
+  },
+];

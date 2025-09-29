@@ -13,7 +13,10 @@ export const selectInteractableArea = createSelector(
   (state: GameState) => state.interactableArea
 );
 
-export const selectPromptText = createSelector(
-  selectGameState,
-  (state: GameState) => state.promptText
-);
+export const selectPrompt = createSelector(selectGameState, (state: GameState) => state.prompt);
+
+export const selectIsPromptVisible = createSelector(selectGameState, (state: GameState) => state.isPromptVisible);
+
+// export const selectPromptPosition = createSelector(selectPrompt, (prompt: Prompt) => {
+//   prompt?.text.x, prompt?.text.y;
+// });

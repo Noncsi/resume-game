@@ -6,16 +6,16 @@ import {
   Animation,
   DynamicSprite,
   IInteractableAreaConfig,
-  ITextConfig,
+  Text,
 } from './types';
 
-export const TILESET_COLLECTION: Record<string, Tileset> = {};
-export const SPRITE_COLLECTION: Record<string, Sprite> = {};
-export const DYNAMIC_SPRITE_COLLECTION: Record<string, DynamicSprite> = {};
-export const LAYER_COLLECTION: Record<string, TilemapLayer> = {};
-export const COLLISION_GROUP_COLLECTION: Record<string, StaticGroup> = {};
-export const ANIMATION_COLLECTION: Record<string, Animation> = {};
-// export const AUDIO_COLLECTION: Record<string, ITextConfig> = {};
+export const TILESETS = new Map<string, Tileset>();
+export const SPRITES = new Map<string, Sprite>();
+export const DYNAMIC_SPRITES = new Map<string, DynamicSprite>();
+export const LAYERS = new Map<string, TilemapLayer>();
+export const COLLISION_GROUPS = new Map<string, StaticGroup>();
+export const ANIMATIONS = new Map<string, Animation>();
+// export const AUDIO_COLLECTION= new Map<string, ITextConfig> = {};
 
-export const TEXT_COLLECTION = new Map<string, ITextConfig>();
+export const TEXTS = new Map<string, Text>();
 export const INTERACTABLE_AREAS = new Map<string, IInteractableAreaConfig>();

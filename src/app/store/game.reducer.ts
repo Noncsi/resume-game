@@ -1,17 +1,19 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
 import { IInteractableAreaConfig } from '../models/types';
+import { Prompt } from '../models/interaction-prompt';
 
 export interface GameState {
   isOverlayOpen: boolean;
   interactableArea?: IInteractableAreaConfig;
-  promptText?: string;
+  isPromptVisible: boolean;
+  prompt?: Prompt;
 }
 
 export const initialGameState: GameState = {
   isOverlayOpen: false,
   interactableArea: null,
-  promptText: "Press [E] to interact",
+  isPromptVisible: false,
 };
 
 export const gameReducer = createReducer(
@@ -26,8 +28,18 @@ export const gameReducer = createReducer(
     isOverlayOpen: false,
     interactableArea: null,
   })),
-  on(action.setPrompt, (state, { text }) => ({
+  on(action.setPrompt, (state, { prompt }) => ({
     ...state,
-    promptText: text,
+    prompt,
+  })),
+  on(action.showPrompt, (state, { x, y }) => ({
+    ...state,
+    x,
+    y,
+    isPromptVisible: true
+  })),
+  on(action.hidePrompt, (state) => ({
+    ...state,
+    isPromptVisible: false
   }))
 );

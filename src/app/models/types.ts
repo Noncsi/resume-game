@@ -10,12 +10,13 @@ export type Collider = Phaser.Types.Physics.Arcade.ArcadeColliderType;
 export type CollideCallback = Phaser.Types.Physics.Arcade.ArcadePhysicsCallback;
 export type StaticGroup = Phaser.Physics.Arcade.StaticGroup;
 export type Animation = Phaser.Animations.Animation;
+export type Text = Phaser.GameObjects.Text;
 export type TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 
 export interface ISpriteConfig {
-  x: number;
-  y: number;
+  position: { x: number; y: number };
   texture: string;
+  frame?: number;
 }
 
 export interface IDynamicSpriteConfig extends ISpriteConfig {
@@ -60,11 +61,7 @@ export interface IMovement {
   velocity: { x: number; y: number };
 }
 
-export interface IInteractable {
-  eventKey: string;
-}
-
-export interface IInteractableAreaConfig extends IInteractable {
+export interface IInteractableAreaConfig {
   key: string;
   title: string;
   content: string;
@@ -72,8 +69,8 @@ export interface IInteractableAreaConfig extends IInteractable {
 }
 
 export interface ITextConfig {
-  x: number;
-  y: number;
+  key: string;
+  position: { x: number; y: number };
   text: string;
   style?: TextStyle;
 }

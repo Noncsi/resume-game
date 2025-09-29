@@ -8,7 +8,6 @@ import {
   showPrompt,
   hidePrompt,
 } from '../store/game.actions';
-import { KEY } from '../models/keys';
 import { Prompt } from '../models/interaction-prompt';
 import { Observable } from 'rxjs';
 import { selectIsPromptVisible } from '../store/game.selector';
