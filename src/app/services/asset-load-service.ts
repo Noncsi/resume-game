@@ -1,12 +1,11 @@
-import { inject, Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Injectable } from '@angular/core';
 import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
 import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
 import { KEY } from '../models/keys';
 
 @Injectable({ providedIn: 'root' })
-export class LoadService {
+export class AssetLoadService {
   scene: Scene;
 
   public loadAssets(scene: Scene): void {

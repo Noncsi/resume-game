@@ -34,25 +34,28 @@ import { KEY } from '../models/keys';
 import { MOVEMENT_MAP } from '../config/movement';
 import { TEXT_CONFIGS } from '../config/texts';
 import { GameService } from '../services/game-service';
-import { LoadService } from '../services/load-service';
+import { AssetLoadService } from '../services/asset-load-service';
+import { AssetFactoryService } from '../services/asset-factory-service';
 
 @Injectable()
 export class MainScene extends Phaser.Scene {
-  loadService: LoadService;
+  assetLoadService: AssetLoadService;
+  assetFactoryService: AssetFactoryService;
   gameService: GameService;
   private cursors: CursorKeys;
   private map: Phaser.Tilemaps.Tilemap;
   private lastPressedKey = '';
 
-  constructor(loadService: LoadService, gameService: GameService) {
+  constructor(
+    assetFactoryService: AssetFactoryService,
+    assetLoadService: AssetLoadService,
+    gameService: GameService
+  ) {
     super('main');
     this.gameService = gameService;
-    this.loadService = loadService;
-  };
-
-  private addTilesets(): void {
-    TILESET_IMAGE_CONFIGS.forEach(({ key }: TilesetImageConfig) => {
-      TILESET_COLLECTION[key] = this.map.addTilesetImage(key);
+    this.assetLoadService = assetLoadService;
+    this.assetFactoryService = assetFactoryService;
+  }
     });
   }
 
@@ -118,7 +121,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   preload() {
-    this.loadService.loadAssets(this);
+    this.assetLoadService.loadAssets(this);
     this.addInteractableAreas();
     this.addTexts();
   }
@@ -131,12 +134,8 @@ export class MainScene extends Phaser.Scene {
 
     if (!this.cursors) return;
 
-    this.map = this.make.tilemap({ key: 'map' });
-    this.addTilesets();
-    this.addLayers();
-    this.addSprites();
-    this.addAnimations();
-    this.addCollisions();
+    this.map = this.make.tilemap({ key: KEY.map });
+    this.assetFactoryService.addAssets(this, this.map);
 
     Object.entries(SPRITE_COLLECTION).forEach((sprite: [string, Sprite]) => {
       sprite[1].play(sprite[0]);

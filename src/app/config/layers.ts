@@ -42,7 +42,6 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   { layerID: KEY.texture.layer.roof, tilesetKeys: [KEY.texture.tileset.houseDetails] },
   { layerID: KEY.texture.layer.stumps, tilesetKeys: [KEY.texture.tileset.exterior] },
   { layerID: KEY.texture.layer.forest, tilesetKeys: [KEY.texture.tileset.pines] },
-  { layerID: KEY.texture.layer.CVFragments, tilesetKeys: [KEY.texture.tileset.exterior] },
   {
     layerID: KEY.texture.layer.animals,
     tilesetKeys: [
@@ -51,4 +50,5 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
       KEY.texture.spritesheet.birdFly,
     ],
   },
+  { layerID: KEY.texture.layer.mailbox, tilesetKeys: [KEY.texture.tileset.exterior] },
 ];
