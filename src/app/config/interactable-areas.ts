@@ -4,6 +4,7 @@ import { IInteractableAreaConfig } from '../models/types';
 export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   {
     key: KEY.area.well,
+    position: { x: 675, y: 200 },
     title: 'The Well of Knowledge',
     content: `<em>"Clear waters run deep; every ripple holds a lesson."</em><br/><br/>
     <strong>Skills:</strong><br/>
@@ -18,6 +19,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.house,
+    position: { x: 400, y: 230 },
     title: 'The Cozy Cabin',
     content: `<em>"A hearth where stories begin."</em><br/><br/>
     Welcome to my interactive résumé.<br/>
@@ -26,6 +28,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.mushroom,
+    position: { x: 930, y: 170 },
     title: 'The Mushroom Grove',
     content: `<em>"Hidden among the roots, small wonders thrive."</em><br/><br/>
     <strong>Projects:</strong><br/>
@@ -38,6 +41,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.flowers,
+    position: { x: 1020, y: 510 },
     title: 'The Blooming Meadow',
     content: `<em>"Every petal tells a story of growth."</em><br/><br/>
     <strong>Values:</strong><br/>
@@ -49,6 +53,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.stones,
+    position: { x: 568, y: 460 },
     title: 'The Circle of Stones',
     content: `<em>"Silent witnesses to time and perseverance."</em><br/><br/>
     <strong>Experience:</strong><br/>
@@ -60,6 +65,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.mailbox,
+    position: { x: 590, y: 300 },
     title: 'Mailbox',
     content: `<em>"Leave a note by the door."</em><br/><br/>
     📧 <a href="mailto:your@email.com">your@email.com</a><br/>

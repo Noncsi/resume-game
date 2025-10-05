@@ -57,5 +57,8 @@ export const KEY = {
   },
   text: {
     prompt: 'prompt',
+  },
+  control: {
+    E: 'E'
   }
 } as const;

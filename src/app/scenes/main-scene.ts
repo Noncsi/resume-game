@@ -1,27 +1,16 @@
 import Phaser from 'phaser';
 import { Injectable } from '@angular/core';
-import {
-  DYNAMIC_SPRITES,
-  INTERACTABLE_AREAS,
-  SPRITES,
-  TEXTS,
-} from '../models/collections';
+import { CONTROLS, DYNAMIC_SPRITES, MOVEMENT_MAP, SPRITES, TEXTS } from '../models/collections';
 import {
   CursorKeys,
   Sprite,
   IMovement,
-  IInteractableAreaConfig,
   ITextConfig,
   StaticGroup,
+  DynamicSprite,
+  Direction,
 } from '../models/types';
-import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
-import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
-import { LAYER_CONFIGS } from '../config/layers';
-import { COLLISION_CONFIGS } from '../config/collisions';
-import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
-import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 import { KEY } from '../models/keys';
-import { MOVEMENT_MAP } from '../config/movement';
 import { TEXT_CONFIGS } from '../config/texts';
 import { Prompt } from '../models/interaction-prompt';
 import { GameService } from '../services/game-service';
@@ -34,12 +23,12 @@ export class MainScene extends Phaser.Scene {
   assetFactoryService: AssetFactoryService;
   gameService: GameService;
   private prompt: Prompt;
-  private cursors: CursorKeys;
   private map: Phaser.Tilemaps.Tilemap;
+  private player: DynamicSprite;
   private lastPressedKey = '';
   private isInInteractionZone = false; // Add this flag
   private currentKeyHandler?: () => void; // Add this to store the key handler
-  private collisionArea: StaticGroup;
+  private collidingAreas: StaticGroup;
 
   constructor(
     assetFactoryService: AssetFactoryService,
@@ -47,15 +36,9 @@ export class MainScene extends Phaser.Scene {
     gameService: GameService
   ) {
     super('main');
-    this.gameService = gameService;
     this.assetLoadService = assetLoadService;
     this.assetFactoryService = assetFactoryService;
-  }
-
-  private addInteractableAreas(): void {
-    INTERACTABLE_AREA_CONFIGS.forEach(({ key, title, content, links }: IInteractableAreaConfig) => {
-      INTERACTABLE_AREAS.set(key, { key, title, content, links });
-    });
+    this.gameService = gameService;
   }
 
   private addTexts(): void {
@@ -68,130 +51,49 @@ export class MainScene extends Phaser.Scene {
     });
   }
 
-  private handleInteractableCollision() {
-    if (this.isInInteractionZone) return;
-    this.isInInteractionZone = true;
-
-    const player = DYNAMIC_SPRITES[KEY.texture.spritesheet.player];
-    const playerBounds = player.getBounds();
-
-    this.prompt.show(playerBounds.centerX, playerBounds.top - 20);
-
-    const keyE = this.input.keyboard.addKey('E');
-    this.currentKeyHandler = () => {
-      this.gameService.handleInteraction(KEY.area.house);
-      this.prompt.hide();
-    };
-
-    keyE.on('down', this.currentKeyHandler);
-
-    this.events.on('update', this.checkExit, this);
-  }
-
-  private checkExit = () => {
-    if (!this.isInInteractionZone) return;
-    const player = DYNAMIC_SPRITES[KEY.texture.spritesheet.player];
-    const isStillOverlapping = this.physics.overlap(player, this.collisionArea);
-
-    if (!isStillOverlapping) {
-      // Clean up when player exits the zone
-      this.isInInteractionZone = false;
-      this.prompt.hide();
-
-      if (this.currentKeyHandler) {
-        this.input.keyboard.removeKey('E');
-        this.currentKeyHandler = undefined;
-      }
-
-      // Remove the update listener
-      this.events.off('update', this.checkExit);
-    }
-  };
-
   preload() {
     this.assetLoadService.loadAssets(this);
-    this.addInteractableAreas();
     this.addTexts();
   }
 
   create() {
+    this.map = this.make.tilemap({ key: KEY.map });
+    this.collidingAreas = this.physics.add.staticGroup();
+    this.assetFactoryService.addAssets(this, this.map, this.collidingAreas, this.gameService);
+
     this.prompt = new Prompt(this.gameService, this);
-    this.physics.world.createDebugGraphic();
+    this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    // this.physics.world.createDebugGraphic();
+
+    SPRITES.forEach((sprite: Sprite, spriteName: string) => {
+      sprite.play(spriteName);
+    });
 
     this.cameras.main.fadeIn(500);
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    if (!this.cursors) return;
-
-    this.map = this.make.tilemap({ key: KEY.map });
-    this.assetFactoryService.addAssets(this, this.map);
-
-    Object.entries(SPRITES).forEach((sprite: [string, Sprite]) => {
-      sprite[1].play(sprite[0]);
-    });
-
-    // Add collision detection
-    this.collisionArea = this.physics.add.staticGroup();
-    const houseMarker = this.collisionArea
-      .create(400, 229, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-    const wellMarker = this.collisionArea
-      .create(675, 200, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-    const mushroomMarker = this.collisionArea
-      .create(930, 170, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-    const flowerMarker = this.collisionArea
-      .create(1020, 510, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-    const stonesMarker = this.collisionArea
-      .create(568, 460, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-    const mailboxMarker = this.collisionArea
-      .create(590, 300, 'exteriorAsSheet', 954)
-      .setBodySize(64, 64);
-
-    this.tweens.add({
-      targets: [houseMarker, wellMarker, mushroomMarker, flowerMarker, stonesMarker, mailboxMarker],
-      y: '-= 10',
-      duration: 1000,
-      yoyo: true,
-      flipX: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut',
-    });
-
-    this.physics.add.overlap(
-      DYNAMIC_SPRITES[KEY.texture.spritesheet.player],
-      this.collisionArea,
-      () => this.handleInteractableCollision(),
-      undefined,
-      this
-    );
     // this.sound.play(KEY.audio.backgroundMusic);
   }
 
   override update() {
-    const player = DYNAMIC_SPRITES[KEY.texture.spritesheet.player];
-    player.setVelocity(0);
+    this.physics.overlap(this.player, this.collidingAreas)
+      ? this.gameService.showPrompt(50,50)
+      : this.gameService.hidePrompt();
 
-    const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
-      return keyName in MOVEMENT_MAP && key.isDown;
-    });
+    this.player.setVelocity(0);
 
-    const newlyPressedKey = pressedMovementKeys[0]?.[0];
+    const pressedMovementKeys = Object.entries(CONTROLS.get('move')).find(([key, value]) => value.isDown);
+    // console.log('pressedMovementKeys', pressedMovementKeys)
 
-    if (pressedMovementKeys.length === 1) {
-      this.lastPressedKey = newlyPressedKey;
-    } else {
-      const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
-      pressedMovementKeys.splice(idx, 1);
-    }
+    // if (pressedMovementKeys.length === 1) {
+    //   this.lastPressedKey = newlyPressedKey;
+    // } else {
+    //   const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
+    //   pressedMovementKeys.splice(idx, 1);
+    // }
 
-    if (!pressedMovementKeys.length) return player.anims.stop();
+    if (!pressedMovementKeys) return this.player.anims.stop();
 
-    const movement: IMovement = MOVEMENT_MAP[newlyPressedKey];
-    player.setVelocity(movement.velocity.x, movement.velocity.y);
-    return player.anims.play(movement.animationKey, true);
+    const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0]]);
+    this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+    return this.player.anims.play(movement.animationKey, true);
   }
 }

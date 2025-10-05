@@ -10,7 +10,7 @@ export const selectIsOverlayOpen = createSelector(
 
 export const selectInteractableArea = createSelector(
   selectGameState,
-  (state: GameState) => state.interactableArea
+  (state: GameState) => state.currentArea
 );
 
 export const selectPrompt = createSelector(selectGameState, (state: GameState) => state.prompt);

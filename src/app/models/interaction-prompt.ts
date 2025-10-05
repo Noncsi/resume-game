@@ -15,19 +15,8 @@ export class Prompt {
       })
       .setDepth(1000);
 
-
-    this.gameService
-      .selectPromptVisible()
+    this.gameService.isPromptVisible$
       .pipe(tap((isVisible: boolean) => this.text.setVisible(isVisible)))
       .subscribe();
-  }
-
-  show(x: number, y: number): void {
-    this.gameService.showPrompt(x, y);
-  }
-
-  hide(): void {
-    this.gameService.hidePrompt();
-    console.log('ip hide')
   }
 }

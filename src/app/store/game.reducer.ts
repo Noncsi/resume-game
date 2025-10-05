@@ -5,32 +5,31 @@ import { Prompt } from '../models/interaction-prompt';
 
 export interface GameState {
   isOverlayOpen: boolean;
-  interactableArea?: IInteractableAreaConfig;
+  currentArea: IInteractableAreaConfig;
   isPromptVisible: boolean;
   prompt?: Prompt;
 }
 
 export const initialGameState: GameState = {
   isOverlayOpen: false,
-  interactableArea: null,
+  currentArea: null,
   isPromptVisible: false,
 };
 
 export const gameReducer = createReducer(
   initialGameState,
-  on(action.openOverlay, (state, { area }) => ({
+  on(action.setCurrentInteractableArea, (state, { area }) => ({
+    ...state,
+    currentArea: area,
+  })),
+  on(action.openOverlay, (state) => ({
     ...state,
     isOverlayOpen: true,
-    interactableArea: area,
   })),
   on(action.closeOverlay, (state) => ({
     ...state,
     isOverlayOpen: false,
-    interactableArea: null,
-  })),
-  on(action.setPrompt, (state, { prompt }) => ({
-    ...state,
-    prompt,
+    currentArea: null,
   })),
   on(action.showPrompt, (state, { x, y }) => ({
     ...state,

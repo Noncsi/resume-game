@@ -1,35 +1,56 @@
 import { Injectable } from '@angular/core';
 import {
+  Direction,
   IAnimationConfig,
-  ICollidersConfig,
   IDynamicSpriteConfig,
+  IInteractableAreaConfig,
   ILayerConfig,
   ISpriteConfig,
-  SpriteSheetImageConfig,
+  StaticGroup,
   TilesetImageConfig,
 } from '../models/types';
-import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
+import { TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
-import { KEY } from '../models/keys';
-import { ANIMATIONS, DYNAMIC_SPRITES, LAYERS, SPRITES, TILESETS } from '../models/collections';
+import {
+  ANIMATIONS,
+  CONTROLS,
+  DYNAMIC_SPRITES,
+  LAYERS,
+  MOVEMENT_MAP,
+  SPRITES,
+  TILESETS,
+} from '../models/collections';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
-import { COLLISION_CONFIGS } from '../config/collisions';
 import { LAYER_CONFIGS } from '../config/layers';
+import { KEY } from '../models/keys';
+import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
+import { GameService } from './game-service';
 
 @Injectable({ providedIn: 'root' })
 export class AssetFactoryService {
   scene: Scene;
   map: Phaser.Tilemaps.Tilemap;
+  collidingAreas: StaticGroup;
+  gameService: GameService;
 
-  public addAssets(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
+  public addAssets(
+    scene: Scene,
+    map: Phaser.Tilemaps.Tilemap,
+    collidingAreas: StaticGroup,
+    gameService: GameService
+  ): void {
     this.scene = scene;
     this.map = map;
+    this.collidingAreas = collidingAreas;
+    this.gameService = gameService;
     this.addTilesets();
     this.addLayers();
     this.addSprites();
     this.addCollisions();
     this.addAnimations();
+    this.addControls();
+    this.addMovements();
   }
 
   private addTilesets(): void {
@@ -39,18 +60,18 @@ export class AssetFactoryService {
   }
 
   private addSprites(): void {
-    SPRITE_CONFIGS.forEach(({ position, texture, frame }: ISpriteConfig) => {
-      console.log({ position, texture, frame });
+    SPRITE_CONFIGS.forEach(({ spriteName, position, texture, frame }: ISpriteConfig) => {
       const sprite = this.scene.add.sprite(position.x, position.y, texture, frame);
-      SPRITES.set(texture, sprite);
+      SPRITES.set(spriteName, sprite);
     });
     DYNAMIC_SPRITE_CONFIGS.forEach(
-      ({ position, texture, bodySize, bodyOffset, origin }: IDynamicSpriteConfig) => {
-        DYNAMIC_SPRITES[texture] = this.scene.physics.add
+      ({ spriteName, position, texture, bodySize, bodyOffset, origin }: IDynamicSpriteConfig) => {
+        const dynamicSprite = this.scene.physics.add
           .sprite(position.x, position.y, texture)
           .setBodySize(bodySize.width, bodySize.height)
           .setOffset(bodyOffset.x, bodyOffset.y)
           .setOrigin(origin.x, origin.y);
+        DYNAMIC_SPRITES.set(spriteName, dynamicSprite);
       }
     );
   }
@@ -60,15 +81,37 @@ export class AssetFactoryService {
       const tilesets = tilesetKeys.map((key) => TILESETS[key]);
       const layer = this.map.createLayer(layerID, tilesets, x, y);
       layer.setCollisionByExclusion([-1]);
-      LAYERS[layerID] = layer;
+      LAYERS.set(layerID, layer);
     });
   }
 
   private addCollisions(): void {
-    COLLISION_CONFIGS.forEach(({ object1Key, object2Key }: ICollidersConfig) => {
-      const obj1 = DYNAMIC_SPRITES[object1Key];
-      const obj2 = LAYERS[object2Key];
-      this.scene.physics.add.collider(obj1, obj2);
+    const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    const collidingLayerConfigs = LAYER_CONFIGS.filter(
+      (config: ILayerConfig) => config.isColliding
+    ).map((config: ILayerConfig) => config.layerID);
+
+    LAYERS.forEach((value: Phaser.Tilemaps.TilemapLayer, key: string) => {
+      if (collidingLayerConfigs.includes(key)) {
+        this.scene.physics.add.collider(player, value);
+      }
+    });
+    INTERACTABLE_AREA_CONFIGS.forEach((area: IInteractableAreaConfig) => {
+      const areaAsCollidingSprite = this.collidingAreas
+        .create(area.position.x, area.position.y, 'exteriorAsSheet', 954)
+        .setBodySize(64, 64)
+        .setData({ key: area.key });
+      this.scene.tweens.add({
+        targets: areaAsCollidingSprite,
+        y: '-= 10',
+        duration: 1000,
+        yoyo: true,
+        repeat: -1,
+        ease: 'Sine.easeInOut',
+      });
+      this.scene.physics.add.overlap(player, areaAsCollidingSprite, () =>
+        this.gameService.enterInteractableArea(area)
+      );
     });
   }
 
@@ -82,6 +125,33 @@ export class AssetFactoryService {
       });
       if (!animation) return;
       ANIMATIONS[key] = animation;
+    });
+  }
+
+  private addControls(): void {
+    const controls = this.scene.input.keyboard.createCursorKeys();
+    const keyE = this.scene.input.keyboard.addKey(KEY.control.E);
+    CONTROLS.set('move', controls);
+    CONTROLS.set(KEY.control.E, keyE);
+  }
+
+  private addMovements(): void {
+    const VELOCITY = 100;
+    MOVEMENT_MAP.set(Direction.left, {
+      velocity: { x: -VELOCITY, y: 0 },
+      animationKey: Direction.left,
+    });
+    MOVEMENT_MAP.set(Direction.right, {
+      velocity: { x: VELOCITY, y: 0 },
+      animationKey: Direction.right,
+    });
+    MOVEMENT_MAP.set(Direction.up, {
+      velocity: { x: 0, y: -VELOCITY },
+      animationKey: Direction.up,
+    });
+    MOVEMENT_MAP.set(Direction.down, {
+      velocity: { x: 0, y: VELOCITY },
+      animationKey: Direction.down,
     });
   }
 }

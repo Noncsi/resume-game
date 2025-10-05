@@ -1,5 +1,6 @@
 export type GameConfig = Phaser.Types.Core.GameConfig;
 export type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
+export type Key = Phaser.Input.Keyboard.Key;
 export type Sprite = Phaser.GameObjects.Sprite;
 export type DynamicSprite = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
 export type TilesetImageConfig = Phaser.Types.Loader.FileTypes.ImageFileConfig;
@@ -14,6 +15,7 @@ export type Text = Phaser.GameObjects.Text;
 export type TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 
 export interface ISpriteConfig {
+  spriteName: string;
   position: { x: number; y: number };
   texture: string;
   frame?: number;
@@ -28,6 +30,7 @@ export interface IDynamicSpriteConfig extends ISpriteConfig {
 export interface ILayerConfig {
   layerID: string;
   tilesetKeys: string[];
+  isColliding: boolean;
   x?: number;
   y?: number;
 }
@@ -44,7 +47,7 @@ export enum CollisionType {
   overlap,
 }
 
-export interface ICollidersConfig {
+export interface ICollisionConfig {
   object1Key: string;
   object2Key: string;
 }
@@ -63,6 +66,7 @@ export interface IMovement {
 
 export interface IInteractableAreaConfig {
   key: string;
+  position: { x: number; y: number };
   title: string;
   content: string;
   links?: { label: string; href: string }[];
