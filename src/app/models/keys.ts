@@ -59,6 +59,7 @@ export const KEY = {
     prompt: 'prompt',
   },
   control: {
-    E: 'E'
+    E: 'E',
+    Esc: 'escape'
   }
 } as const;
