@@ -22,11 +22,9 @@ export class MainScene extends Phaser.Scene {
   assetLoadService: AssetLoadService;
   assetFactoryService: AssetFactoryService;
   gameService: GameService;
-  private prompt: Prompt;
+  private greeting: Phaser.GameObjects.Text;
   private map: Phaser.Tilemaps.Tilemap;
   private player: DynamicSprite;
-  private lastPressedKey = '';
-  private isInInteractionZone = false; // Add this flag
   private currentKeyHandler?: () => void; // Add this to store the key handler
   private collidingAreas: StaticGroup;
 
@@ -61,7 +59,7 @@ export class MainScene extends Phaser.Scene {
     this.collidingAreas = this.physics.add.staticGroup();
     this.assetFactoryService.addAssets(this, this.map, this.collidingAreas, this.gameService);
 
-    this.prompt = new Prompt(this.gameService, this);
+    new Prompt(this.gameService, this);
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
     // this.physics.world.createDebugGraphic();
 
@@ -69,18 +67,33 @@ export class MainScene extends Phaser.Scene {
       sprite.play(spriteName);
     });
 
+    this.greeting = this.add.text(
+      365,
+      280,
+      'Greetings, visitor! It seems like the forest animals took my resumé, would you help me find it? [Press any arrow key to continue...]',
+      {
+        fontSize: '16px',
+        color: '#f0f0f0ff',
+        backgroundColor: '#494949c7',
+        wordWrap: { width: 200 },
+        align: 'center',
+      }
+    );
+
     this.cameras.main.fadeIn(500);
     // this.sound.play(KEY.audio.backgroundMusic);
   }
 
   override update() {
     this.physics.overlap(this.player, this.collidingAreas)
-      ? this.gameService.showPrompt(50,50)
+      ? this.gameService.showPrompt(50, 50)
       : this.gameService.hidePrompt();
 
     this.player.setVelocity(0);
 
-    const pressedMovementKeys = Object.entries(CONTROLS.get('move')).find(([key, value]) => value.isDown);
+    const pressedMovementKeys = Object.entries(CONTROLS.get('move')).find(
+      ([key, value]) => value.isDown
+    );
     // console.log('pressedMovementKeys', pressedMovementKeys)
 
     // if (pressedMovementKeys.length === 1) {
@@ -91,6 +104,7 @@ export class MainScene extends Phaser.Scene {
     // }
 
     if (!pressedMovementKeys) return this.player.anims.stop();
+    if (pressedMovementKeys) this.greeting.setVisible(false);
 
     const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0]]);
     this.player.setVelocity(movement.velocity.x, movement.velocity.y);
