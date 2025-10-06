@@ -1,13 +1,15 @@
 import { tap } from 'rxjs';
 import { GameService } from '../services/game-service';
+import { inject } from '@angular/core';
+import { MainScene } from '../scenes/main-scene';
+import { TextStyle } from './types';
 
 export class Prompt {
   text: Phaser.GameObjects.Text;
-  private scene: Phaser.Scene;
+  gameService = inject(GameService);
+  scene = inject(MainScene);
 
-  constructor(private gameService: GameService, scene: Phaser.Scene) {
-    this.gameService = gameService;
-    this.scene = scene;
+  constructor() {
     this.text = this.scene.add
       .text(100, 100, 'Press [E] to interact', {
         fontSize: '16px',
