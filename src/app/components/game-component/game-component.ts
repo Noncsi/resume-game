@@ -1,30 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject, Injector, OnDestroy, OnInit } from '@angular/core';
 import Phaser from 'phaser';
-import { gameConfig } from '../../config/game';
-import { GameService } from '../../services/game-service';
+import { GAME_CONFIG } from '../../config/game';
 import { MainScene } from '../../scenes/main-scene';
-import { AssetLoadService } from '../../services/asset-load-service';
-import { AssetFactoryService } from '../../services/asset-factory-service';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game-component.html',
   styleUrl: './game-component.scss',
 })
-export class GameComponent {
+export class GameComponent implements OnInit, OnDestroy  {
   game: Phaser.Game;
-  sceneCallback: (scene: Phaser.Scene) => void;
 
-  constructor(
-    private addService: AssetFactoryService,
-    private loadService: AssetLoadService,
-    private gameService: GameService
-  ) {}
+  constructor(private injector: Injector) {}
 
   ngOnInit() {
     const config = {
-      ...gameConfig,
-      scene: new MainScene(this.addService, this.loadService, this.gameService),
+      ...GAME_CONFIG,
+      scene: new MainScene(this.injector)
     };
     this.game = new Phaser.Game(config);
   }

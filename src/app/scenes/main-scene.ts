@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { CONTROLS, DYNAMIC_SPRITES, MOVEMENT_MAP, SPRITES, TEXTS } from '../models/collections';
 import {
   CursorKeys,
@@ -11,55 +11,44 @@ import {
   Direction,
 } from '../models/types';
 import { KEY } from '../models/keys';
-import { TEXT_CONFIGS } from '../config/texts';
-import { Prompt } from '../models/interaction-prompt';
 import { GameService } from '../services/game-service';
-import { AssetLoadService } from '../services/asset-load-service';
-import { AssetFactoryService } from '../services/asset-factory-service';
+import { AssetLoader } from '../utils/asset-loader';
+import { AssetFactory } from '../utils/asset-factory';
+import { AssetPlayer } from '../utils/asset-player';
+import { Button } from '../models/button';
+import { BUTTON_CONFIGS } from '../config/buttons';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class MainScene extends Phaser.Scene {
-  assetLoadService: AssetLoadService;
-  assetFactoryService: AssetFactoryService;
-  gameService: GameService;
+  private gameService: GameService;
+
   private greeting: Phaser.GameObjects.Text;
   private map: Phaser.Tilemaps.Tilemap;
   private player: DynamicSprite;
   private currentKeyHandler?: () => void; // Add this to store the key handler
   private collidingAreas: StaticGroup;
-
-  constructor(
-    assetFactoryService: AssetFactoryService,
-    assetLoadService: AssetLoadService,
-    gameService: GameService
-  ) {
-    super('main');
-    this.assetLoadService = assetLoadService;
-    this.assetFactoryService = assetFactoryService;
-    this.gameService = gameService;
-  }
-
-  private addTexts(): void {
-    TEXT_CONFIGS.forEach(({ key, position, text, style }: ITextConfig) => {
-      const textObject = this.add
-        .text(position.x, position.y, text, style)
-        .setDepth(100)
-        .setVisible(false);
-      TEXTS.set(key, textObject);
+  constructor(private injector: Injector) {
+    super({ key: 'main' });
+    runInInjectionContext(injector, () => {
+      this.gameService = inject(GameService);
     });
   }
 
   preload() {
-    this.assetLoadService.loadAssets(this);
-    this.addTexts();
+    AssetLoader.loadAll(this);
   }
 
   create() {
-    this.map = this.make.tilemap({ key: KEY.map });
-    this.collidingAreas = this.physics.add.staticGroup();
-    this.assetFactoryService.addAssets(this, this.map, this.collidingAreas, this.gameService);
+    // this.physics.world.createDebugGraphic();
 
-    new Prompt(this.gameService, this);
+    const map = this.make.tilemap({ key: KEY.map });
+    this.collidingAreas = this.physics.add.staticGroup();
+
+    AssetFactory.createAll(this, map, this.collidingAreas, (area: IInteractableAreaConfig) =>
+      this.gameService.enterInteractableArea(area)
+    );
+
+    AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
     // this.physics.world.createDebugGraphic();
 

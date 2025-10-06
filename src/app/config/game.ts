@@ -1,7 +1,7 @@
 import { GameConfig } from '../models/types';
 import { MainScene } from '../scenes/main-scene';
 
-export const gameConfig: GameConfig = {
+export const GAME_CONFIG: GameConfig = {
   type: Phaser.AUTO,
   width: 1520,
   height: 720,
