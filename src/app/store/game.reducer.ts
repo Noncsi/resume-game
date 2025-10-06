@@ -8,12 +8,14 @@ export interface GameState {
   currentArea: IInteractableAreaConfig;
   isPromptVisible: boolean;
   prompt?: Prompt;
+  isBackgroundMusicOn: boolean;
 }
 
 export const initialGameState: GameState = {
   isOverlayOpen: false,
   currentArea: null,
   isPromptVisible: false,
+  isBackgroundMusicOn: true,
 };
 
 export const gameReducer = createReducer(
@@ -35,10 +37,14 @@ export const gameReducer = createReducer(
     ...state,
     x,
     y,
-    isPromptVisible: true
+    isPromptVisible: true,
   })),
   on(action.hidePrompt, (state) => ({
     ...state,
-    isPromptVisible: false
+    isPromptVisible: false,
+  })),
+  on(action.toggleBackgroundMusic, (state) => ({
+    ...state,
+    isBackgroundMusicOn: !state.isBackgroundMusicOn,
   }))
 );

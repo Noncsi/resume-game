@@ -3,6 +3,7 @@ import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
 import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
 import { KEY } from '../models/keys';
+import { AUDIO_CONFIGS } from '../config/audios';
 
 @Injectable({ providedIn: 'root' })
 export class AssetLoadService {
@@ -33,6 +34,8 @@ export class AssetLoadService {
   }
 
   private loadAudios(): void {
-    this.scene.load.audio(KEY.audio.backgroundMusic, 'assets/audios/background-music.mp3');
+    AUDIO_CONFIGS.forEach(({ key, url }) => {
+      this.scene.load.audio(key, url);
+    });
   }
 }

@@ -13,3 +13,5 @@ export const closeOverlay = createAction('[Game] Close Overlay');
 export const setPrompt = createAction('[Game] Set Prompt', props<{ prompt: Prompt }>());
 export const showPrompt = createAction('[Game] Show Prompt', props<{ x: number; y: number }>());
 export const hidePrompt = createAction('[Game] Hide Prompt');
+
+export const toggleBackgroundMusic = createAction('[Game] Turn Background Music On/Off');

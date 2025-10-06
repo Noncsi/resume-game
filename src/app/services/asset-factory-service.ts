@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   Direction,
   IAnimationConfig,
+  IAudioConfig,
   IDynamicSpriteConfig,
   IInteractableAreaConfig,
   ILayerConfig,
@@ -13,6 +14,7 @@ import { TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
 import {
   ANIMATIONS,
+  AUDIOS,
   CONTROLS,
   DYNAMIC_SPRITES,
   LAYERS,
@@ -26,6 +28,7 @@ import { LAYER_CONFIGS } from '../config/layers';
 import { KEY } from '../models/keys';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 import { GameService } from './game-service';
+import { AUDIO_CONFIGS } from '../config/audios';
 
 @Injectable({ providedIn: 'root' })
 export class AssetFactoryService {
@@ -51,6 +54,7 @@ export class AssetFactoryService {
     this.addAnimations();
     this.addControls();
     this.addMovements();
+    this.addAudios();
   }
 
   private addTilesets(): void {
@@ -152,6 +156,13 @@ export class AssetFactoryService {
     MOVEMENT_MAP.set(Direction.down, {
       velocity: { x: 0, y: VELOCITY },
       animationKey: Direction.down,
+    });
+  }
+
+  private addAudios(): void {
+    AUDIO_CONFIGS.forEach(({ key, IsLooping }: IAudioConfig) => {
+      const audio = this.scene.sound.add(key, { loop: IsLooping });
+      AUDIOS.set(key, audio);
     });
   }
 }

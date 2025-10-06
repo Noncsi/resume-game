@@ -17,6 +17,5 @@ export const selectPrompt = createSelector(selectGameState, (state: GameState) =
 
 export const selectIsPromptVisible = createSelector(selectGameState, (state: GameState) => state.isPromptVisible);
 
-// export const selectPromptPosition = createSelector(selectPrompt, (prompt: Prompt) => {
-//   prompt?.text.x, prompt?.text.y;
-// });
+export const selectIsBackgroundMusicOn = createSelector(selectGameState, (state: GameState) => state.isBackgroundMusicOn);
+

@@ -6,15 +6,21 @@ import {
   showPrompt,
   hidePrompt,
   setCurrentInteractableArea,
+  toggleBackgroundMusic,
 } from '../store/game.actions';
 import { KEY } from '../models/keys';
 import { CONTROLS } from '../models/collections';
-import { selectIsPromptVisible } from '../store/game.selector';
+import { selectIsBackgroundMusicOn, selectIsPromptVisible } from '../store/game.selector';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
-  public isPromptVisible$ = this.store.select(selectIsPromptVisible);
+  isPromptVisible$ = this.store.select(selectIsPromptVisible);
+  isBackgroundMusicOn$ = this.store.select(selectIsBackgroundMusicOn);
+
+  toggleBackgroundMusic() {
+    this.store.dispatch(toggleBackgroundMusic());
+  }
 
   enterInteractableArea(area: IInteractableAreaConfig): void {
     this.store.dispatch(setCurrentInteractableArea({ area }));
