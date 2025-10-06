@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
 import {
   Direction,
   IAnimationConfig,
   IAudioConfig,
+  IButtonConfig,
   IDynamicSpriteConfig,
   IInteractableAreaConfig,
   ILayerConfig,
   ISpriteConfig,
+  ITextConfig,
   StaticGroup,
   TilesetImageConfig,
 } from '../models/types';
@@ -15,62 +16,64 @@ import { Scene } from 'phaser';
 import {
   ANIMATIONS,
   AUDIOS,
+  BUTTONS,
   CONTROLS,
   DYNAMIC_SPRITES,
   LAYERS,
   MOVEMENT_MAP,
   SPRITES,
+  TEXTS,
   TILESETS,
 } from '../models/collections';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { LAYER_CONFIGS } from '../config/layers';
 import { KEY } from '../models/keys';
-import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
-import { GameService } from './game-service';
 import { AUDIO_CONFIGS } from '../config/audios';
+import { CollisionHandler } from './collision-handler';
+import { TEXT_CONFIGS } from '../config/texts';
 
-@Injectable({ providedIn: 'root' })
-export class AssetFactoryService {
-  scene: Scene;
-  map: Phaser.Tilemaps.Tilemap;
-  collidingAreas: StaticGroup;
-  gameService: GameService;
-
-  public addAssets(
+export class AssetFactory {
+  static createAll(
     scene: Scene,
     map: Phaser.Tilemaps.Tilemap,
     collidingAreas: StaticGroup,
-    gameService: GameService
+      onAreaEnter: (area: IInteractableAreaConfig) => void
   ): void {
-    this.scene = scene;
-    this.map = map;
-    this.collidingAreas = collidingAreas;
-    this.gameService = gameService;
-    this.addTilesets();
-    this.addLayers();
-    this.addSprites();
-    this.addCollisions();
-    this.addAnimations();
-    this.addControls();
-    this.addMovements();
-    this.addAudios();
+    this.createTilesets(map);
+    this.createLayers(map);
+    this.createSprites(scene);
+    this.createCollisions(scene, collidingAreas, onAreaEnter);
+    this.createAnimations(scene);
+    this.createControls(scene);
+    this.createMovements();
+    this.createAudios(scene);
+    this.createTexts(scene);
   }
 
-  private addTilesets(): void {
+  private static createTilesets(map: Phaser.Tilemaps.Tilemap): void {
     TILESET_IMAGE_CONFIGS.forEach(({ key }: TilesetImageConfig) => {
-      TILESETS[key] = this.map.addTilesetImage(key);
+      TILESETS[key] = map.addTilesetImage(key);
     });
   }
 
-  private addSprites(): void {
+  private static createLayers(map: Phaser.Tilemaps.Tilemap): void {
+    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
+      const tilesets = tilesetKeys.map((key) => TILESETS[key]);
+      const layer = map.createLayer(layerID, tilesets, x, y);
+      layer.setCollisionByExclusion([-1]);
+      LAYERS.set(layerID, layer);
+    });
+  }
+
+  private static createSprites(scene: Scene): void {
     SPRITE_CONFIGS.forEach(({ spriteName, position, texture, frame }: ISpriteConfig) => {
-      const sprite = this.scene.add.sprite(position.x, position.y, texture, frame);
+      const sprite = scene.add.sprite(position.x, position.y, texture, frame);
       SPRITES.set(spriteName, sprite);
     });
     DYNAMIC_SPRITE_CONFIGS.forEach(
       ({ spriteName, position, texture, bodySize, bodyOffset, origin }: IDynamicSpriteConfig) => {
-        const dynamicSprite = this.scene.physics.add
+        const dynamicSprite = scene.physics.add
           .sprite(position.x, position.y, texture)
           .setBodySize(bodySize.width, bodySize.height)
           .setOffset(bodyOffset.x, bodyOffset.y)
@@ -80,50 +83,31 @@ export class AssetFactoryService {
     );
   }
 
-  private addLayers(): void {
-    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
-      const tilesets = tilesetKeys.map((key) => TILESETS[key]);
-      const layer = this.map.createLayer(layerID, tilesets, x, y);
-      layer.setCollisionByExclusion([-1]);
-      LAYERS.set(layerID, layer);
-    });
-  }
-
-  private addCollisions(): void {
+  private static createCollisions(
+    scene: Scene,
+    collidingAreas: StaticGroup,
+    onAreaEnter: (area: IInteractableAreaConfig) => void
+  ): void {
     const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+
     const collidingLayerConfigs = LAYER_CONFIGS.filter(
       (config: ILayerConfig) => config.isColliding
     ).map((config: ILayerConfig) => config.layerID);
 
     LAYERS.forEach((value: Phaser.Tilemaps.TilemapLayer, key: string) => {
       if (collidingLayerConfigs.includes(key)) {
-        this.scene.physics.add.collider(player, value);
+        scene.physics.add.collider(player, value);
       }
     });
-    INTERACTABLE_AREA_CONFIGS.forEach((area: IInteractableAreaConfig) => {
-      const areaAsCollidingSprite = this.collidingAreas
-        .create(area.position.x, area.position.y, 'exteriorAsSheet', 954)
-        .setBodySize(64, 64)
-        .setData({ key: area.key });
-      this.scene.tweens.add({
-        targets: areaAsCollidingSprite,
-        y: '-= 10',
-        duration: 1000,
-        yoyo: true,
-        repeat: -1,
-        ease: 'Sine.easeInOut',
-      });
-      this.scene.physics.add.overlap(player, areaAsCollidingSprite, () =>
-        this.gameService.enterInteractableArea(area)
-      );
-    });
+
+    CollisionHandler.setupInteractions(scene, player, collidingAreas, onAreaEnter);
   }
 
-  private addAnimations(): void {
+  private static createAnimations(scene: Scene): void {
     ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig }: IAnimationConfig) => {
-      const animation = this.scene.anims.create({
+      const animation = scene.anims.create({
         key,
-        frames: this.scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
+        frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
         frameRate: FRAME_RATE,
         repeat: REPEAT,
       });
@@ -132,14 +116,14 @@ export class AssetFactoryService {
     });
   }
 
-  private addControls(): void {
-    const controls = this.scene.input.keyboard.createCursorKeys();
-    const keyE = this.scene.input.keyboard.addKey(KEY.control.E);
+  private static createControls(scene: Scene): void {
+    const controls = scene.input.keyboard.createCursorKeys();
+    const keyE = scene.input.keyboard.addKey(KEY.control.E);
     CONTROLS.set('move', controls);
     CONTROLS.set(KEY.control.E, keyE);
   }
 
-  private addMovements(): void {
+  private static createMovements(): void {
     const VELOCITY = 100;
     MOVEMENT_MAP.set(Direction.left, {
       velocity: { x: -VELOCITY, y: 0 },
@@ -159,10 +143,20 @@ export class AssetFactoryService {
     });
   }
 
-  private addAudios(): void {
+  private static createAudios(scene: Scene): void {
     AUDIO_CONFIGS.forEach(({ key, IsLooping }: IAudioConfig) => {
-      const audio = this.scene.sound.add(key, { loop: IsLooping });
+      const audio = scene.sound.add(key, { loop: IsLooping });
       AUDIOS.set(key, audio);
+    });
+  }
+
+  private static createTexts(scene: Scene): void {
+    TEXT_CONFIGS.forEach(({ key, position, text, style }: ITextConfig) => {
+      const textObject = scene.add
+        .text(position.x, position.y, text, style)
+        .setDepth(100)
+        .setVisible(false);
+      TEXTS.set(key, textObject);
     });
   }
 }
