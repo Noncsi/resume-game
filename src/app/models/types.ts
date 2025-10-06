@@ -2,7 +2,11 @@ export type GameConfig = Phaser.Types.Core.GameConfig;
 export type CursorKeys = Phaser.Types.Input.Keyboard.CursorKeys;
 export type Key = Phaser.Input.Keyboard.Key;
 export type Sprite = Phaser.GameObjects.Sprite;
-export type Audio = Phaser.Sound.NoAudioSound | Phaser.Sound.HTML5AudioSound | Phaser.Sound.WebAudioSound | Phaser.Sound.BaseSound
+export type Audio =
+  | Phaser.Sound.NoAudioSound
+  | Phaser.Sound.HTML5AudioSound
+  | Phaser.Sound.WebAudioSound
+  | Phaser.Sound.BaseSound;
 export type DynamicSprite = Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
 export type TilesetImageConfig = Phaser.Types.Loader.FileTypes.ImageFileConfig;
 export type SpriteSheetImageConfig = Phaser.Types.Loader.FileTypes.SpriteSheetFileConfig;
@@ -78,6 +82,14 @@ export interface ITextConfig {
   position: { x: number; y: number };
   text: string;
   style?: TextStyle;
+}
+
+export interface IButtonConfig {
+  position: { x: number; y: number };
+  text: string;
+  style?: Phaser.Types.GameObjects.Text.TextStyle;
+  fixed?: boolean;
+  depth?: number;
 }
 
 export interface IAudioConfig {
