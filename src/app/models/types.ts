@@ -85,8 +85,10 @@ export interface ITextConfig {
 }
 
 export interface IButtonConfig {
+  key: string;
   position: { x: number; y: number };
   text: string;
+  text2? : string;
   style?: Phaser.Types.GameObjects.Text.TextStyle;
   fixed?: boolean;
   depth?: number;

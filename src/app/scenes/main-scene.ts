@@ -50,24 +50,8 @@ export class MainScene extends Phaser.Scene {
 
     AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
-    // this.physics.world.createDebugGraphic();
-
-    SPRITES.forEach((sprite: Sprite, spriteName: string) => {
-      sprite.play(spriteName);
-    });
-
-    this.greeting = this.add.text(
-      365,
-      280,
-      'Greetings, visitor! It seems like the forest animals took my resumé, would you help me find it? [Press any arrow key to continue...]',
-      {
-        fontSize: '16px',
-        color: '#f0f0f0ff',
-        backgroundColor: '#494949c7',
-        wordWrap: { width: 200 },
-        align: 'center',
-      }
-    );
+    const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
+    new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
 
     this.cameras.main.fadeIn(500);
     // this.sound.play(KEY.audio.backgroundMusic);

@@ -14,5 +14,9 @@ export const setPrompt = createAction('[Game] Set Prompt', props<{ prompt: Promp
 export const showPrompt = createAction('[Game] Show Prompt', props<{ x: number; y: number }>());
 export const hidePrompt = createAction('[Game] Hide Prompt');
 
-export const toggleBackgroundMusic = createAction('[Game] Turn Background Music On/Off');
-export const toggleBackgroundMusicSuccess = createAction('[Game] Turn Background Music On/Off Success');
+export const toggleBackgroundMusic = createAction('[Game] Toggle Background Music');
+export const toggleBackgroundMusicSuccess = createAction('[Game] Toggle Background Music Success');
+export const toggleBackgroundMusicError = createAction(
+  '[Game] Toggle Background Music Error',
+  props<{ error: string }>()
+);

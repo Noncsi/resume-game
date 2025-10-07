@@ -24,7 +24,10 @@ export class Button extends Phaser.GameObjects.Text {
     }
 
     this.on('pointerdown', onClick);
-    this.on('pointerover', () => this.setStyle({ backgroundColor: '#333333' }));
-    this.on('pointerout', () => this.setStyle({ backgroundColor: '#000000' }));
+    if (config.text2) {
+      this.on('pointerdown', () => {
+        this.text = this.text === config.text ? config.text2 : config.text;
+      });
+    }
   }
 }

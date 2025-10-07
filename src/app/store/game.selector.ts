@@ -13,9 +13,7 @@ export const selectInteractableArea = createSelector(
   (state: GameState) => state.currentArea
 );
 
-export const selectPrompt = createSelector(selectGameState, (state: GameState) => state.prompt);
-
 export const selectIsPromptVisible = createSelector(selectGameState, (state: GameState) => state.isPromptVisible);
 
-export const selectIsBackgroundMusicOn = createSelector(selectGameState, (state: GameState) => state.isBackgroundMusicOn);
+export const selectIsBackgroundMusicOn = createSelector(selectGameState, (state: GameState) => state.isMusicOn);
 

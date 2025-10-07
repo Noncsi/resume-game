@@ -1,26 +1,26 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
 import { IInteractableAreaConfig } from '../models/types';
-import { Prompt } from '../models/interaction-prompt';
 
 export interface GameState {
-  isOverlayOpen: boolean;
+  isMusicOn: boolean;
+  isSoundEffectsOn: boolean;
   currentArea: IInteractableAreaConfig;
+  isOverlayOpen: boolean;
   isPromptVisible: boolean;
-  prompt?: Prompt;
-  isBackgroundMusicOn: boolean;
 }
 
 export const initialGameState: GameState = {
-  isOverlayOpen: false,
+  isMusicOn: true,
+  isSoundEffectsOn: true,
   currentArea: null,
+  isOverlayOpen: false,
   isPromptVisible: false,
-  isBackgroundMusicOn: true,
 };
 
 export const gameReducer = createReducer(
   initialGameState,
-  on(action.setCurrentInteractableArea, (state, { area }) => ({
+  on(action.setCurrentArea, (state, { area }) => ({
     ...state,
     currentArea: area,
   })),
@@ -43,8 +43,8 @@ export const gameReducer = createReducer(
     ...state,
     isPromptVisible: false,
   })),
-  on(action.toggleBackgroundMusic, (state) => ({
+  on(action.toggleBackgroundMusicSuccess, (state) => ({
     ...state,
-    isBackgroundMusicOn: !state.isBackgroundMusicOn,
+    isMusicOn: !state.isMusicOn,
   }))
 );
