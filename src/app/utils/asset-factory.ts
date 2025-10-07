@@ -2,13 +2,10 @@ import {
   Direction,
   IAnimationConfig,
   IAudioConfig,
-  IButtonConfig,
   IDynamicSpriteConfig,
-  IInteractableAreaConfig,
   ILayerConfig,
   ISpriteConfig,
   ITextConfig,
-  StaticGroup,
   TilesetImageConfig,
 } from '../models/types';
 import { TILESET_IMAGE_CONFIGS } from '../config/textures';
@@ -16,7 +13,6 @@ import { Scene } from 'phaser';
 import {
   ANIMATIONS,
   AUDIOS,
-  BUTTONS,
   CONTROLS,
   DYNAMIC_SPRITES,
   LAYERS,
@@ -30,20 +26,14 @@ import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { LAYER_CONFIGS } from '../config/layers';
 import { KEY } from '../models/keys';
 import { AUDIO_CONFIGS } from '../config/audios';
-import { CollisionHandler } from './collision-handler';
 import { TEXT_CONFIGS } from '../config/texts';
 
 export class AssetFactory {
-  static createAll(
-    scene: Scene,
-    map: Phaser.Tilemaps.Tilemap,
-    collidingAreas: StaticGroup,
-      onAreaEnter: (area: IInteractableAreaConfig) => void
-  ): void {
+  static createAll(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
     this.createTilesets(map);
     this.createLayers(map);
     this.createSprites(scene);
-    this.createCollisions(scene, collidingAreas, onAreaEnter);
+    this.createCollisions(scene);
     this.createAnimations(scene);
     this.createControls(scene);
     this.createMovements();
@@ -83,11 +73,7 @@ export class AssetFactory {
     );
   }
 
-  private static createCollisions(
-    scene: Scene,
-    collidingAreas: StaticGroup,
-    onAreaEnter: (area: IInteractableAreaConfig) => void
-  ): void {
+  private static createCollisions(scene: Scene): void {
     const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
     const collidingLayerConfigs = LAYER_CONFIGS.filter(
@@ -100,7 +86,7 @@ export class AssetFactory {
       }
     });
 
-    CollisionHandler.setupInteractions(scene, player, collidingAreas, onAreaEnter);
+    // CollisionHandler.setupInteractions(scene, player, collidingAreas, onAreaEnter);
   }
 
   private static createAnimations(scene: Scene): void {

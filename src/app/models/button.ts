@@ -15,8 +15,6 @@ export class Button extends Phaser.GameObjects.Text {
       ...config.style,
     });
 
-    scene.add.existing(this);
-
     this.setInteractive().setDepth(config.depth ?? 1000);
 
     if (config.fixed) {
@@ -29,5 +27,7 @@ export class Button extends Phaser.GameObjects.Text {
         this.text = this.text === config.text ? config.text2 : config.text;
       });
     }
+
+    scene.add.existing(this);
   }
 }

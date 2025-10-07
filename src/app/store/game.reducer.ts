@@ -11,7 +11,7 @@ export interface GameState {
 }
 
 export const initialGameState: GameState = {
-  isMusicOn: true,
+  isMusicOn: false,
   isSoundEffectsOn: true,
   currentArea: null,
   isOverlayOpen: false,
@@ -20,7 +20,7 @@ export const initialGameState: GameState = {
 
 export const gameReducer = createReducer(
   initialGameState,
-  on(action.setCurrentArea, (state, { area }) => ({
+  on(action.enterArea, (state, { area }) => ({
     ...state,
     currentArea: area,
   })),
@@ -33,10 +33,8 @@ export const gameReducer = createReducer(
     isOverlayOpen: false,
     currentArea: null,
   })),
-  on(action.showPrompt, (state, { x, y }) => ({
+  on(action.showPrompt, (state) => ({
     ...state,
-    x,
-    y,
     isPromptVisible: true,
   })),
   on(action.hidePrompt, (state) => ({

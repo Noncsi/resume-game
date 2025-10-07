@@ -1,12 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { GameService } from '../services/game-service';
 import {
+  enterArea,
+  hidePrompt,
+  leaveArea,
+  showPrompt,
   toggleBackgroundMusic,
   toggleBackgroundMusicError,
   toggleBackgroundMusicSuccess,
 } from './game.actions';
-import { catchError, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectIsBackgroundMusicOn } from './game.selector';
 import { AUDIOS } from '../models/collections';
@@ -23,20 +26,35 @@ export class GameEffects {
       ofType(toggleBackgroundMusic),
       concatLatestFrom(() => this.store.select(selectIsBackgroundMusicOn)),
       switchMap(([, isOn]) => {
-        try {
-          const backgroundMusic = AUDIOS.get(KEY.audio.backgroundMusic);
-          if (!backgroundMusic) throw new Error('Background music not found');
+        const backgroundMusic = AUDIOS.get(KEY.audio.backgroundMusic);
+        if (!backgroundMusic) return throwError(() => 'Background music not found');
+        isOn ? backgroundMusic.stop() : backgroundMusic.play();
+        return of(toggleBackgroundMusicSuccess());
+      }),
+      catchError((error) =>
+        of(
+          toggleBackgroundMusicError({
+            error: error?.message ?? 'Failed to toggle background music',
+          })
+        )
+      )
+    )
+  );
 
-          isOn ? backgroundMusic.stop() : backgroundMusic.play();
+  enterArea$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(enterArea),
+      map(() => {
+        return showPrompt();
+      })
+    )
+  );
 
-          return of(toggleBackgroundMusicSuccess());
-        } catch (error: any) {
-          return of(
-            toggleBackgroundMusicError({
-              error: error?.message || 'Failed to toggle background music',
-            })
-          );
-        }
+  leaveArea$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(leaveArea),
+      map(() => {
+        return hidePrompt();
       })
     )
   );

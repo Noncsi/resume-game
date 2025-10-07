@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
 import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
-import { CONTROLS, DYNAMIC_SPRITES, MOVEMENT_MAP, SPRITES, TEXTS } from '../models/collections';
+import { CONTROLS, DYNAMIC_SPRITES, MOVEMENT_MAP } from '../models/collections';
 import {
-  CursorKeys,
   Sprite,
   IMovement,
   ITextConfig,
@@ -17,16 +16,19 @@ import { AssetFactory } from '../utils/asset-factory';
 import { AssetPlayer } from '../utils/asset-player';
 import { Button } from '../models/button';
 import { BUTTON_CONFIGS } from '../config/buttons';
+import { InteractableArea } from '../models/interactable-area';
+import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
+import { Prompt } from '../models/prompt';
+import { TEXT_CONFIGS } from '../config/texts';
 
 @Injectable({ providedIn: 'root' })
 export class MainScene extends Phaser.Scene {
   private gameService: GameService;
 
   private greeting: Phaser.GameObjects.Text;
-  private map: Phaser.Tilemaps.Tilemap;
   private player: DynamicSprite;
-  private currentKeyHandler?: () => void; // Add this to store the key handler
   private collidingAreas: StaticGroup;
+
   constructor(private injector: Injector) {
     super({ key: 'main' });
     runInInjectionContext(injector, () => {
@@ -39,28 +41,41 @@ export class MainScene extends Phaser.Scene {
   }
 
   create() {
-    // this.physics.world.createDebugGraphic();
+    this.physics.world.createDebugGraphic();
 
+    // create Non-reactive assets
     const map = this.make.tilemap({ key: KEY.map });
-    this.collidingAreas = this.physics.add.staticGroup();
+    AssetFactory.createAll(this, map);
 
-    AssetFactory.createAll(this, map, this.collidingAreas, (area: IInteractableAreaConfig) =>
-      this.gameService.enterInteractableArea(area)
+    // create Interactable Areas
+    this.collidingAreas = this.physics.add.staticGroup();
+    const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    INTERACTABLE_AREA_CONFIGS.forEach((config) => {
+      this.collidingAreas.add(
+        new InteractableArea(this, config, player, () => this.gameService.enterArea(config))
+      );
+    });
+
+    // create Prompt
+    new Prompt(
+      this,
+      TEXT_CONFIGS.find((text) => text.key === KEY.text.prompt),
+      this.gameService
     );
 
-    AssetPlayer.playAll();
-    this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    // create Buttons
     const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
     new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
 
-    this.cameras.main.fadeIn(500);
-    // this.sound.play(KEY.audio.backgroundMusic);
+    // AssetPlayer.playAll();
+    this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+
+    this.cameras.main.fadeIn(800);
   }
 
   override update() {
-    this.physics.overlap(this.player, this.collidingAreas)
-      ? this.gameService.showPrompt(50, 50)
-      : this.gameService.hidePrompt();
+    // check walking out of area
+    if(!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
 
     this.player.setVelocity(0);
 
@@ -77,7 +92,7 @@ export class MainScene extends Phaser.Scene {
     // }
 
     if (!pressedMovementKeys) return this.player.anims.stop();
-    if (pressedMovementKeys) this.greeting.setVisible(false);
+    // if (pressedMovementKeys) this.greeting.setVisible(false);
 
     const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0]]);
     this.player.setVelocity(movement.velocity.x, movement.velocity.y);
