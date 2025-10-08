@@ -1,25 +1,37 @@
 import { Scene } from 'phaser';
 import { DynamicSprite, IInteractableAreaConfig } from './types';
+import { KEY } from './keys';
 
-export class InteractableArea extends Phaser.GameObjects.Sprite {
+export class InteractableArea extends Phaser.GameObjects.Image {
   constructor(
     scene: Scene,
     config: IInteractableAreaConfig,
     player: DynamicSprite,
     onEnter: () => void
   ) {
-    super(scene, config.position.x, config.position.y, 'exteriorAsSheet', 954);
-    
+    super(
+      scene,
+      config.position.x,
+      config.position.y,
+      KEY.texture.spritesheet.exteriorAsSheet,
+      954
+    );
+
     scene.tweens.add({
-        targets: this,
-        y: '-= 10',
-        duration: 1000,
-        yoyo: true,
-        repeat: -1,
-        ease: 'Sine.easeInOut',
+      targets: this,
+      y: '-= 10',
+      duration: 1000,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut',
     });
-    
-    scene.physics.add.overlap(player, this, () => onEnter());
+
     scene.add.existing(this);
+    scene.physics.add.existing(this, true);
+
+    const body = this.body as Phaser.Physics.Arcade.Body;
+    body.setSize(64, 64);
+
+    scene.physics.add.overlap(player, this, () => onEnter());
   }
 }
