@@ -31,6 +31,7 @@ export class GameService {
   leaveArea(): void {
     this.store.dispatch(leaveArea());
   }
+
   interact(): void {
     this.store.dispatch(interact());
   }

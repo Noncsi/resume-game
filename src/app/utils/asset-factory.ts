@@ -35,7 +35,6 @@ export class AssetFactory {
     this.createSprites(scene);
     this.createCollisions(scene);
     this.createAnimations(scene);
-    this.createControls(scene);
     this.createMovements();
     this.createAudios(scene);
     this.createTexts(scene);
@@ -105,13 +104,6 @@ export class AssetFactory {
       if (!animation) return;
       ANIMATIONS[key] = animation;
     });
-  }
-
-  private static createControls(scene: Scene): void {
-    const controls = scene.input.keyboard.createCursorKeys();
-    const keyE = scene.input.keyboard.addKey(KEY.control.E);
-    CONTROLS.set('move', controls);
-    CONTROLS.set(KEY.control.E, keyE);
   }
 
   private static createMovements(): void {

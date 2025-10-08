@@ -8,6 +8,7 @@ import {
   StaticGroup,
   DynamicSprite,
   Direction,
+  CursorKeys,
 } from '../models/types';
 import { KEY } from '../models/keys';
 import { GameService } from '../services/game-service';
@@ -28,6 +29,7 @@ export class MainScene extends Phaser.Scene {
   private greeting: Phaser.GameObjects.Text;
   private player: DynamicSprite;
   private collidingAreas: StaticGroup;
+  private cursors: CursorKeys
 
   constructor(private injector: Injector) {
     super({ key: 'main' });
@@ -66,16 +68,21 @@ export class MainScene extends Phaser.Scene {
     AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
+    // create interaction for [E]
+    const keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
+    keyE.on('down', () => this.gameService.interact());
+
+    this.cursors = this.input.keyboard.createCursorKeys();
+
     this.cameras.main.fadeIn(800);
   }
 
   override update() {
     // check walking out of area
-    if(!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
+    if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
 
     this.player.setVelocity(0);
-
-    const pressedMovementKeys = Object.entries(CONTROLS.get('move')).find(
+    const pressedMovementKeys = Object.entries(this.cursors).find(
       ([key, value]) => value.isDown
     );
     // console.log('pressedMovementKeys', pressedMovementKeys)
@@ -92,6 +99,7 @@ export class MainScene extends Phaser.Scene {
 
     const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0]]);
     this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+
     return this.player.anims.play(movement.animationKey, true);
   }
 }

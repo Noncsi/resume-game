@@ -3,15 +3,17 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   enterArea,
   hidePrompt,
+  interact,
   leaveArea,
+  openOverlay,
   showPrompt,
   toggleBackgroundMusic,
   toggleBackgroundMusicError,
   toggleBackgroundMusicSuccess,
 } from './game.actions';
-import { catchError, map, of, switchMap, throwError } from 'rxjs';
+import { catchError, filter, map, of, switchMap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectIsBackgroundMusicOn } from './game.selector';
+import { selectIsBackgroundMusicOn, selectIsPromptVisible } from './game.selector';
 import { AUDIOS } from '../models/collections';
 import { KEY } from '../models/keys';
 import { concatLatestFrom } from '@ngrx/operators';
@@ -56,6 +58,15 @@ export class GameEffects {
       map(() => {
         return hidePrompt();
       })
+    )
+  );
+
+  interact$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(interact),
+      concatLatestFrom(() => this.store.select(selectIsPromptVisible)),
+      filter(([, isOn]) => isOn),
+      map(() => openOverlay())
     )
   );
 }

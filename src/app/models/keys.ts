@@ -58,10 +58,6 @@ export const KEY = {
   text: {
     prompt: 'prompt',
   },
-  control: {
-    E: 'E',
-    Esc: 'escape'
-  },
   button: {
     muteMusic: 'muteMusic',
     muteSounds: 'muteSounds',
