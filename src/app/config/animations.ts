@@ -34,6 +34,7 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
     key: KEY.texture.spritesheet.cat,
     spritesheetKey: KEY.texture.spritesheet.cat,
     frameConfig: { frames: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51] },
+    repeatDelay: 5000,
   },
   {
     key: KEY.texture.spritesheet.birdFly,
@@ -43,15 +44,18 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
         0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45
       ],
     },
+    repeatDelay: 10000,
   },
   {
     key: KEY.texture.spritesheet.birdJump,
     spritesheetKey: KEY.texture.spritesheet.birdJump,
     frameConfig: { start: 0, end: 20 },
+    repeatDelay: 500,
   },
   {
     key: KEY.texture.spritesheet.trees,
     spritesheetKey: KEY.texture.spritesheet.trees,
     frameConfig: { frames: [3, 12, 21, 30, 39, 48, 57, 66, 75, 84, 93, 102, 111, 3, 3, 3, 3, 3] },
+    repeatDelay: 10000,
   },
 ];

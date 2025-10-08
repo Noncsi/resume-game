@@ -63,7 +63,7 @@ export class MainScene extends Phaser.Scene {
     const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
     new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
 
-    // AssetPlayer.playAll();
+    AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
     this.cameras.main.fadeIn(800);

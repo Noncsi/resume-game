@@ -94,12 +94,13 @@ export class AssetFactory {
   }
 
   private static createAnimations(scene: Scene): void {
-    ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig }: IAnimationConfig) => {
+    ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig, repeatDelay }: IAnimationConfig) => {
       const animation = scene.anims.create({
         key,
         frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
         frameRate: FRAME_RATE,
         repeat: REPEAT,
+        repeatDelay: repeatDelay ?? 0,
       });
       if (!animation) return;
       ANIMATIONS[key] = animation;
