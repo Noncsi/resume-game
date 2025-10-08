@@ -17,7 +17,7 @@ export class OverlayComponent {
   isOverlayOpen: Signal<boolean> = this.store.selectSignal(selectIsOverlayOpen);
   area: Signal<IInteractableAreaConfig | null> = this.store.selectSignal(selectInteractableArea);
 
-  @HostListener(`document:keydown.${KEY.control.Esc}`)
+  @HostListener(`document:keydown.escape`)
   handleEscKey() {
     if (this.isOverlayOpen()) {
       this.close();
