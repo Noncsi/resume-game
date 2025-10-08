@@ -83,10 +83,14 @@ export class AssetFactory {
     LAYERS.forEach((value: Phaser.Tilemaps.TilemapLayer, key: string) => {
       if (collidingLayerConfigs.includes(key)) {
         scene.physics.add.collider(player, value);
+
+        if (key === KEY.texture.layer.well) {
+          value.forEachTile((tile: Phaser.Tilemaps.Tile) => {
+            tile.setSize(4, 4, 16, 16);
+          });
+        }
       }
     });
-
-    // CollisionHandler.setupInteractions(scene, player, collidingAreas, onAreaEnter);
   }
 
   private static createAnimations(scene: Scene): void {
