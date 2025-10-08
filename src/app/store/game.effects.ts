@@ -46,18 +46,14 @@ export class GameEffects {
   enterArea$ = createEffect(() =>
     this.actions$.pipe(
       ofType(enterArea),
-      map(() => {
-        return showPrompt();
-      })
+      map(() => showPrompt())
     )
   );
 
   leaveArea$ = createEffect(() =>
     this.actions$.pipe(
       ofType(leaveArea),
-      map(() => {
-        return hidePrompt();
-      })
+      map(() => hidePrompt())
     )
   );
 

@@ -4,10 +4,9 @@
 
   <div class="parchment-card" role="dialog" aria-modal="true">
     <button class="close-btn" aria-label="Close" (click)="close()">✕</button>
-
     @if (area(); as area) {
-    <h2 class="title">{{ area.title }}</h2>
-    <div class="content" [innerHTML]="area.content"></div>
+      <h2 class="title">{{ area.title }}</h2>
+       <app-parchment-fragment [content]="area.content"></app-parchment-fragment>
     }
   </div>
   }
