@@ -7,12 +7,13 @@ import {
   interact,
   leaveArea,
 } from '../store/game.actions';
-import { selectIsPromptVisible } from '../store/game.selector';
+import { selectInteractableArea, selectIsPromptVisible } from '../store/game.selector';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
   isPromptVisible$ = this.store.select(selectIsPromptVisible);
+  currentArea$ = this.store.select(selectInteractableArea);
 
   toggleBackgroundMusic() {
     this.store.dispatch(toggleBackgroundMusic());

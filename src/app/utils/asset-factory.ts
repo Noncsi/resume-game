@@ -141,9 +141,9 @@ export class AssetFactory {
   }
 
   private static createTexts(scene: Scene): void {
-    TEXT_CONFIGS.forEach(({ key, position, text, style }: ITextConfig) => {
+    TEXT_CONFIGS.forEach(({ key, text, position, style }: ITextConfig) => {
       const textObject = scene.add
-        .text(position.x, position.y, text, style)
+        .text(position?.x, position?.y, text, style)
         .setDepth(100)
         .setVisible(false);
       TEXTS.set(key, textObject);

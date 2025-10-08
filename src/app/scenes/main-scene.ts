@@ -57,11 +57,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     // create Prompt
-    new Prompt(
-      this,
-      TEXT_CONFIGS.find((text) => text.key === KEY.text.prompt),
-      this.gameService
-    );
+    new Prompt(this, this.gameService);
 
     // create Buttons
     const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);

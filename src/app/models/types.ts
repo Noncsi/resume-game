@@ -79,8 +79,8 @@ export interface IInteractableAreaConfig {
 
 export interface ITextConfig {
   key: string;
-  position: { x: number; y: number };
   text: string;
+  position?: { x: number; y: number };
   style?: TextStyle;
 }
 
