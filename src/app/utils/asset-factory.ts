@@ -16,7 +16,6 @@ import {
   LAYERS,
   MOVEMENT_MAP,
   SPRITES,
-  TILESETS,
 } from '../models/collections';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
@@ -39,13 +38,13 @@ export class AssetFactory {
 
   private static createTilesets(map: Phaser.Tilemaps.Tilemap): void {
     TILESET_IMAGE_CONFIGS.forEach(({ key }: TilesetImageConfig) => {
-      TILESETS[key] = map.addTilesetImage(key);
+      map.addTilesetImage(key);
     });
   }
 
   private static createLayers(map: Phaser.Tilemaps.Tilemap): void {
     LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
-      const tilesets = tilesetKeys.map((key) => TILESETS[key]);
+      const tilesets = tilesetKeys.map((key) => map.getTileset(key));
       const layer = map.createLayer(layerID, tilesets, x, y);
       LAYERS.set(layerID, layer);
     });
