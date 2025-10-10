@@ -73,6 +73,8 @@ export interface IInteractableAreaConfig {
   position: { x: number; y: number };
   title: string;
   content: string;
+  customSize?: { width: number; height: number };
+  customOffset?: { x: number; y: number };
   links?: { label: string; href: string }[];
 }
 
@@ -87,7 +89,7 @@ export interface IButtonConfig {
   key: string;
   position: { x: number; y: number };
   text: string;
-  text2? : string;
+  text2?: string;
   style?: Phaser.Types.GameObjects.Text.TextStyle;
   fixed?: boolean;
   depth?: number;

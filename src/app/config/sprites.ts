@@ -14,17 +14,17 @@ export const SPRITE_CONFIGS: ISpriteConfig[] = [
   },
   {
     spriteName: KEY.texture.spritesheet.trees,
-    position: { x: 540, y: 130 },
+    position: { x: 540, y: 235 },
     texture: KEY.texture.spritesheet.trees,
   },
   {
     spriteName: KEY.texture.spritesheet.birdFly,
-    position: { x: 580, y: 120 },
+    position: { x: 580, y: 230 },
     texture: KEY.texture.spritesheet.birdFly,
   },
   {
     spriteName: KEY.texture.spritesheet.birdJump,
-    position: { x: 910, y: 320 },
+    position: { x: 910, y: 330 },
     texture: KEY.texture.spritesheet.birdJump,
   },
 ];
@@ -37,8 +37,8 @@ export const DYNAMIC_SPRITE_CONFIGS: IDynamicSpriteConfig[] = [
       y: 260,
     },
     texture: KEY.texture.spritesheet.player,
-    bodySize: { width: 16, height: 10 },
-    bodyOffset: { x: 24, y: 35 },
+    bodySize: { width: 12, height: 8 },
+    bodyOffset: { x: 24, y: 33 },
     origin: { x: 0.5, y: 0.5 },
   },
 ];

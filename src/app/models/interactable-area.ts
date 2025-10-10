@@ -21,16 +21,22 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       targets: this,
       y: '-= 10',
       duration: 1000,
+      repeatDelay: 1000,
       yoyo: true,
       repeat: -1,
-      ease: 'Sine.easeInOut',
+      ease: 'Bounce.easeIn',
     });
 
     scene.add.existing(this);
     scene.physics.add.existing(this, true);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
-    body.setSize(64, 64);
+
+    const customSize = config.customSize;
+    customSize ? body.setSize(customSize.width, customSize.height) : body.setSize(64, 64);
+
+    const customOffset = config.customOffset;
+    if (customOffset) body.setOffset(customOffset.x, customOffset.y);
 
     scene.physics.add.overlap(player, this, () => onEnter());
   }
