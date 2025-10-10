@@ -11,14 +11,11 @@ import {
 import { TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
 import {
-  ANIMATIONS,
   AUDIOS,
-  CONTROLS,
   DYNAMIC_SPRITES,
   LAYERS,
   MOVEMENT_MAP,
   SPRITES,
-  TEXTS,
   TILESETS,
 } from '../models/collections';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
@@ -89,17 +86,17 @@ export class AssetFactory {
   }
 
   private static createAnimations(scene: Scene): void {
-    ANIMATION_CONFIGS.forEach(({ key, spritesheetKey, frameConfig, repeatDelay }: IAnimationConfig) => {
-      const animation = scene.anims.create({
+    ANIMATION_CONFIGS.forEach(
+      ({ key, spritesheetKey, frameConfig, repeatDelay }: IAnimationConfig) => {
+        scene.anims.create({
         key,
         frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
         frameRate: FRAME_RATE,
         repeat: REPEAT,
         repeatDelay: repeatDelay ?? 0,
       });
-      if (!animation) return;
-      ANIMATIONS[key] = animation;
-    });
+      }
+    );
   }
 
   private static createMovements(): void {
@@ -131,11 +128,10 @@ export class AssetFactory {
 
   private static createTexts(scene: Scene): void {
     TEXT_CONFIGS.forEach(({ key, text, position, style }: ITextConfig) => {
-      const textObject = scene.add
+      scene.add
         .text(position?.x, position?.y, text, style)
         .setDepth(100)
         .setVisible(false);
-      TEXTS.set(key, textObject);
     });
   }
 }

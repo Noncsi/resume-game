@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
-import { CONTROLS, DYNAMIC_SPRITES, MOVEMENT_MAP } from '../models/collections';
+import { DYNAMIC_SPRITES, MOVEMENT_MAP } from '../models/collections';
 import {
   Sprite,
   IMovement,
@@ -20,7 +20,6 @@ import { BUTTON_CONFIGS } from '../config/buttons';
 import { InteractableArea } from '../models/interactable-area';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 import { Prompt } from '../models/prompt';
-import { TEXT_CONFIGS } from '../config/texts';
 
 @Injectable({ providedIn: 'root' })
 export class MainScene extends Phaser.Scene {
