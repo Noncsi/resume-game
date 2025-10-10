@@ -10,13 +10,7 @@ import {
 } from '../models/types';
 import { TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
-import {
-  AUDIOS,
-  DYNAMIC_SPRITES,
-  LAYERS,
-  MOVEMENT_MAP,
-  SPRITES,
-} from '../models/collections';
+import { AUDIOS, DYNAMIC_SPRITES, MOVEMENT_MAP, SPRITES } from '../models/collections';
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { LAYER_CONFIGS } from '../config/layers';
@@ -29,7 +23,7 @@ export class AssetFactory {
     this.createTilesets(map);
     this.createLayers(map);
     this.createSprites(scene);
-    this.createCollisions(scene);
+    this.createCollisions(scene, map);
     this.createAnimations(scene);
     this.createMovements();
     this.createAudios(scene);
@@ -45,8 +39,7 @@ export class AssetFactory {
   private static createLayers(map: Phaser.Tilemaps.Tilemap): void {
     LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
       const tilesets = tilesetKeys.map((key) => map.getTileset(key));
-      const layer = map.createLayer(layerID, tilesets, x, y);
-      LAYERS.set(layerID, layer);
+      map.createLayer(layerID, tilesets, x, y);
     });
   }
 
@@ -67,20 +60,30 @@ export class AssetFactory {
     );
   }
 
-  private static createCollisions(scene: Scene): void {
+  private static createCollisions(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
     const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
-    LAYERS.forEach((value: Phaser.Tilemaps.TilemapLayer, key: string) => {
-      const customProps = value.layer.properties.reduce((acc: any, p: any) => {
+    map.layers.forEach((layerData: Phaser.Tilemaps.LayerData) => {
+      const layer = layerData.tilemapLayer as Phaser.Tilemaps.TilemapLayer;
+      if (!layer) return;
+      const customProps = layer.layer.properties.reduce((acc: any, p: any) => {
         acc[p.name] = p.value;
         return acc;
       }, {});
 
-        value.setCollisionByProperty({ collides: true });
-        scene.physics.add.collider(player, value);
+      layer.setCollisionByProperty({ collides: true });
+      scene.physics.add.collider(player, layer);
 
-      customProps.isBelowPlayer ? value.setDepth(0) : value.setDepth(1000);
+      customProps.isBelowPlayer ? layer.setDepth(0) : layer.setDepth(1000);
 
+      // value.forEachTile((tile: Phaser.Tilemaps.Tile) => {
+      //   tile.setSize(10, 10, 16, 16);
+      // });
+
+      const debugGraphics = scene.add.graphics().setAlpha(0.5);
+      layer.renderDebug(debugGraphics, {
+        tileColor: null,
+      });
     });
   }
 
@@ -88,18 +91,18 @@ export class AssetFactory {
     ANIMATION_CONFIGS.forEach(
       ({ key, spritesheetKey, frameConfig, repeatDelay }: IAnimationConfig) => {
         scene.anims.create({
-        key,
-        frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
-        frameRate: FRAME_RATE,
-        repeat: REPEAT,
-        repeatDelay: repeatDelay ?? 0,
-      });
+          key,
+          frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
+          frameRate: FRAME_RATE,
+          repeat: REPEAT,
+          repeatDelay: repeatDelay ?? 0,
+        });
       }
     );
   }
 
   private static createMovements(): void {
-    const VELOCITY = 100;
+    const VELOCITY = 75;
     MOVEMENT_MAP.set(Direction.left, {
       velocity: { x: -VELOCITY, y: 0 },
       animationKey: Direction.left,
@@ -127,10 +130,7 @@ export class AssetFactory {
 
   private static createTexts(scene: Scene): void {
     TEXT_CONFIGS.forEach(({ key, text, position, style }: ITextConfig) => {
-      scene.add
-        .text(position?.x, position?.y, text, style)
-        .setDepth(100)
-        .setVisible(false);
+      scene.add.text(position?.x, position?.y, text, style).setDepth(100).setVisible(false);
     });
   }
 }
