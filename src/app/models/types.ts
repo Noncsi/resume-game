@@ -35,7 +35,6 @@ export interface IDynamicSpriteConfig extends ISpriteConfig {
 export interface ILayerConfig {
   layerID: string;
   tilesetKeys: string[];
-  isColliding: boolean;
   x?: number;
   y?: number;
 }

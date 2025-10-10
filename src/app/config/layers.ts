@@ -5,107 +5,118 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   {
     layerID: KEY.texture.layer.path,
     tilesetKeys: [KEY.texture.tileset.groundGrassDetails],
-    isColliding: false,
   },
   {
     layerID: KEY.texture.layer.road,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
   },
   {
     layerID: KEY.texture.layer.grassTerrain,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
   },
   {
-    layerID: KEY.texture.layer.stoneCircle,
+    layerID: KEY.texture.layer.grass,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
-  },
-  {
-    layerID: KEY.texture.layer.mushroomDecorations,
-    tilesetKeys: [KEY.texture.tileset.groundGrassDetails],
-    isColliding: false,
-  },
-  {
-    layerID: KEY.texture.layer.mushroomField,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
   },
   {
     layerID: KEY.texture.layer.flowerField,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
   },
   {
     layerID: KEY.texture.layer.gardenDirt,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
   },
   {
     layerID: KEY.texture.layer.gardenPlants,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
-  },
-  {
-    layerID: KEY.texture.layer.well,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
-  },
-  {
-    layerID: KEY.texture.layer.wellDecorations,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
-  },
-  {
-    layerID: KEY.texture.layer.fence,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
   },
   {
     layerID: KEY.texture.layer.tiles,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: false,
   },
   {
     layerID: KEY.texture.layer.house,
     tilesetKeys: [KEY.texture.tileset.houseDetails, KEY.texture.tileset.exterior],
-    isColliding: true,
   },
   {
-    layerID: KEY.texture.layer.houseDecorationsLower,
+    layerID: KEY.texture.layer.stoneCircleBelowPlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.stoneCircleAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.stoneCircleStumpBelowPlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.stoneCircleStumpAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.mushrooms,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.mushroomBelowPlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.mushroomAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+
+  {
+    layerID: KEY.texture.layer.wellBelowPlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.wellAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.fence,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.mailboxBelowPlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+  {
+    layerID: KEY.texture.layer.mailboxAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.exterior],
+  },
+
+  {
+    layerID: KEY.texture.layer.decorationNonCollidingBelowPlayer,
     tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior],
-    isColliding: true,
   },
+
   {
-    layerID: KEY.texture.layer.houseDecorationsUpper,
+    layerID: KEY.texture.layer.decorationNonCollidingAbovePlayer,
+    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior],
+  },
+
+  {
+    layerID: KEY.texture.layer.decorationColliding,
     tilesetKeys: [
       KEY.texture.tileset.interior,
       KEY.texture.tileset.exterior,
-      KEY.texture.spritesheet.trees,
       KEY.texture.tileset.pines,
     ],
-    isColliding: true,
-  },
-  {
-    layerID: KEY.texture.layer.natureDecorations,
-    tilesetKeys: [KEY.texture.tileset.exterior, KEY.texture.tileset.pines],
-    isColliding: true,
   },
   {
     layerID: KEY.texture.layer.roof,
-    tilesetKeys: [KEY.texture.tileset.houseDetails],
-    isColliding: false,
+    tilesetKeys: [KEY.texture.tileset.houseDetails, KEY.texture.tileset.interior],
   },
   {
-    layerID: KEY.texture.layer.stumps,
+    layerID: KEY.texture.layer.mapEdgeGrass,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
   },
   {
     layerID: KEY.texture.layer.forest,
     tilesetKeys: [KEY.texture.tileset.pines],
-    isColliding: true,
   },
   {
     layerID: KEY.texture.layer.animals,
@@ -114,11 +125,9 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
       KEY.texture.spritesheet.birdJump,
       KEY.texture.spritesheet.birdFly,
     ],
-    isColliding: true,
   },
   {
-    layerID: KEY.texture.layer.mailbox,
+    layerID: KEY.texture.layer.CVFragments,
     tilesetKeys: [KEY.texture.tileset.exterior],
-    isColliding: true,
   },
 ];

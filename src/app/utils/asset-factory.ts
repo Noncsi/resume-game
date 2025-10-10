@@ -50,7 +50,6 @@ export class AssetFactory {
     LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
       const tilesets = tilesetKeys.map((key) => TILESETS[key]);
       const layer = map.createLayer(layerID, tilesets, x, y);
-      layer.setCollisionByExclusion([-1]);
       LAYERS.set(layerID, layer);
     });
   }
@@ -75,20 +74,17 @@ export class AssetFactory {
   private static createCollisions(scene: Scene): void {
     const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
-    const collidingLayerConfigs = LAYER_CONFIGS.filter(
-      (config: ILayerConfig) => config.isColliding
-    ).map((config: ILayerConfig) => config.layerID);
-
     LAYERS.forEach((value: Phaser.Tilemaps.TilemapLayer, key: string) => {
-      if (collidingLayerConfigs.includes(key)) {
+      const customProps = value.layer.properties.reduce((acc: any, p: any) => {
+        acc[p.name] = p.value;
+        return acc;
+      }, {});
+
+        value.setCollisionByProperty({ collides: true });
         scene.physics.add.collider(player, value);
 
-        if (key === KEY.texture.layer.well) {
-          value.forEachTile((tile: Phaser.Tilemaps.Tile) => {
-            tile.setSize(4, 4, 16, 16);
-          });
-        }
-      }
+      customProps.isBelowPlayer ? value.setDepth(0) : value.setDepth(1000);
+
     });
   }
 
