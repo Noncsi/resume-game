@@ -28,7 +28,8 @@ export class MainScene extends Phaser.Scene {
   private greeting: Phaser.GameObjects.Text;
   private player: DynamicSprite;
   private collidingAreas: StaticGroup;
-  private cursors: CursorKeys
+  private cursors: CursorKeys;
+  lastPressedKey = null;
 
   constructor(private injector: Injector) {
     super({ key: 'main' });
@@ -79,26 +80,25 @@ export class MainScene extends Phaser.Scene {
   override update() {
     // check walking out of area
     if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
-
     this.player.setVelocity(0);
-    const pressedMovementKeys = Object.entries(this.cursors).find(
-      ([key, value]) => value.isDown
-    );
-    // console.log('pressedMovementKeys', pressedMovementKeys)
 
-    // if (pressedMovementKeys.length === 1) {
-    //   this.lastPressedKey = newlyPressedKey;
-    // } else {
-    //   const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
-    //   pressedMovementKeys.splice(idx, 1);
-    // }
+    const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
+      return key.isDown && !!MOVEMENT_MAP.get(Direction[keyName]);
+    });
 
-    if (!pressedMovementKeys) return this.player.anims.stop();
-    // if (pressedMovementKeys) this.greeting.setVisible(false);
+    const newlyPressedKey = pressedMovementKeys[0]?.[0];
 
-    const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0]]);
+    if (pressedMovementKeys.length === 1) {
+      this.lastPressedKey = newlyPressedKey;
+    } else {
+      const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
+      pressedMovementKeys.splice(idx, 1);
+    }
+
+    if (!pressedMovementKeys.length) return this.player.anims.stop();
+
+    const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0][0]]);
     this.player.setVelocity(movement.velocity.x, movement.velocity.y);
-
     return this.player.anims.play(movement.animationKey, true);
   }
 }
