@@ -72,7 +72,10 @@ export interface IInteractableAreaConfig {
   key: string;
   position: { x: number; y: number };
   title: string;
+  subTitle: string;
   content: string;
+  containsCVFragment: boolean;
+  footer?: string;
   customSize?: { width: number; height: number };
   customOffset?: { x: number; y: number };
   links?: { label: string; href: string }[];

@@ -6,15 +6,15 @@ import { ParchmentFragmentComponent } from '../parchment-fragment-component/parc
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
 
 @Component({
-  selector: 'app-parchment-fragment-container',
+  selector: 'app-resume',
   imports: [CommonModule, ParchmentFragmentComponent],
-  templateUrl: './parchment-fragment-container-component.html',
-  styleUrl: './parchment-fragment-container-component.scss',
+  templateUrl: './resume-component.html',
+  styleUrl: './resume-component.scss',
 })
-export class ParchmentFragmentContainerComponent {
+export class ResumeComponent {
   store = inject(Store);
   collectedFragments = this.store.selectSignal(selectCollectedFragments);
-  parchments = computed(() => INTERACTABLE_AREA_CONFIGS.map(area => {
+  parchments = computed(() => INTERACTABLE_AREA_CONFIGS.filter((area)=> area.containsCVFragment).map(area => {
     const fragment = this.collectedFragments().find(fragment => fragment.areaName === area.key);
     return { key: area.key, content: fragment?.isCollected ? area.content : '???' };
   }));

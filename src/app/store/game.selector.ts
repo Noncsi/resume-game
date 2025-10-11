@@ -17,3 +17,6 @@ export const selectIsPromptVisible = createSelector(selectGameState, (state: Gam
 
 export const selectIsBackgroundMusicOn = createSelector(selectGameState, (state: GameState) => state.isMusicOn);
 
+export const selectCollectedFragments = createSelector(selectGameState, (state: GameState) => state.collectedFragments);
+
+export const selectCurrentArea = createSelector(selectGameState, (state: GameState) => state.currentArea);
