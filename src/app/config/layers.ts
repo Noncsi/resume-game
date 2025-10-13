@@ -59,15 +59,6 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
     tilesetKeys: [KEY.texture.tileset.exterior],
   },
   {
-    layerID: KEY.texture.layer.mushroomBelowPlayer,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-  },
-  {
-    layerID: KEY.texture.layer.mushroomAbovePlayer,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-  },
-
-  {
     layerID: KEY.texture.layer.wellBelowPlayer,
     tilesetKeys: [KEY.texture.tileset.exterior],
   },

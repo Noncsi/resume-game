@@ -29,8 +29,6 @@ export const KEY = {
       stoneCircleStumpBelowPlayer: 'stoneCircleStumpBelowPlayer',
       stoneCircleStumpAbovePlayer: 'stoneCircleStumpAbovePlayer',
       mushrooms: 'mushrooms',
-      mushroomBelowPlayer: 'mushroomBelowPlayer',
-      mushroomAbovePlayer: 'mushroomAbovePlayer',
       flowerField: 'flowerField',
       gardenDirt: 'gardenDirt',
       gardenPlants: 'gardenPlants',
