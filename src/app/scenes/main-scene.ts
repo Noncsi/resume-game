@@ -1,31 +1,26 @@
 import Phaser from 'phaser';
 import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { DYNAMIC_SPRITES, MOVEMENT_MAP } from '../models/collections';
-import {
-  Sprite,
-  IMovement,
-  ITextConfig,
-  StaticGroup,
-  DynamicSprite,
-  Direction,
-  CursorKeys,
-} from '../models/types';
+import { IMovement, StaticGroup, DynamicSprite, Direction, CursorKeys } from '../models/types';
 import { KEY } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
 import { AssetFactory } from '../utils/asset-factory';
 import { AssetPlayer } from '../utils/asset-player';
-import { Button } from '../models/button';
+import { Button } from '../models/texts/button';
 import { BUTTON_CONFIGS } from '../config/buttons';
 import { InteractableArea } from '../models/interactable-area';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
-import { Prompt } from '../models/prompt';
+import { Prompt } from '../models/texts/prompt';
+import { IntroSpeech } from '../models/texts/intro-speech';
+import { Help } from '../models/texts/help';
 
 @Injectable({ providedIn: 'root' })
 export class MainScene extends Phaser.Scene {
   private gameService: GameService;
 
-  private greeting: Phaser.GameObjects.Text;
+  private keyE: Phaser.Input.Keyboard.Key;
+  private intro: IntroSpeech;
   private player: DynamicSprite;
   private collidingAreas: StaticGroup;
   private cursors: CursorKeys;
@@ -43,8 +38,6 @@ export class MainScene extends Phaser.Scene {
   }
 
   create() {
-    this.physics.world.createDebugGraphic();
-
     // create Non-reactive assets
     const map = this.make.tilemap({ key: KEY.map });
     AssetFactory.createAll(this, map);
@@ -58,8 +51,9 @@ export class MainScene extends Phaser.Scene {
       );
     });
 
-    // create Prompt
+    // create texts
     new Prompt(this, this.gameService);
+    new Help(this);
 
     // create Buttons
     const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
@@ -69,15 +63,23 @@ export class MainScene extends Phaser.Scene {
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
 
     // create interaction for [E]
-    const keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
-    keyE.on('down', () => this.gameService.interact());
-
+    this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    // create intro speech
+    this.intro = new IntroSpeech(this);
+    this.keyE.on('down', () => {
+      this.intro.continue();
+    });
 
     this.cameras.main.fadeIn(800);
   }
 
   override update() {
+    if (!this.intro.visible) {
+      this.keyE.off('down');
+      this.keyE.on('down', () => this.gameService.interact());
+    }
     // check walking out of area
     if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
     this.player.setVelocity(0);

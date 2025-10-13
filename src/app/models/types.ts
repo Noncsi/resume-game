@@ -89,7 +89,7 @@ export interface ICVFragment {
 
 export interface ITextConfig {
   key: string;
-  text: string;
+  text: string | string[];
   position?: { x: number; y: number };
   style?: TextStyle;
 }
@@ -99,9 +99,6 @@ export interface IButtonConfig {
   position: { x: number; y: number };
   text: string;
   text2?: string;
-  style?: Phaser.Types.GameObjects.Text.TextStyle;
-  fixed?: boolean;
-  depth?: number;
 }
 
 export interface IAudioConfig {

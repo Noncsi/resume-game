@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
-import { Prompt } from '../models/prompt';
+import { Prompt } from '../models/texts/prompt';
 
 export const enterArea = createAction(
   '[Game] Enter Interactable Area',

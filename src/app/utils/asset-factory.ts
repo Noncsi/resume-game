@@ -5,7 +5,6 @@ import {
   IDynamicSpriteConfig,
   ILayerConfig,
   ISpriteConfig,
-  ITextConfig,
   TilesetImageConfig,
 } from '../models/types';
 import { TILESET_IMAGE_CONFIGS } from '../config/textures';
@@ -16,7 +15,6 @@ import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { LAYER_CONFIGS } from '../config/layers';
 import { KEY } from '../models/keys';
 import { AUDIO_CONFIGS } from '../config/audios';
-import { TEXT_CONFIGS } from '../config/texts';
 
 export class AssetFactory {
   static createAll(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
@@ -27,7 +25,6 @@ export class AssetFactory {
     this.createAnimations(scene);
     this.createMovements();
     this.createAudios(scene);
-    this.createTexts(scene);
   }
 
   private static createTilesets(map: Phaser.Tilemaps.Tilemap): void {
@@ -125,12 +122,6 @@ export class AssetFactory {
     AUDIO_CONFIGS.forEach(({ key, IsLooping }: IAudioConfig) => {
       const audio = scene.sound.add(key, { loop: IsLooping });
       AUDIOS.set(key, audio);
-    });
-  }
-
-  private static createTexts(scene: Scene): void {
-    TEXT_CONFIGS.forEach(({ key, text, position, style }: ITextConfig) => {
-      scene.add.text(position?.x, position?.y, text, style).setDepth(100).setVisible(false);
     });
   }
 }

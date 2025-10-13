@@ -1,16 +1,12 @@
 import { tap } from 'rxjs';
-import { IInteractableAreaConfig } from './types';
+import { IInteractableAreaConfig } from '../types';
 import { Scene } from 'phaser';
-import { GameService } from '../services/game-service';
+import { GameService } from '../../services/game-service';
+import { TextBubble } from './text-bubble';
 
-export class Prompt extends Phaser.GameObjects.Text {
+export class Prompt extends TextBubble {
   constructor(scene: Scene, gameService: GameService) {
-    super(scene, 0, 0, 'Press [E] to interact', {
-      fontSize: '16px',
-      color: '#ffffffff',
-      backgroundColor: '#252525ab',
-      padding: { x: 8, y: 4 },
-    });
+    super(scene, 0, 0, 'Press [E] to interact');
 
     this.setDepth(1000);
 
@@ -29,7 +25,5 @@ export class Prompt extends Phaser.GameObjects.Text {
         })
       )
       .subscribe();
-
-    scene.add.existing(this);
   }
 }
