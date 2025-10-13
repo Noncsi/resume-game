@@ -11,6 +11,8 @@ export const TILESET_IMAGE_CONFIGS: TilesetImageConfig[] = [
   { key: KEY.texture.tileset.interior, url: `${ASSET_PATH.tilesets}/interior.png` },
   { key: KEY.texture.tileset.houseDetails, url: `${ASSET_PATH.tilesets}/house-details.png` },
   { key: KEY.texture.tileset.pines, url: `${ASSET_PATH.tilesets}/pines.png` },
+  { key: KEY.texture.tileset.plants, url: `${ASSET_PATH.tilesets}/plants.png` },
+  { key: KEY.texture.tileset.supplies, url: `${ASSET_PATH.tilesets}/supplies.png` },
   {
     key: KEY.texture.tileset.groundGrassDetails,
     url: `${ASSET_PATH.tilesets}/ground-grass-details.png`,

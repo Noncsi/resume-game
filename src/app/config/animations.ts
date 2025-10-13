@@ -59,7 +59,7 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
   {
     key: KEY.texture.spritesheet.cattle,
     spritesheetKey: KEY.texture.spritesheet.cattle,
-    frameConfig: { frames: [36, 37, 38, 39] },
+    frameConfig: { frames: [42, 43, 44, 45] },
     customFrameRate: 4,
   },
 ];

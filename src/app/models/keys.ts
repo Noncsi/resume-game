@@ -7,6 +7,8 @@ export const KEY = {
       houseDetails: 'houseDetails',
       pines: 'pines',
       groundGrassDetails: 'groundGrassDetails',
+      plants: 'plants',
+      supplies: 'supplies',
     },
     spritesheet: {
       exteriorAsSheet: 'exteriorAsSheet',
@@ -50,7 +52,8 @@ export const KEY = {
     },
   },
   audio: {
-    backgroundMusic: 'backgroundMusic'
+    backgroundMusic: 'backgroundMusic',
+    hey: 'hey',
   },
   area: {
     house: 'house',

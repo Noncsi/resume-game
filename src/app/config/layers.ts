@@ -28,7 +28,7 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   },
   {
     layerID: KEY.texture.layer.gardenPlants,
-    tilesetKeys: [KEY.texture.tileset.exterior],
+    tilesetKeys: [KEY.texture.tileset.exterior, KEY.texture.tileset.plants],
   },
   {
     layerID: KEY.texture.layer.tiles,
@@ -81,7 +81,7 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
 
   {
     layerID: KEY.texture.layer.decorationNonCollidingBelowPlayer,
-    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior],
+    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior, KEY.texture.tileset.supplies],
   },
 
   {
@@ -95,6 +95,7 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
       KEY.texture.tileset.interior,
       KEY.texture.tileset.exterior,
       KEY.texture.tileset.pines,
+      KEY.texture.tileset.supplies,
     ],
   },
   {
