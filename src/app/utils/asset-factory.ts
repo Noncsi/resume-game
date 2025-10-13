@@ -89,11 +89,11 @@ export class AssetFactory {
 
   private static createAnimations(scene: Scene): void {
     ANIMATION_CONFIGS.forEach(
-      ({ key, spritesheetKey, frameConfig, repeatDelay }: IAnimationConfig) => {
+      ({ key, spritesheetKey, frameConfig, repeatDelay, customFrameRate }: IAnimationConfig) => {
         scene.anims.create({
           key,
           frames: scene.anims.generateFrameNumbers(spritesheetKey, frameConfig),
-          frameRate: FRAME_RATE,
+          frameRate: customFrameRate ?? FRAME_RATE,
           repeat: REPEAT,
           repeatDelay: repeatDelay ?? 0,
         });

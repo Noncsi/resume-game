@@ -16,6 +16,7 @@ export const KEY = {
       cat: 'cat',
       birdFly: 'birdFly',
       birdJump: 'birdJump',
+      cattle: 'cattle',
     },
     layer: {
       path: 'path',
@@ -60,6 +61,7 @@ export const KEY = {
     flowers: 'flowers',
     stones: 'stones',
     mailbox: 'mailbox',
+    country: 'country',
   },
   text: {
     prompt: 'prompt',

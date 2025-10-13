@@ -3,8 +3,8 @@ import { MainScene } from '../scenes/main-scene';
 
 export const GAME_CONFIG: GameConfig = {
   type: Phaser.AUTO,
-  width: 1520,
-  height: 720,
+  width: 1094,
+  height: 820,
   scale: {
     // mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_VERTICALLY,

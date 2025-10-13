@@ -61,6 +61,7 @@ export interface IAnimationConfig {
   spritesheetKey: string;
   frameConfig: { start: number; end: number } | { frames: number[] };
   repeatDelay?: number;
+  customFrameRate?: number;
 }
 
 export interface IMovement {

@@ -40,9 +40,7 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
     key: KEY.texture.spritesheet.birdFly,
     spritesheetKey: KEY.texture.spritesheet.birdFly,
     frameConfig: {
-      frames: [
-        0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45
-      ],
+      frames: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45],
     },
     repeatDelay: 10000,
   },
@@ -57,5 +55,11 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
     spritesheetKey: KEY.texture.spritesheet.trees,
     frameConfig: { frames: [3, 12, 21, 30, 39, 48, 57, 66, 75, 84, 93, 102, 111, 3, 3, 3, 3, 3] },
     repeatDelay: 10000,
+  },
+  {
+    key: KEY.texture.spritesheet.cattle,
+    spritesheetKey: KEY.texture.spritesheet.cattle,
+    frameConfig: { frames: [36, 37, 38, 39] },
+    customFrameRate: 4,
   },
 ];

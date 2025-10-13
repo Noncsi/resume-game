@@ -58,4 +58,9 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
     url: `${ASSET_PATH.tilesets}/exterior.png`,
     frameConfig: { frameWidth: 16, frameHeight: 16 },
   },
+  {
+    key: KEY.texture.spritesheet.cattle,
+    url: `${ASSET_PATH.spritesheets}/grey-cattle.png`,
+    frameConfig: { frameWidth: 64, frameHeight: 64 },
+  },
 ];

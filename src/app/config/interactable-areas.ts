@@ -4,7 +4,7 @@ import { IInteractableAreaConfig } from '../models/types';
 export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   {
     key: KEY.area.well,
-    position: { x: 675, y: 190 },
+    position: { x: 483, y: 190 },
     title: 'The Well of Knowledge',
     subTitle: '<em>"Clear waters run deep; every ripple holds a lesson."</em><br/>',
     content: `
@@ -21,18 +21,17 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.house,
-    position: { x: 400, y: 230 },
+    position: { x: 208, y: 230 },
     title: 'The Cozy Cabin',
     subTitle: '<em>"A hearth where stories begin."</em><br/>',
     content: `
-    Welcome to my interactive resume.
-    This cabin is home, a place of grounding.
-    Step outside, and each landmark reveals a part of me.`,
+This cabin is my workspace - quiet, focused, and familiar.
+I've spent years creating from here, building worlds line by line.`,
     containsCVFragment: false,
   },
   {
     key: KEY.area.mushroom,
-    position: { x: 930, y: 170 },
+    position: { x: 728, y: 200 },
     title: 'The Mushroom Grove',
     subTitle: '<em>"Hidden among the roots, small wonders thrive."</em><br/>',
     content: `
@@ -44,7 +43,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.flowers,
-    position: { x: 1168, y: 555 },
+    position: { x: 976, y: 555 },
     title: 'The Blooming Meadow',
     subTitle: '<em>"Every petal tells a story of growth."</em><br/>',
     content: `
@@ -57,7 +56,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.stones,
-    position: { x: 568, y: 450 },
+    position: { x: 328, y: 640 },
     title: 'The Circle of Stones',
     subTitle: '<em>"Silent witnesses to time and perseverance."</em><br/>',
     content: `
@@ -71,7 +70,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   },
   {
     key: KEY.area.mailbox,
-    position: { x: 585, y: 300 },
+    position: { x: 393, y: 300 },
     title: 'Mailbox',
     subTitle: '<em>"Leave a note by the door."</em><br/><br/>',
     content: `
@@ -86,5 +85,13 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
       { label: 'LinkedIn', href: 'https://www.linkedin.com/in/noemilengyel' },
       { label: 'GitHub', href: 'https://github.com/Noncsi' },
     ],
+  },
+  {
+    key: KEY.area.country,
+    position: { x: 480, y: 490 },
+    title: 'My home country - Hungary',
+    subTitle: '',
+    content: ``,
+    containsCVFragment: false,
   },
 ];
