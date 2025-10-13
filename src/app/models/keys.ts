@@ -44,7 +44,6 @@ export const KEY = {
       roof: 'roof',
       natureDecorations: 'natureDecorations',
       mapEdgeGrass: 'mapEdgeGrass',
-      CVFragments: 'CVFragments',
       animals: 'animals',
       areaMarker: 'areaMarker',
       mailboxBelowPlayer: 'mailboxBelowPlayer',

@@ -81,6 +81,11 @@ export interface IInteractableAreaConfig {
   links?: { label: string; href: string }[];
 }
 
+export interface ICVFragment {
+  areaKey: string;
+  isCollected: boolean;
+}
+
 export interface ITextConfig {
   key: string;
   text: string;

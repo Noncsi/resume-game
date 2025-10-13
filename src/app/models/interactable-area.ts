@@ -30,6 +30,25 @@ export class InteractableArea extends Phaser.GameObjects.Image {
     scene.add.existing(this);
     scene.physics.add.existing(this, true);
 
+    if (config.containsCVFragment) {
+      const cvFragment = scene.add.image(
+        config.position.x + 12,
+        config.position.y,
+        KEY.texture.spritesheet.exteriorAsSheet,
+        953
+      );
+
+      const fx = cvFragment.postFX.addGlow(0xffffff, 0, 0, false, 0.1, 32);
+
+      scene.tweens.add({
+        targets: fx,
+        outerStrength: 4,
+        yoyo: true,
+        loop: -1,
+        ease: 'sine.inout',
+      });
+    }
+
     const body = this.body as Phaser.Physics.Arcade.Body;
 
     const customSize = config.customSize;

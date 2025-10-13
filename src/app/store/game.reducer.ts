@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
-import { IInteractableAreaConfig } from '../models/types';
+import { ICVFragment, IInteractableAreaConfig } from '../models/types';
 import { KEY } from '../models/keys';
 
 export interface GameState {
@@ -9,7 +9,7 @@ export interface GameState {
   currentArea: IInteractableAreaConfig;
   isOverlayOpen: boolean;
   isPromptVisible: boolean;
-  collectedFragments: {index: number, areaName: string, isCollected: boolean}[]; // todo create interface
+  collectibleFragments: ICVFragment[];
 }
 
 export const initialGameState: GameState = {
@@ -18,7 +18,9 @@ export const initialGameState: GameState = {
   currentArea: null,
   isOverlayOpen: false,
   isPromptVisible: false,
-  collectedFragments: Object.keys(KEY.area).map((areaName, index) => ({index, areaName, isCollected: false})),
+  collectibleFragments: Object.keys(KEY.area).map(
+    (areaKey) => ({ areaKey, isCollected: false } as ICVFragment)
+  ),
 };
 
 export const gameReducer = createReducer(
@@ -50,6 +52,8 @@ export const gameReducer = createReducer(
   })),
     on(action.openOverlay, (state) => ({
     ...state,
-    collectedFragments: state.collectedFragments.map(fragment => fragment.areaName === state.currentArea?.key ? ({...fragment, isCollected: true}) : fragment)
+    collectibleFragments: state.collectibleFragments.map((fragment) =>
+      fragment.areaKey === state.currentArea?.key ? { ...fragment, isCollected: true } : fragment
+    ),
   }))
 );

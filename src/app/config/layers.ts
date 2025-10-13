@@ -126,8 +126,4 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
       KEY.texture.spritesheet.birdFly,
     ],
   },
-  {
-    layerID: KEY.texture.layer.CVFragments,
-    tilesetKeys: [KEY.texture.tileset.exterior],
-  },
 ];

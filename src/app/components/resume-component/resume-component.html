@@ -1,10 +1,17 @@
 <div class="title">
   <h1>Resume</h1>
   <h2>Noemi Lengyel</h2>
-  <h1>Software Developer</h1>
+  <h1>Frontend Developer</h1>
 </div>
-@for(parchment of parchments(); track parchment.key) {
-<div class="fragment">
-  <app-parchment-fragment [content]="parchment.content"></app-parchment-fragment>
+<div class="content">
+  <h2>Skills</h2>
+  <app-parchment-fragment [content]="skills()"></app-parchment-fragment>
+  <h2>Experience</h2>
+  <app-parchment-fragment [content]="experience()"></app-parchment-fragment>
+  <h2>Soft Skills</h2>
+  <app-parchment-fragment [content]="softSkills()"></app-parchment-fragment>
+  <h2>Projects</h2>
+  <app-parchment-fragment [content]="projects()"></app-parchment-fragment>
+  <h2>Contact</h2>
+  <app-parchment-fragment [content]="contact()"></app-parchment-fragment>
 </div>
-}
