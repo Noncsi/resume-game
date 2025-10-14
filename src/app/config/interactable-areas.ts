@@ -4,19 +4,19 @@ import { IInteractableAreaConfig } from '../models/types';
 export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   {
     key: KEY.area.well,
-    position: { x: 483, y: 190 },
+    position: { x: 483, y: 168 },
     title: 'The Well of Knowledge',
     subTitle: '<em>"Clear waters run deep; every ripple holds a lesson."</em><br/>',
     content: `
     <strong>Skills:</strong>
     • JavaScript, TypeScript
-    • Angular20, RxJs, NgRx
+    • Angular, RxJs, NgRx
     • HTML5, CSS + preprocessors like SCSS
     • Phaser & game prototyping
     • Node.js`,
     containsCVFragment: true,
-    customSize: { width: 64, height: 80 },
-    customOffset: { x: -24, y: -16 },
+    customSize: { width: 64, height: 100 },
+    customOffset: { x: -24, y: -6 },
     links: [{ label: 'GitHub', href: 'https://github.com/Noncsi' }],
   },
   {
@@ -31,7 +31,7 @@ I've spent years creating from here, building worlds line by line.`,
   },
   {
     key: KEY.area.mushroom,
-    position: { x: 728, y: 200 },
+    position: { x: 736, y: 190 },
     title: 'The Mushroom Grove',
     subTitle: '<em>"Hidden among the roots, small wonders thrive."</em><br/>',
     content: `
@@ -43,7 +43,7 @@ I've spent years creating from here, building worlds line by line.`,
   },
   {
     key: KEY.area.flowers,
-    position: { x: 976, y: 555 },
+    position: { x: 976, y: 535 },
     title: 'The Blooming Meadow',
     subTitle: '<em>"Every petal tells a story of growth."</em><br/>',
     content: `
@@ -56,7 +56,7 @@ I've spent years creating from here, building worlds line by line.`,
   },
   {
     key: KEY.area.stones,
-    position: { x: 328, y: 640 },
+    position: { x: 328, y: 620 },
     title: 'The Circle of Stones',
     subTitle: '<em>"Silent witnesses to time and perseverance."</em><br/>',
     content: `
@@ -70,7 +70,7 @@ I've spent years creating from here, building worlds line by line.`,
   },
   {
     key: KEY.area.mailbox,
-    position: { x: 393, y: 300 },
+    position: { x: 410, y: 296 },
     title: 'Mailbox',
     subTitle: '<em>"Leave a note by the door."</em><br/><br/>',
     content: `
@@ -88,7 +88,7 @@ I've spent years creating from here, building worlds line by line.`,
   },
   {
     key: KEY.area.country,
-    position: { x: 480, y: 490 },
+    position: { x: 460, y: 480 },
     title: 'My home country - Hungary',
     subTitle: '',
     content: ``,

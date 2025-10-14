@@ -32,8 +32,8 @@ export class InteractableArea extends Phaser.GameObjects.Image {
 
     if (config.containsCVFragment) {
       const cvFragment = scene.add.image(
-        config.position.x + 12,
-        config.position.y,
+        config.position.x,
+        config.position.y + 16,
         KEY.texture.spritesheet.exteriorAsSheet,
         953
       );

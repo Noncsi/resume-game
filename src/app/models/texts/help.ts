@@ -5,12 +5,10 @@ export class Help extends TextBubble {
   constructor(scene: Scene) {
     super(
       scene,
-      scene.scale.width - 32,
-      scene.scale.height - 32,
+      16,
+      16,
       `Press arrow keys [← → ↑ ↓] to move. 
 Press [E] to interact.`
     );
-
-    this.setOrigin(1, 1);
   }
 }

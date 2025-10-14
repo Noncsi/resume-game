@@ -6,7 +6,7 @@ import { TextBubble } from './text-bubble';
 
 export class Prompt extends TextBubble {
   constructor(scene: Scene, gameService: GameService) {
-    super(scene, 0, 0, 'Press [E] to interact');
+    super(scene, 0, 0, '[E] interact');
 
     this.setDepth(1000);
 
@@ -21,7 +21,7 @@ export class Prompt extends TextBubble {
     gameService.currentArea$
       .pipe(
         tap((area: IInteractableAreaConfig) => {
-          this.setPosition(area?.position.x - 100, area?.position.y - 64);
+          this.setPosition(area?.position.x - 70, area?.position.y - 60);
         })
       )
       .subscribe();
