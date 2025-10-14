@@ -2,13 +2,13 @@ import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectCollectedFragments } from '../../store/game.selector';
 import { CommonModule } from '@angular/common';
-import { ParchmentFragmentComponent } from '../parchment-fragment-component/parchment-fragment-component';
+import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
 import { KEY } from '../../models/keys';
 
 @Component({
   selector: 'app-resume',
-  imports: [CommonModule, ParchmentFragmentComponent],
+  imports: [CommonModule, ResumeContentComponent],
   templateUrl: './resume-component.html',
   styleUrl: './resume-component.scss',
 })
@@ -40,15 +40,6 @@ export class ResumeComponent {
     );
     return fragment?.isCollected
       ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.flowers).content
-      : '???';
-  });
-
-  projects = computed(() => {
-    const fragment = this.collectibleFragments().find(
-      (fragment) => fragment.areaKey === KEY.area.mushroom
-    );
-    return fragment?.isCollected
-      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.mushroom).content
       : '???';
   });
 

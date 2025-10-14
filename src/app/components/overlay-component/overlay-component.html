@@ -1,13 +1,15 @@
 @if (isOverlayOpen()) {
 <div class="overlay-root">
   <div class="overlay-backdrop" (click)="close()"></div>
-
-  <div class="parchment-card" role="dialog" aria-modal="true">
-    <button class="close-btn" aria-label="Close" (click)="close()">✕</button>
+  <div class="card" role="dialog">
+    <button (click)="close()">[Esc] or X</button>
     @if (area(); as area) {
-      <h2 class="title">{{ area.title }}</h2>
-       <app-parchment-fragment [content]="area.content"></app-parchment-fragment>
+    <h1>{{ area.title }}</h1>
+    <h2>{{ area.subTitle }}</h2>
+    <h3>{{ area.category }}</h3>
+    <app-resume-content [content]="area.content"></app-resume-content>
+    <h2>{{ area.footer }}</h2>
     }
   </div>
-  }
 </div>
+}

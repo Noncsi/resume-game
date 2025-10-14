@@ -5,11 +5,11 @@ import { closeOverlay } from '../../store/game.actions';
 import { CommonModule } from '@angular/common';
 import { IInteractableAreaConfig } from '../../models/types';
 import { KEY } from '../../models/keys';
-import { ParchmentFragmentComponent } from '../parchment-fragment-component/parchment-fragment-component';
+import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
 
 @Component({
   selector: 'app-overlay',
-  imports: [CommonModule, ParchmentFragmentComponent],
+  imports: [CommonModule, ResumeContentComponent],
   templateUrl: './overlay-component.html',
   styleUrl: './overlay-component.scss',
 })
