@@ -38,6 +38,7 @@ export class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.input.setDefaultCursor('url("/assets/cursors/pixel.cur"), pointer');
     // create Non-reactive assets
     const map = this.make.tilemap({ key: KEY.map });
     AssetFactory.createAll(this, map);

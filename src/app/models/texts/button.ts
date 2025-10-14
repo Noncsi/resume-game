@@ -6,7 +6,9 @@ export class Button extends TextBubble {
   constructor(scene: Scene, config: IButtonConfig, onClick: () => void) {
     super(scene, config.position.x, config.position.y, config.text);
 
-    this.setInteractive().setVisible(true);
+    this.setInteractive({
+      cursor: "url('../../../assets/cursors/pixel-pointer.cur'), pointer",
+    }).setVisible(true);
 
     this.on('pointerdown', onClick);
     if (config.text2) {

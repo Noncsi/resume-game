@@ -1,10 +1,21 @@
-html, body {
+@font-face {
+  font-family: pixelFont;
+  src: url(../src/assets/fonts/pixel-font.ttf);
+}
+
+html,
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   height: 100%;
   width: 100%;
-  background: #5A3223;
+  background: #5a3223;
+  cursor: url("../src/assets/cursors/pixel.cur"), default;
+  
+  a {
+    cursor: url("../src/assets/cursors/pixel-pointer.cur"), pointer;
+  }
 }
 
 canvas {
