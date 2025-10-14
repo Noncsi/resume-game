@@ -5,7 +5,7 @@ import { KEY } from '../models/keys';
 
 export interface GameState {
   isMusicOn: boolean;
-  isSoundEffectsOn: boolean;
+  isSoundOn: boolean;
   currentArea: IInteractableAreaConfig;
   isOverlayOpen: boolean;
   isPromptVisible: boolean;
@@ -13,8 +13,8 @@ export interface GameState {
 }
 
 export const initialGameState: GameState = {
-  isMusicOn: false,
-  isSoundEffectsOn: true,
+  isMusicOn: true,
+  isSoundOn: true,
   currentArea: null,
   isOverlayOpen: false,
   isPromptVisible: false,
@@ -40,17 +40,21 @@ export const gameReducer = createReducer(
   })),
   on(action.showPrompt, (state) => ({
     ...state,
-    isPromptVisible: true,    
+    isPromptVisible: true,
   })),
   on(action.hidePrompt, (state) => ({
     ...state,
     isPromptVisible: false,
   })),
-  on(action.toggleBackgroundMusicSuccess, (state) => ({
+  on(action.toggleMusicSuccess, (state) => ({
     ...state,
     isMusicOn: !state.isMusicOn,
   })),
-    on(action.openOverlay, (state) => ({
+  on(action.toggleSoundsSuccess, (state) => ({
+    ...state,
+    isSoundOn: !state.isSoundOn,
+  })),
+  on(action.openOverlay, (state) => ({
     ...state,
     collectibleFragments: state.collectibleFragments.map((fragment) =>
       fragment.areaKey === state.currentArea?.key ? { ...fragment, isCollected: true } : fragment

@@ -105,4 +105,5 @@ export interface IAudioConfig {
   key: string;
   url: string;
   IsLooping: boolean;
+  volume? : number;
 }

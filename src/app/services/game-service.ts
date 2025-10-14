@@ -1,12 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
-import {
-  toggleBackgroundMusic,
-  enterArea,
-  interact,
-  leaveArea,
-} from '../store/game.actions';
+import { toggleMusic, enterArea, interact, leaveArea } from '../store/game.actions';
 import { selectInteractableArea, selectIsPromptVisible } from '../store/game.selector';
 
 @Injectable({ providedIn: 'root' })
@@ -16,7 +11,11 @@ export class GameService {
   currentArea$ = this.store.select(selectInteractableArea);
 
   toggleBackgroundMusic() {
-    this.store.dispatch(toggleBackgroundMusic());
+    this.store.dispatch(toggleMusic());
+  }
+
+  toggleBackgroundSounds() {
+    this.store.dispatch(toggleMusic());
   }
 
   // toggleSound(key: string, shouldBePlaying: boolean) {

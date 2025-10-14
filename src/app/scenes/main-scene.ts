@@ -57,7 +57,11 @@ export class MainScene extends Phaser.Scene {
 
     // create Buttons
     const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
+    const muteSoundsButtonConfig = BUTTON_CONFIGS.find(
+      (button) => button.key === KEY.button.muteSounds
+    );
     new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
+    new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundMusic());
 
     AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
@@ -82,6 +86,7 @@ export class MainScene extends Phaser.Scene {
     }
     // check walking out of area
     if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
+
     this.player.setVelocity(0);
 
     const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
@@ -100,7 +105,9 @@ export class MainScene extends Phaser.Scene {
     if (!pressedMovementKeys.length) return this.player.anims.stop();
 
     const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0][0]]);
-    this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+    if (!this.intro.visible) {
+      this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+    }
     return this.player.anims.play(movement.animationKey, true);
   }
 }
