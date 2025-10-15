@@ -24,6 +24,7 @@ export class MainScene extends Phaser.Scene {
   private player: DynamicSprite;
   private collidingAreas: StaticGroup;
   private cursors: CursorKeys;
+  overlay: Phaser.GameObjects.Graphics;
   lastPressedKey = null;
 
   constructor(private injector: Injector) {
@@ -77,6 +78,15 @@ export class MainScene extends Phaser.Scene {
       this.intro.continue();
     });
 
+    this.overlay = this.add.graphics().setDepth(1000);
+    this.overlay.fillStyle(0x000000, 0.8).fillRect(0, 0, this.game.scale.width, this.game.scale.height);
+    const maskGraphics = this.make.graphics();
+    maskGraphics.fillStyle(0xffffff);
+    maskGraphics.fillRect(16, 60, 500, 220);
+    const mask = new Phaser.Display.Masks.BitmapMask(this, maskGraphics);
+    mask.invertAlpha = true;
+    this.overlay.setMask(mask);
+
     this.cameras.main.fadeIn(800);
   }
 
@@ -84,6 +94,7 @@ export class MainScene extends Phaser.Scene {
     if (!this.intro.visible) {
       this.keyE.off('down');
       this.keyE.on('down', () => this.gameService.interact());
+      this.overlay.setVisible(false);
     }
     // check walking out of area
     if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
