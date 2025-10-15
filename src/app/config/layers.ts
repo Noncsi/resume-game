@@ -81,12 +81,21 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
 
   {
     layerID: KEY.texture.layer.decorationNonCollidingBelowPlayer,
-    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior, KEY.texture.tileset.supplies],
+    tilesetKeys: [
+      KEY.texture.tileset.interior,
+      KEY.texture.tileset.exterior,
+      KEY.texture.tileset.supplies,
+      KEY.texture.tileset.plants,
+    ],
   },
 
   {
     layerID: KEY.texture.layer.decorationNonCollidingAbovePlayer,
-    tilesetKeys: [KEY.texture.tileset.interior, KEY.texture.tileset.exterior],
+    tilesetKeys: [
+      KEY.texture.tileset.interior,
+      KEY.texture.tileset.exterior,
+      KEY.texture.tileset.plants,
+    ],
   },
 
   {
@@ -96,11 +105,16 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
       KEY.texture.tileset.exterior,
       KEY.texture.tileset.pines,
       KEY.texture.tileset.supplies,
+      KEY.texture.tileset.plants,
     ],
   },
   {
     layerID: KEY.texture.layer.roof,
-    tilesetKeys: [KEY.texture.tileset.houseDetails, KEY.texture.tileset.interior],
+    tilesetKeys: [
+      KEY.texture.tileset.houseDetails,
+      KEY.texture.tileset.interior,
+      KEY.texture.tileset.interior,
+    ],
   },
   {
     layerID: KEY.texture.layer.mapEdgeGrass,
@@ -108,7 +122,7 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   },
   {
     layerID: KEY.texture.layer.forest,
-    tilesetKeys: [KEY.texture.tileset.pines],
+    tilesetKeys: [KEY.texture.tileset.pines, KEY.texture.tileset.plants],
   },
   {
     layerID: KEY.texture.layer.animals,

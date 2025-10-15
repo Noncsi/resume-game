@@ -9,22 +9,22 @@ export const SPRITE_CONFIGS: ISpriteConfig[] = [
   },
   {
     spriteName: KEY.texture.spritesheet.cat,
-    position: { x: 160, y: 253 },
+    position: { x: 160, y: 269 },
     texture: KEY.texture.spritesheet.cat,
   },
   {
     spriteName: KEY.texture.spritesheet.trees,
-    position: { x: 348, y: 235 },
+    position: { x: 328, y: 400  },
     texture: KEY.texture.spritesheet.trees,
   },
   {
     spriteName: KEY.texture.spritesheet.birdFly,
-    position: { x: 388, y: 230 },
+    position: { x: 374, y: 400 },
     texture: KEY.texture.spritesheet.birdFly,
   },
   {
     spriteName: KEY.texture.spritesheet.birdJump,
-    position: { x: 718, y: 330 },
+    position: { x: 284, y: 654 },
     texture: KEY.texture.spritesheet.birdJump,
   },
   {
