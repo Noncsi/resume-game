@@ -55,10 +55,7 @@ export class GameEffects {
     this.actions$.pipe(
       ofType(toggleSounds),
       concatLatestFrom(() => this.store.select(selectIsSoundsOn)),
-      switchMap(([, isOn]) => {
-        const sounds = AUDIOS.get(KEY.audio.hey);
-        if (!sounds) return throwError(() => 'Background music not found');
-        isOn ? sounds.pause() : sounds.resume();
+      switchMap(() => {
         return of(toggleSoundsSuccess());
       }),
       catchError((error) =>
@@ -97,6 +94,8 @@ export class GameEffects {
   openOverlay$ = createEffect(() =>
     this.actions$.pipe(
       ofType(openOverlay),
+      concatLatestFrom(() => this.store.select(selectIsSoundsOn)),
+      filter(([, isOn]) => isOn),
       map(() => playSound({ soundKey: KEY.audio.hey }))
     )
   );

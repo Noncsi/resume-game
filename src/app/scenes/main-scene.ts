@@ -62,7 +62,7 @@ export class MainScene extends Phaser.Scene {
       (button) => button.key === KEY.button.muteSounds
     );
     new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
-    new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundMusic());
+    new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundSounds());
 
     AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
