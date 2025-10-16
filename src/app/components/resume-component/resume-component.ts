@@ -16,39 +16,18 @@ export class ResumeComponent {
   store = inject(Store);
   collectibleFragments = this.store.selectSignal(selectCollectedFragments);
 
-  skills = computed(() => {
-    const fragment = this.collectibleFragments().find(
-      (fragment) => fragment.areaKey === KEY.area.well
-    );
-    return fragment?.isCollected
-      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.well).content
-      : '???';
-  });
+  skills = computed(() => this.getFragmentContent(KEY.area.well));
+  experience = computed(() => this.getFragmentContent(KEY.area.stones));
+  softSkills = computed(() => this.getFragmentContent(KEY.area.flowers));
+  contact = computed(() => this.getFragmentContent(KEY.area.mailbox));
 
-  experience = computed(() => {
+  getFragmentContent(key: string) {
     const fragment = this.collectibleFragments().find(
-      (fragment) => fragment.areaKey === KEY.area.stones
+      (fragment) => fragment.areaKey === key,
     );
-    return fragment?.isCollected
-      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.stones).content
-      : '???';
-  });
 
-  softSkills = computed(() => {
-    const fragment = this.collectibleFragments().find(
-      (fragment) => fragment.areaKey === KEY.area.flowers
-    );
     return fragment?.isCollected
-      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.flowers).content
+      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === key).content
       : '???';
-  });
-
-  contact = computed(() => {
-    const fragment = this.collectibleFragments().find(
-      (fragment) => fragment.areaKey === KEY.area.mailbox
-    );
-    return fragment?.isCollected
-      ? INTERACTABLE_AREA_CONFIGS.find((area) => area.key === KEY.area.mailbox).content
-      : '???';
-  });
+  }
 }

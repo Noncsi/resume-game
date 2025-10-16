@@ -14,7 +14,7 @@ export class Prompt extends TextBubble {
       .pipe(
         tap((isVisible: boolean) => {
           this.setVisible(isVisible);
-        })
+        }),
       )
       .subscribe();
 
@@ -22,7 +22,7 @@ export class Prompt extends TextBubble {
       .pipe(
         tap((area: IInteractableAreaConfig) => {
           this.setPosition(area?.position.x - 70, area?.position.y - 60);
-        })
+        }),
       )
       .subscribe();
   }

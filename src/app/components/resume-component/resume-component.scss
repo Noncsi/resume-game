@@ -16,6 +16,7 @@
   overflow-y: auto;
   scrollbar-color: #edc780 #fae2a5;
   z-index: 10000;
+  justify-content: space-between;
 }
 
 h2 {
@@ -34,4 +35,8 @@ h2 {
     font-size: 36px;
     margin-bottom: 6px;
   }
+}
+
+.footer {
+  display: flex;
 }

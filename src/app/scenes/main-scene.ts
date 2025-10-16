@@ -1,7 +1,18 @@
 import Phaser from 'phaser';
-import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
+import {
+  inject,
+  Injectable,
+  Injector,
+  runInInjectionContext,
+} from '@angular/core';
 import { DYNAMIC_SPRITES, MOVEMENT_MAP } from '../models/collections';
-import { IMovement, StaticGroup, DynamicSprite, Direction, CursorKeys } from '../models/types';
+import {
+  IMovement,
+  StaticGroup,
+  DynamicSprite,
+  Direction,
+  CursorKeys,
+} from '../models/types';
 import { KEY } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
@@ -27,7 +38,7 @@ export class MainScene extends Phaser.Scene {
   overlay: Phaser.GameObjects.Graphics;
   lastPressedKey = null;
 
-  constructor(private injector: Injector) {
+  constructor(injector: Injector) {
     super({ key: 'main' });
     runInInjectionContext(injector, () => {
       this.gameService = inject(GameService);
@@ -49,7 +60,9 @@ export class MainScene extends Phaser.Scene {
     const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
     INTERACTABLE_AREA_CONFIGS.forEach((config) => {
       this.collidingAreas.add(
-        new InteractableArea(this, config, player, () => this.gameService.enterArea(config))
+        new InteractableArea(this, config, player, () =>
+          this.gameService.enterArea(config),
+        ),
       );
     });
 
@@ -58,12 +71,18 @@ export class MainScene extends Phaser.Scene {
     new Help(this);
 
     // create Buttons
-    const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
-    const muteSoundsButtonConfig = BUTTON_CONFIGS.find(
-      (button) => button.key === KEY.button.muteSounds
+    const muteButtonConfig = BUTTON_CONFIGS.find(
+      (button) => button.key === KEY.button.muteMusic,
     );
-    new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
-    new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundSounds());
+    const muteSoundsButtonConfig = BUTTON_CONFIGS.find(
+      (button) => button.key === KEY.button.muteSounds,
+    );
+    new Button(this, muteButtonConfig, () =>
+      this.gameService.toggleBackgroundMusic(),
+    );
+    new Button(this, muteSoundsButtonConfig, () =>
+      this.gameService.toggleBackgroundSounds(),
+    );
 
     AssetPlayer.playAll();
     this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
@@ -79,7 +98,9 @@ export class MainScene extends Phaser.Scene {
     });
 
     this.overlay = this.add.graphics().setDepth(1000);
-    this.overlay.fillStyle(0x000000, 0.8).fillRect(0, 0, this.game.scale.width, this.game.scale.height);
+    this.overlay
+      .fillStyle(0x000000, 0.8)
+      .fillRect(0, 0, this.game.scale.width, this.game.scale.height);
     const maskGraphics = this.make.graphics();
     maskGraphics.fillStyle(0xffffff);
     maskGraphics.fillRect(16, 60, 500, 220);
@@ -97,26 +118,33 @@ export class MainScene extends Phaser.Scene {
       this.overlay.setVisible(false);
     }
     // check walking out of area
-    if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
+    if (!this.physics.overlap(this.player, this.collidingAreas))
+      this.gameService.leaveArea();
 
     this.player.setVelocity(0);
 
-    const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
-      return key.isDown && !!MOVEMENT_MAP.get(Direction[keyName]);
-    });
+    const pressedMovementKeys = Object.entries(this.cursors).filter(
+      ([keyName, key]) => {
+        return key.isDown && !!MOVEMENT_MAP.get(Direction[keyName]);
+      },
+    );
 
     const newlyPressedKey = pressedMovementKeys[0]?.[0];
 
     if (pressedMovementKeys.length === 1) {
       this.lastPressedKey = newlyPressedKey;
     } else {
-      const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
+      const idx = pressedMovementKeys.findIndex(
+        (a) => a[0] === this.lastPressedKey,
+      );
       pressedMovementKeys.splice(idx, 1);
     }
 
     if (!pressedMovementKeys.length) return this.player.anims.stop();
 
-    const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0][0]]);
+    const movement: IMovement = MOVEMENT_MAP.get(
+      Direction[pressedMovementKeys[0][0]],
+    );
     if (!this.intro.visible) {
       this.player.setVelocity(movement.velocity.x, movement.velocity.y);
     }

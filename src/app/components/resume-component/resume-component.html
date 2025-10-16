@@ -1,15 +1,21 @@
-<div class="title">
-  <h1>Resume</h1>
-  <h2>Noemi Lengyel</h2>
-  <h1>Frontend Developer</h1>
+<div class="resume-container">
+  <div class="title">
+    <h1>Resume</h1>
+    <h2>Noemi Lengyel</h2>
+    <h1>Frontend Developer</h1>
+  </div>
+  <div class="content">
+    <h2>Skills</h2>
+    <app-resume-content [content]="skills()"></app-resume-content>
+    <h2>Experience</h2>
+    <app-resume-content [content]="experience()"></app-resume-content>
+    <h2>Soft Skills</h2>
+    <app-resume-content [content]="softSkills()"></app-resume-content>
+    <h2>Contact</h2>
+    <app-resume-content [content]="contact()"></app-resume-content>
+  </div>
 </div>
-<div class="content">
-  <h2>Skills</h2>
-  <app-resume-content [content]="skills()"></app-resume-content>
-  <h2>Experience</h2>
-  <app-resume-content [content]="experience()"></app-resume-content>
-  <h2>Soft Skills</h2>
-  <app-resume-content [content]="softSkills()"></app-resume-content>
-  <h2>Contact</h2>
-  <app-resume-content [content]="contact()"></app-resume-content>
+
+<div class="footer">
+  <a href="assets/cv.pdf" download>Download Resume</a>
 </div>
