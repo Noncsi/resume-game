@@ -1,6 +1,6 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCollectedFragments } from '../../store/game.selector';
+import { selectCollectedFragments, selectIsGameEnded } from '../../store/game.selector';
 import { CommonModule } from '@angular/common';
 import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
@@ -15,6 +15,7 @@ import { KEY } from '../../models/keys';
 export class ResumeComponent {
   store = inject(Store);
   collectibleFragments = this.store.selectSignal(selectCollectedFragments);
+  isGameEnded: Signal<boolean> = this.store.selectSignal(selectIsGameEnded);
 
   skills = computed(() => this.getFragmentContent(KEY.area.well));
   experience = computed(() => this.getFragmentContent(KEY.area.stones));
