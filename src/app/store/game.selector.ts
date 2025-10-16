@@ -13,11 +13,32 @@ export const selectInteractableArea = createSelector(
   (state: GameState) => state.currentArea
 );
 
-export const selectIsPromptVisible = createSelector(selectGameState, (state: GameState) => state.isPromptVisible);
+export const selectIsPromptVisible = createSelector(
+  selectGameState,
+  (state: GameState) => state.isPromptVisible
+);
 
-export const selectIsMusicOn = createSelector(selectGameState, (state: GameState) => state.isMusicOn);
-export const selectIsSoundsOn = createSelector(selectGameState, (state: GameState) => state.isSoundOn);
+export const selectIsMusicOn = createSelector(
+  selectGameState,
+  (state: GameState) => state.isMusicOn
+);
+export const selectIsSoundsOn = createSelector(
+  selectGameState,
+  (state: GameState) => state.isSoundOn
+);
 
-export const selectCollectedFragments = createSelector(selectGameState, (state: GameState) => state.collectibleFragments);
+export const selectCollectedFragments = createSelector(
+  selectGameState,
+  (state: GameState) => state.collectibleFragments
+);
 
-export const selectCurrentArea = createSelector(selectGameState, (state: GameState) => state.currentArea);
+export const selectCurrentArea = createSelector(
+  selectGameState,
+  (state: GameState) => state.currentArea
+);
+export const selectIsEveryFragmentCollected = createSelector(
+  selectCollectedFragments,
+  (collectibleFragments) => {
+    return collectibleFragments.every((fragment) => fragment.isCollected);
+  }
+);
