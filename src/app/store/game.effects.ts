@@ -25,6 +25,7 @@ import {
   selectIsEveryFragmentCollected,
   selectIsOverlayOpen,
   selectInteractableArea,
+  selectIsGameEnded,
 } from './game.selector';
 import { AUDIOS } from '../models/collections';
 import { KEY } from '../models/keys';

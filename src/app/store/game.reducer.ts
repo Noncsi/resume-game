@@ -10,6 +10,7 @@ export interface GameState {
   isOverlayOpen: boolean;
   isPromptVisible: boolean;
   collectibleFragments: ICVFragment[];
+  isGameEnded?: boolean;
 }
 
 export const initialGameState: GameState = {
@@ -18,9 +19,10 @@ export const initialGameState: GameState = {
   currentArea: null,
   isOverlayOpen: false,
   isPromptVisible: false,
-  collectibleFragments: INTERACTABLE_AREA_CONFIGS.filter(
-    (area) => area.containsCVFragment,
-  ).map((area) => ({ areaKey: area.key, isCollected: false } as ICVFragment)),
+  collectibleFragments: INTERACTABLE_AREA_CONFIGS.filter((area) => area.containsCVFragment).map(
+    (area) => ({ areaKey: area.key, isCollected: false } as ICVFragment)
+  ),
+  isGameEnded: false,
 };
 
 export const gameReducer = createReducer(
@@ -62,4 +64,15 @@ export const gameReducer = createReducer(
     ...state,
     isSoundOn: !state.isSoundOn,
   })),
+  on(action.openOverlay, (state) => ({
+    ...state,
+    collectibleFragments: state.collectibleFragments.map((fragment) =>
+      fragment.areaKey === state.currentArea?.key ? { ...fragment, isCollected: true } : fragment
+    ),
+  })),
+  on(action.gameEnd, (state) => ({
+    ...state,
+    isGameEnded: true,
+    currentArea: null,
+  }))
 );

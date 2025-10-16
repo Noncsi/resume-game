@@ -42,3 +42,8 @@ export const selectIsEveryFragmentCollected = createSelector(
     return collectibleFragments.every((fragment) => fragment.isCollected);
   }
 );
+
+export const selectIsGameEnded = createSelector(
+  selectGameState,
+  (state: GameState) => state.isGameEnded
+);
