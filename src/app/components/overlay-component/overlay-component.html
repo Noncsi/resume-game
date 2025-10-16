@@ -2,8 +2,17 @@
 <div class="overlay-root">
   <div class="overlay-backdrop" (click)="close()"></div>
   <div class="card" role="dialog">
-    <button (click)="close()">[Esc] or X</button>
-    @if (area(); as area) {
+    <button (click)="close()">X</button>
+    @if (isGameEnded()) {
+    <h1>Congratulations!</h1>
+    <p>
+      Well done, explorer! You've gathered every scroll, every spark of who I am.<br />
+      The resume is complete - the adventure, fulfilled.<br />
+      You can download the full resume on the left.<br /><br />
+
+      Now… maybe let's build something together?
+    </p>
+    } @else if (area(); as area){
     <h1>{{ area.title }}</h1>
     <h2>{{ area.subTitle }}</h2>
     <h3>{{ area.category }}</h3>
