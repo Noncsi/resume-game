@@ -14,7 +14,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       config.position.x,
       config.position.y,
       KEY.texture.spritesheet.exteriorAsSheet,
-      954
+      955
     );
 
     scene.tweens.add({
@@ -33,7 +33,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
     if (config.containsCVFragment) {
       const cvFragment = scene.add.image(
         config.position.x,
-        config.position.y + 16,
+        config.position.y + 19,
         KEY.texture.spritesheet.exteriorAsSheet,
         953
       );
@@ -47,7 +47,9 @@ export class InteractableArea extends Phaser.GameObjects.Image {
         loop: -1,
         ease: 'sine.inout',
       });
+      this.setFrame(954);
     }
+    this.setScale(1.3);
 
     const body = this.body as Phaser.Physics.Arcade.Body;
 
