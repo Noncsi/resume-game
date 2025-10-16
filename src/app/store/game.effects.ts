@@ -1,7 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
+  closeOverlay,
   enterArea,
+  gameEnd,
   hidePrompt,
   interact,
   leaveArea,
@@ -15,12 +17,13 @@ import {
   toggleSoundsError,
   toggleSoundsSuccess,
 } from './game.actions';
-import { catchError, filter, map, of, switchMap, throwError } from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   selectIsMusicOn,
   selectIsSoundsOn as selectIsSoundsOn,
   selectIsPromptVisible,
+  selectIsEveryFragmentCollected,
 } from './game.selector';
 import { AUDIOS } from '../models/collections';
 import { KEY } from '../models/keys';
@@ -68,21 +71,21 @@ export class GameEffects {
     )
   );
 
-  enterArea$ = createEffect(() =>
+  showPromptOnAreaEnter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(enterArea),
       map(() => showPrompt())
     )
   );
 
-  leaveArea$ = createEffect(() =>
+  hidePromptOnAreaLeave$ = createEffect(() =>
     this.actions$.pipe(
       ofType(leaveArea),
       map(() => hidePrompt())
     )
   );
 
-  interact$ = createEffect(() =>
+  overOverlayOnInteract$ = createEffect(() =>
     this.actions$.pipe(
       ofType(interact),
       concatLatestFrom(() => this.store.select(selectIsPromptVisible)),
@@ -91,13 +94,31 @@ export class GameEffects {
     )
   );
 
-  openOverlay$ = createEffect(() =>
+  playSoundOnOpenOverlay$ = createEffect(() =>
     this.actions$.pipe(
       ofType(openOverlay),
       concatLatestFrom(() => this.store.select(selectIsSoundsOn)),
       filter(([, isOn]) => isOn),
       map(() => playSound({ soundKey: KEY.audio.hey }))
     )
+  );
+
+  endGameOnCollectingAllFragments$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(closeOverlay),
+      concatLatestFrom(() => this.store.select(selectIsEveryFragmentCollected)),
+      filter(([, isEveryFragmentCollected]) => isEveryFragmentCollected),
+      map(() => gameEnd())
+    )
+  );
+
+  gameEnd$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(gameEnd),
+        tap((a) => console.log('game over'))
+      ),
+    { dispatch: false }
   );
 
   playSound$ = createEffect(

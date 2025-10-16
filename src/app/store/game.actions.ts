@@ -30,3 +30,5 @@ export const toggleSoundsError = createAction(
 );
 
 export const playSound = createAction('[Game] Play Sound', props<{ soundKey: string }>());
+
+export const gameEnd = createAction('[Game] Game end');
