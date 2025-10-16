@@ -119,8 +119,8 @@ export class AssetFactory {
   }
 
   private static createAudios(scene: Scene): void {
-    AUDIO_CONFIGS.forEach(({ key, IsLooping, volume }: IAudioConfig) => {
-      const audio = scene.sound.add(key, { loop: IsLooping, volume: volume ?? 1 });
+    AUDIO_CONFIGS.forEach(({ key, IsLooping, volume, rate }: IAudioConfig) => {
+      const audio = scene.sound.add(key, { loop: IsLooping, volume: volume ?? 1 , rate: rate ?? 1});
       AUDIOS.set(key, audio);
     });
   }

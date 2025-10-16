@@ -13,4 +13,10 @@ export const AUDIO_CONFIGS: IAudioConfig[] = [
     url: 'assets/audios/hey.ogg',
     IsLooping: false,
   },
+  {
+    key: 'footsteps',
+    url: 'assets/audios/footsteps.mp3',
+    IsLooping: true,
+    rate: 1.6,
+  },
 ];
