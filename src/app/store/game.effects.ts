@@ -42,8 +42,7 @@ export class GameEffects {
       concatLatestFrom(() => this.store.select(selectIsMusicOn)),
       switchMap(([, isOn]) => {
         const backgroundMusic = AUDIOS.get(KEY.audio.backgroundMusic);
-        if (!backgroundMusic)
-          return throwError(() => 'Background music not found');
+        if (!backgroundMusic) return throwError(() => 'Background music not found');
         isOn ? backgroundMusic.stop() : backgroundMusic.play();
         return of(toggleMusicSuccess());
       }),
@@ -51,10 +50,10 @@ export class GameEffects {
         of(
           toggleMusicError({
             error: error?.message ?? 'Failed to toggle background music',
-          }),
-        ),
-      ),
-    ),
+          })
+        )
+      )
+    )
   );
 
   toggleSounds$ = createEffect(() =>
@@ -68,24 +67,24 @@ export class GameEffects {
         of(
           toggleSoundsError({
             error: error?.message ?? 'Failed to toggle background sounds',
-          }),
-        ),
-      ),
-    ),
+          })
+        )
+      )
+    )
   );
 
   showPromptOnAreaEnter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(enterArea),
-      map(() => showPrompt()),
-    ),
+      map(() => showPrompt())
+    )
   );
 
   hidePromptOnAreaLeave$ = createEffect(() =>
     this.actions$.pipe(
       ofType(leaveArea),
-      map(() => hidePrompt()),
-    ),
+      map(() => hidePrompt())
+    )
   );
 
   openOverlayOnInteract$ = createEffect(() =>
@@ -95,8 +94,8 @@ export class GameEffects {
       filter(([, interactableArea]) => !!interactableArea),
       concatLatestFrom(() => this.store.select(selectIsOverlayOpen)),
       filter(([, isOverlayOpen]) => !isOverlayOpen),
-      map(() => openOverlay()),
-    ),
+      map(() => openOverlay())
+    )
   );
 
   playSoundOnOpenOverlay$ = createEffect(() =>
@@ -104,8 +103,8 @@ export class GameEffects {
       ofType(openOverlay),
       concatLatestFrom(() => [this.store.select(selectIsSoundsOn)]),
       filter(([, isOn]) => isOn),
-      map(() => playSound({ soundKey: KEY.audio.hey })),
-    ),
+      map(() => playSound({ soundKey: KEY.audio.hey }))
+    )
   );
 
   endGameOnCollectingAllFragments$ = createEffect(() =>
@@ -113,17 +112,19 @@ export class GameEffects {
       ofType(closeOverlay),
       concatLatestFrom(() => this.store.select(selectIsEveryFragmentCollected)),
       filter(([, isEveryFragmentCollected]) => isEveryFragmentCollected),
-      map(() => gameEnd()),
-    ),
+      concatLatestFrom(() => this.store.select(selectIsGameEnded)),
+      filter(([, isEnded]) => isEnded === false),
+      map(() => gameEnd())
+    )
   );
 
-  gameEnd$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(gameEnd),
-        tap((a) => console.log('game over')),
-      ),
-    { dispatch: false },
+  gameEnd$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(gameEnd),
+      concatLatestFrom(() => this.store.select(selectIsGameEnded)),
+      filter(([, isEnded]) => isEnded),
+      map((a) => openOverlay())
+    )
   );
 
   playSound$ = createEffect(
@@ -134,8 +135,8 @@ export class GameEffects {
         tap(({ soundKey }) => {
           const audio = AUDIOS.get(soundKey);
           audio.play();
-        }),
+        })
       ),
-    { dispatch: false },
+    { dispatch: false }
   );
 }

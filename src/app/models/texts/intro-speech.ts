@@ -21,7 +21,7 @@ Enjoy the journey!`,
     const style: TextStyle = {
       fontSize: '16px',
       color: '#131313ff',
-      backgroundColor: '#E3C48B',
+      backgroundColor: '#e5d6a1',
       padding: { x: 8, y: 8 },
       fixedWidth: 470,
       fixedHeight: 100,
