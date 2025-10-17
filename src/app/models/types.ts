@@ -19,24 +19,28 @@ export type Animation = Phaser.Animations.Animation;
 export type Text = Phaser.GameObjects.Text;
 export type TextStyle = Phaser.Types.GameObjects.Text.TextStyle;
 
+export interface ICoordinate {
+  x: number;
+  y: number;
+}
+
 export interface ISpriteConfig {
   spriteName: string;
-  position: { x: number; y: number };
+  position: ICoordinate;
   texture: string;
   frame?: number;
 }
 
 export interface IDynamicSpriteConfig extends ISpriteConfig {
   bodySize: { width: number; height: number };
-  bodyOffset: { x: number; y: number };
-  origin: { x: number; y: number };
+  bodyOffset: ICoordinate;
+  origin: ICoordinate;
 }
 
 export interface ILayerConfig {
   layerID: string;
   tilesetKeys: string[];
-  x?: number;
-  y?: number;
+  position?: ICoordinate
 }
 
 export enum Direction {
@@ -44,16 +48,6 @@ export enum Direction {
   right = 'right',
   up = 'up',
   down = 'down',
-}
-
-export enum CollisionType {
-  collider,
-  overlap,
-}
-
-export interface ICollisionConfig {
-  object1Key: string;
-  object2Key: string;
 }
 
 export interface IAnimationConfig {
@@ -66,12 +60,12 @@ export interface IAnimationConfig {
 
 export interface IMovement {
   animationKey: string;
-  velocity: { x: number; y: number };
+  velocity: ICoordinate;
 }
 
 export interface IInteractableAreaConfig {
   key: string;
-  position: { x: number; y: number };
+  position: ICoordinate;
   title: string;
   subTitle: string;
   content: string;
@@ -79,7 +73,7 @@ export interface IInteractableAreaConfig {
   category?: string;
   footer?: string;
   customSize?: { width: number; height: number };
-  customOffset?: { x: number; y: number };
+  customOffset?: ICoordinate;
   links?: { label: string; href: string }[];
 }
 
@@ -91,13 +85,13 @@ export interface ICVFragment {
 export interface ITextConfig {
   key: string;
   text: string | string[];
-  position?: { x: number; y: number };
+  position?: ICoordinate;
   style?: TextStyle;
 }
 
 export interface IButtonConfig {
   key: string;
-  position: { x: number; y: number };
+  position: ICoordinate;
   text: string;
   text2?: string;
 }

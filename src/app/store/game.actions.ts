@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
 
-export const enterArea = createAction(
-  '[Game] Enter Interactable Area',
+export const setCurrentArea = createAction(
+  '[Game] Set Current Interactable Area',
   props<{ area: IInteractableAreaConfig }>()
 );
-export const leaveArea = createAction('[Game] Leave Interactable Area');
 
 export const interact = createAction('[Game] Interact');
 
 export const openOverlay = createAction('[Game] Open Overlay');
 export const closeOverlay = createAction('[Game] Close Overlay');
 
+export const setPromptPosition = createAction('[Game] Set Prompt Position', props<{ x: number; y: number }>());
 export const showPrompt = createAction('[Game] Show Prompt');
 export const hidePrompt = createAction('[Game] Hide Prompt');
 

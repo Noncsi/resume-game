@@ -8,7 +8,7 @@ export const selectIsOverlayOpen = createSelector(
   (state: GameState) => state.isOverlayOpen
 );
 
-export const selectInteractableArea = createSelector(
+export const selectCurrentArea = createSelector(
   selectGameState,
   (state: GameState) => state.currentArea
 );
@@ -17,6 +17,11 @@ export const selectIsPromptVisible = createSelector(
   selectGameState,
   (state: GameState) => state.isPromptVisible
 );
+
+export const selectPromptPosition = createSelector(
+  selectGameState,
+  (state: GameState) => state.promptPosition
+)
 
 export const selectIsMusicOn = createSelector(
   selectGameState,
@@ -32,10 +37,6 @@ export const selectCollectedFragments = createSelector(
   (state: GameState) => state.collectibleFragments
 );
 
-export const selectCurrentArea = createSelector(
-  selectGameState,
-  (state: GameState) => state.currentArea
-);
 export const selectIsEveryFragmentCollected = createSelector(
   selectCollectedFragments,
   (collectibleFragments) => {

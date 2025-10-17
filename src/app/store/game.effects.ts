@@ -2,13 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   closeOverlay,
-  enterArea,
+  setCurrentArea,
   gameEnd,
   hidePrompt,
   interact,
-  leaveArea,
   openOverlay,
   playSound,
+  setPromptPosition,
   showPrompt,
   toggleMusic,
   toggleMusicError,
@@ -17,14 +17,23 @@ import {
   toggleSoundsError,
   toggleSoundsSuccess,
 } from './game.actions';
-import { catchError, filter, map, of, switchMap, tap, throwError } from 'rxjs';
+import {
+  catchError,
+  exhaustMap,
+  filter,
+  map,
+  of,
+  switchMap,
+  tap,
+  throwError,
+} from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   selectIsMusicOn,
   selectIsSoundsOn as selectIsSoundsOn,
   selectIsEveryFragmentCollected,
   selectIsOverlayOpen,
-  selectInteractableArea,
+  selectCurrentArea,
   selectIsGameEnded,
 } from './game.selector';
 import { AUDIOS } from '../models/collections';
@@ -73,24 +82,26 @@ export class GameEffects {
     )
   );
 
-  showPromptOnAreaEnter$ = createEffect(() =>
+  showPromptOnAreaSet$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(enterArea),
-      map(() => showPrompt())
-    )
-  );
-
-  hidePromptOnAreaLeave$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(leaveArea),
-      map(() => hidePrompt())
+      ofType(setCurrentArea),
+      concatLatestFrom(() => this.store.select(selectCurrentArea)),
+      exhaustMap(([, area]) => {
+        if (!area) {
+          return [hidePrompt()];
+        }
+        return [
+          setPromptPosition({ x: area.position.x - 70, y: area.position.y - 60 }),
+          showPrompt(),
+        ];
+      })
     )
   );
 
   openOverlayOnInteract$ = createEffect(() =>
     this.actions$.pipe(
       ofType(interact),
-      concatLatestFrom(() => this.store.select(selectInteractableArea)),
+      concatLatestFrom(() => this.store.select(selectCurrentArea)),
       filter(([, interactableArea]) => !!interactableArea),
       concatLatestFrom(() => this.store.select(selectIsOverlayOpen)),
       filter(([, isOverlayOpen]) => !isOverlayOpen),

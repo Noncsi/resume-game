@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectIsOverlayOpen, selectInteractableArea, selectIsGameEnded } from '../../store/game.selector';
+import { selectIsOverlayOpen, selectCurrentArea, selectIsGameEnded } from '../../store/game.selector';
 import { closeOverlay } from '../../store/game.actions';
 import { CommonModule } from '@angular/common';
 import { IInteractableAreaConfig } from '../../models/types';
@@ -15,7 +15,7 @@ import { ResumeContentComponent } from '../resume-content-component/resume-conte
 export class OverlayComponent {
   store = inject(Store);
   isOverlayOpen: Signal<boolean> = this.store.selectSignal(selectIsOverlayOpen);
-  area: Signal<IInteractableAreaConfig | null> = this.store.selectSignal(selectInteractableArea);
+  area: Signal<IInteractableAreaConfig | null> = this.store.selectSignal(selectCurrentArea);
   isGameEnded: Signal<boolean> = this.store.selectSignal(selectIsGameEnded);
 
   @HostListener(`document:keydown.escape`)

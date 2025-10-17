@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
-import { ICVFragment, IInteractableAreaConfig } from '../models/types';
+import { ICoordinate, ICVFragment, IInteractableAreaConfig } from '../models/types';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
 
 export interface GameState {
@@ -9,6 +9,7 @@ export interface GameState {
   currentArea: IInteractableAreaConfig;
   isOverlayOpen: boolean;
   isPromptVisible: boolean;
+  promptPosition: ICoordinate;
   collectibleFragments: ICVFragment[];
   isGameEnded?: boolean;
 }
@@ -19,6 +20,7 @@ export const initialGameState: GameState = {
   currentArea: null,
   isOverlayOpen: false,
   isPromptVisible: false,
+  promptPosition: { x: 0, y: 0 },
   collectibleFragments: INTERACTABLE_AREA_CONFIGS.filter((area) => area.containsCVFragment).map(
     (area) => ({ areaKey: area.key, isCollected: false } as ICVFragment)
   ),
@@ -27,26 +29,24 @@ export const initialGameState: GameState = {
 
 export const gameReducer = createReducer(
   initialGameState,
-  on(action.enterArea, (state, { area }) => ({
+  on(action.setCurrentArea, (state, { area }) => ({
     ...state,
     currentArea: area,
-  })),
-  on(action.leaveArea, (state) => ({
-    ...state,
-    currentArea: null,
   })),
   on(action.openOverlay, (state) => ({
     ...state,
     isOverlayOpen: true,
     collectibleFragments: state.collectibleFragments.map((fragment) =>
-      fragment.areaKey === state.currentArea?.key
-        ? { ...fragment, isCollected: true }
-        : fragment,
+      fragment.areaKey === state.currentArea?.key ? { ...fragment, isCollected: true } : fragment
     ),
   })),
   on(action.closeOverlay, (state) => ({
     ...state,
     isOverlayOpen: false,
+  })),
+  on(action.setPromptPosition, (state, { x, y }) => ({
+    ...state,
+    promptPosition: { x, y },
   })),
   on(action.showPrompt, (state) => ({
     ...state,

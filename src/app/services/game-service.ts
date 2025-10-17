@@ -3,41 +3,29 @@ import { Store } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
 import {
   toggleMusic,
-  enterArea,
+  setCurrentArea,
   interact,
-  leaveArea,
   toggleSounds,
 } from '../store/game.actions';
-import {
-  selectInteractableArea,
-  selectIsPromptVisible,
-} from '../store/game.selector';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
-  isPromptVisible$ = this.store.select(selectIsPromptVisible);
-  currentArea$ = this.store.select(selectInteractableArea);
 
-  toggleBackgroundMusic() {
+  toggleBackgroundMusic(): void {
     this.store.dispatch(toggleMusic());
   }
 
-  toggleBackgroundSounds() {
+  toggleBackgroundSounds(): void {
     this.store.dispatch(toggleSounds());
   }
 
-  // toggleSound(key: string, shouldBePlaying: boolean) {
-  //   const sound = AUDIOS.get(key);
-  //   shouldBePlaying ? sound.play() : sound.stop();
-  // }
-
   enterArea(area: IInteractableAreaConfig): void {
-    this.store.dispatch(enterArea({ area }));
+    this.store.dispatch(setCurrentArea({ area }));
   }
 
   leaveArea(): void {
-    this.store.dispatch(leaveArea());
+    this.store.dispatch(setCurrentArea(null));
   }
 
   interact(): void {

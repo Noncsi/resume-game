@@ -34,9 +34,9 @@ export class AssetFactory {
   }
 
   private static createLayers(map: Phaser.Tilemaps.Tilemap): void {
-    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, x = 0, y = 0 }: ILayerConfig) => {
+    LAYER_CONFIGS.forEach(({ layerID, tilesetKeys, position = { x: 0, y: 0 } }: ILayerConfig) => {
       const tilesets = tilesetKeys.map((key) => map.getTileset(key));
-      map.createLayer(layerID, tilesets, x, y);
+      map.createLayer(layerID, tilesets, position.x, position.y);
     });
   }
 

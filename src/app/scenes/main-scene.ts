@@ -18,13 +18,15 @@ import { Button } from '../models/texts/button';
 import { BUTTON_CONFIGS } from '../config/buttons';
 import { InteractableArea } from '../models/interactable-area';
 import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
-import { Prompt } from '../models/texts/prompt';
 import { IntroSpeech } from '../models/texts/intro-speech';
 import { Help } from '../models/texts/help';
+import { PromptService } from '../services/prompt-service';
+import { TEXT_CONFIGS } from '../config/texts';
 
 @Injectable({ providedIn: 'root' })
 export class MainScene extends Phaser.Scene {
   private gameService: GameService;
+  private promptService: PromptService;
 
   private keyE: Phaser.Input.Keyboard.Key;
   private intro: IntroSpeech;
@@ -40,6 +42,7 @@ export class MainScene extends Phaser.Scene {
     super({ key: 'main' });
     runInInjectionContext(injector, () => {
       this.gameService = inject(GameService);
+      this.promptService = inject(PromptService);
     });
   }
 
@@ -62,8 +65,10 @@ export class MainScene extends Phaser.Scene {
       );
     });
 
-    // create texts
-    new Prompt(this, this.gameService);
+    // create prompt
+    const promptConfig = TEXT_CONFIGS.get(KEY.text.prompt);
+    this.promptService.prompt = this.add.text(0, 0, promptConfig.text, promptConfig.style).setDepth(1000);
+
     new Help(this);
 
     // create Buttons
@@ -127,7 +132,6 @@ export class MainScene extends Phaser.Scene {
       pressedMovementKeys.splice(idx, 1);
     }
 
-    // Adjust footsteps sound logic
     const isMoving = pressedMovementKeys.length > 0 && !this.intro.visible;
 
     if (isMoving && !this.isFootstepsSoundAlreadyPlaying) {
