@@ -47,14 +47,8 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
   {
     key: KEY.texture.spritesheet.birdJump,
     spritesheetKey: KEY.texture.spritesheet.birdJump,
-    frameConfig: { start: 0, end: 20 },
+    frameConfig: { start: 0, end: 19 },
     repeatDelay: 500,
-  },
-  {
-    key: KEY.texture.spritesheet.trees,
-    spritesheetKey: KEY.texture.spritesheet.trees,
-    frameConfig: { frames: [3, 12, 21, 30, 39, 48, 57, 66, 75, 84, 93, 102, 111, 3, 3, 3, 3, 3] },
-    repeatDelay: 10000,
   },
   {
     key: KEY.texture.spritesheet.cattle,

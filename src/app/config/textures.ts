@@ -26,11 +26,6 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
     frameConfig: { frameWidth: 48, frameHeight: 48 },
   },
   {
-    key: KEY.texture.spritesheet.trees,
-    url: `${ASSET_PATH.spritesheets}/trees.png`,
-    frameConfig: { frameWidth: 64, frameHeight: 80 },
-  },
-  {
     key: KEY.texture.spritesheet.player,
     url: `${ASSET_PATH.spritesheets}/player.png`,
     frameConfig: { frameWidth: 64, frameHeight: 64 },

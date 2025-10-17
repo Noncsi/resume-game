@@ -14,7 +14,6 @@ export const KEY = {
       exteriorAsSheet: 'exteriorAsSheet',
       player: 'player',
       chimney: 'chimney',
-      trees: 'trees',
       cat: 'cat',
       birdFly: 'birdFly',
       birdJump: 'birdJump',
