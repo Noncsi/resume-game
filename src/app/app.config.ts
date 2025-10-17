@@ -9,17 +9,18 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { gameReducer } from './store/game.reducer';
+import { gameReducer } from './store/game/game.reducer';
 import { provideEffects } from '@ngrx/effects';
-import { GameEffects } from './store/game.effects';
+import { GameEffects } from './store/game/game.effects';
+import { promptReducer } from './store/prompt/prompt.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore({ game: gameReducer }),
-    provideEffects(GameEffects),
+    provideStore({ game: gameReducer, prompt: promptReducer }),
+    provideEffects([GameEffects]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

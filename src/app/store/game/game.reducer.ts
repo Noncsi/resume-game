@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
-import { ICoordinate, ICVFragment, IInteractableAreaConfig } from '../models/types';
-import { INTERACTABLE_AREA_CONFIGS } from '../config/interactable-areas';
+import { ICoordinate, ICVFragment, IInteractableAreaConfig } from '../../models/types';
+import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
 
 export interface GameState {
   isMusicOn: boolean;
@@ -43,18 +43,6 @@ export const gameReducer = createReducer(
   on(action.closeOverlay, (state) => ({
     ...state,
     isOverlayOpen: false,
-  })),
-  on(action.setPromptPosition, (state, { x, y }) => ({
-    ...state,
-    promptPosition: { x, y },
-  })),
-  on(action.showPrompt, (state) => ({
-    ...state,
-    isPromptVisible: true,
-  })),
-  on(action.hidePrompt, (state) => ({
-    ...state,
-    isPromptVisible: false,
   })),
   on(action.toggleMusicSuccess, (state) => ({
     ...state,

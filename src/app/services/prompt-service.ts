@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ICoordinate, Text } from '../models/types';
-import { selectIsPromptVisible, selectPromptPosition } from '../store/game.selector';
 import { tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { selectIsPromptVisible, selectPromptPosition } from '../store/prompt/prompt.selector';
 
 @Injectable({ providedIn: 'root' })
 export class PromptService {

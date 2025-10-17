@@ -1,10 +1,10 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCollectedFragments, selectIsGameEnded } from '../../store/game.selector';
 import { CommonModule } from '@angular/common';
 import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
 import { KEY } from '../../models/keys';
+import { selectCollectedFragments, selectIsGameEnded } from '../../store/game/game.selector';
 
 @Component({
   selector: 'app-resume',

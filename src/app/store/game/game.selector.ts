@@ -21,7 +21,7 @@ export const selectIsPromptVisible = createSelector(
 export const selectPromptPosition = createSelector(
   selectGameState,
   (state: GameState) => state.promptPosition
-)
+);
 
 export const selectIsMusicOn = createSelector(
   selectGameState,

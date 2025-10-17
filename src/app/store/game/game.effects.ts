@@ -2,14 +2,10 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   closeOverlay,
-  setCurrentArea,
   gameEnd,
-  hidePrompt,
   interact,
   openOverlay,
   playSound,
-  setPromptPosition,
-  showPrompt,
   toggleMusic,
   toggleMusicError,
   toggleMusicSuccess,
@@ -17,16 +13,7 @@ import {
   toggleSoundsError,
   toggleSoundsSuccess,
 } from './game.actions';
-import {
-  catchError,
-  exhaustMap,
-  filter,
-  map,
-  of,
-  switchMap,
-  tap,
-  throwError,
-} from 'rxjs';
+import { catchError, filter, map, of, switchMap, tap, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   selectIsMusicOn,
@@ -36,8 +23,8 @@ import {
   selectCurrentArea,
   selectIsGameEnded,
 } from './game.selector';
-import { AUDIOS } from '../models/collections';
-import { KEY } from '../models/keys';
+import { AUDIOS } from '../../models/collections';
+import { KEY } from '../../models/keys';
 import { concatLatestFrom } from '@ngrx/operators';
 
 @Injectable()
@@ -79,22 +66,6 @@ export class GameEffects {
           })
         )
       )
-    )
-  );
-
-  showPromptOnAreaSet$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(setCurrentArea),
-      concatLatestFrom(() => this.store.select(selectCurrentArea)),
-      exhaustMap(([, area]) => {
-        if (!area) {
-          return [hidePrompt()];
-        }
-        return [
-          setPromptPosition({ x: area.position.x - 70, y: area.position.y - 60 }),
-          showPrompt(),
-        ];
-      })
     )
   );
 

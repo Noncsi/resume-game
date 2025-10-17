@@ -1,12 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
-import {
-  toggleMusic,
-  setCurrentArea,
-  interact,
-  toggleSounds,
-} from '../store/game.actions';
+import { toggleMusic, setCurrentArea, interact, toggleSounds } from '../store/game/game.actions';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
