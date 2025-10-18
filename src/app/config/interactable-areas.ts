@@ -1,9 +1,9 @@
-import { KEY } from '../models/keys';
+import { InteractableAreaKey } from '../models/keys';
 import { IInteractableAreaConfig } from '../models/types';
 
 export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
   {
-    key: KEY.area.well,
+    key: InteractableAreaKey.Well,
     position: { x: 483, y: 168 },
     title: 'The Well of Knowledge',
     subTitle: '"Clear waters run deep; every ripple holds a lesson."',
@@ -17,7 +17,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
     links: [{ label: 'GitHub', href: 'https://github.com/Noncsi' }],
   },
   {
-    key: KEY.area.house,
+    key: InteractableAreaKey.House,
     position: { x: 208, y: 230 },
     title: 'The Cozy Cabin',
     subTitle: '"A hearth where stories begin."',
@@ -27,7 +27,7 @@ I've spent years creating from here, building worlds line by line.`,
     containsCVFragment: false,
   },
   {
-    key: KEY.area.mushroom,
+    key: InteractableAreaKey.Mushroom,
     position: { x: 736, y: 190 },
     title: 'The Mushroom Grove',
     subTitle: '"Hidden among the roots, small wonders thrive."',
@@ -38,7 +38,7 @@ I've spent years creating from here, building worlds line by line.`,
     some small, some towering, all grown with care.`,
   },
   {
-    key: KEY.area.flowers,
+    key: InteractableAreaKey.Flowers,
     position: { x: 864, y: 530 },
     title: 'The Blooming Meadow',
     subTitle: '"Every petal tells a story of growth."',
@@ -49,7 +49,7 @@ I've spent years creating from here, building worlds line by line.`,
     containsCVFragment: true,
   },
   {
-    key: KEY.area.stones,
+    key: InteractableAreaKey.Stones,
     position: { x: 282, y: 544 },
     title: 'The Circle of Stones',
     subTitle: '"Silent witnesses to time and perseverance."',
@@ -62,7 +62,7 @@ I've spent years creating from here, building worlds line by line.`,
     footer: `Every stone stands for a milestone - solid, enduring.`,
   },
   {
-    key: KEY.area.mailbox,
+    key: InteractableAreaKey.Mailbox,
     position: { x: 410, y: 296 },
     title: 'Mailbox',
     subTitle: '"Leave a note by the door."',
@@ -74,7 +74,7 @@ I've spent years creating from here, building worlds line by line.`,
     customOffset: { x: 0, y: -16 },
   },
   {
-    key: KEY.area.country,
+    key: InteractableAreaKey.Country,
     position: { x: 460, y: 480 },
     title: 'My home country',
     subTitle: '',

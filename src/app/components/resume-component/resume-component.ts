@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
-import { KEY } from '../../models/keys';
+import { InteractableAreaKey } from '../../models/keys';
 import { selectCollectedFragments, selectIsGameEnded } from '../../store/game/game.selector';
 
 @Component({
@@ -17,10 +17,10 @@ export class ResumeComponent {
   collectibleFragments = this.store.selectSignal(selectCollectedFragments);
   isGameEnded: Signal<boolean> = this.store.selectSignal(selectIsGameEnded);
 
-  skills = computed(() => this.getFragmentContent(KEY.area.well));
-  experience = computed(() => this.getFragmentContent(KEY.area.stones));
-  softSkills = computed(() => this.getFragmentContent(KEY.area.flowers));
-  contact = computed(() => this.getFragmentContent(KEY.area.mailbox));
+  skills = computed(() => this.getFragmentContent(InteractableAreaKey.Well));
+  experience = computed(() => this.getFragmentContent(InteractableAreaKey.Stones));
+  softSkills = computed(() => this.getFragmentContent(InteractableAreaKey.Flowers));
+  contact = computed(() => this.getFragmentContent(InteractableAreaKey.Mailbox));
 
   getFragmentContent(key: string) {
     const fragment = this.collectibleFragments().find(

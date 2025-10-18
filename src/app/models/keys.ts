@@ -55,17 +55,18 @@ export enum AudioKey {
   Footsteps = 'footsteps',
 }
 
+export enum InteractableAreaKey {
+  House = 'house',
+  Well = 'well',
+  Mushroom = 'mushroom',
+  Flowers = 'flowers',
+  Stones = 'stones',
+  Mailbox = 'mailbox',
+  Country = 'country',
+}
+
 export const KEY = {
   map: 'map',
-  area: {
-    house: 'house',
-    well: 'well',
-    mushroom: 'mushroom',
-    flowers: 'flowers',
-    stones: 'stones',
-    mailbox: 'mailbox',
-    country: 'country',
-  },
   text: {
     prompt: 'prompt',
   },
