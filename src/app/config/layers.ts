@@ -1,135 +1,118 @@
-import { KEY, SpritesheetKey, TilesetKey } from '../models/keys';
+import { KEY, LayerKey, SpritesheetKey, TilesetKey } from '../models/keys';
 import { ILayerConfig } from '../models/types';
 
 export const LAYER_CONFIGS: ILayerConfig[] = [
   {
-    layerID: KEY.texture.layer.path,
-    tilesetKeys: [TilesetKey.groundGrassDetails],
+    layerID: LayerKey.Path,
+    tilesetKeys: [TilesetKey.GroundGrassDetails],
   },
   {
-    layerID: KEY.texture.layer.road,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.Road,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.grassTerrain,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.GrassTerrain,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.grass,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.Grass,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.flowerField,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.FlowerField,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.gardenDirt,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.GardenDirt,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.gardenPlants,
-    tilesetKeys: [TilesetKey.exterior, TilesetKey.plants],
+    layerID: LayerKey.GardenPlants,
+    tilesetKeys: [TilesetKey.Exterior, TilesetKey.Plants],
   },
   {
-    layerID: KEY.texture.layer.tiles,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.Tiles,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.house,
-    tilesetKeys: [TilesetKey.houseDetails, TilesetKey.exterior],
+    layerID: LayerKey.House,
+    tilesetKeys: [TilesetKey.HouseDetails, TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.stoneCircleBelowPlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.StoneCircleBelowPlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.stoneCircleAbovePlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.StoneCircleAbovePlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.stoneCircleStumpBelowPlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.StoneCircleStumpBelowPlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.stoneCircleStumpAbovePlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.StoneCircleStumpAbovePlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.mushrooms,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.Mushrooms,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.wellBelowPlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.WellBelowPlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.wellAbovePlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.WellAbovePlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.fence,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.Fence,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.mailboxBelowPlayer,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.MailboxBelowPlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.mailboxAbovePlayer,
-    tilesetKeys: [TilesetKey.exterior],
-  },
-
-  {
-    layerID: KEY.texture.layer.decorationNonCollidingBelowPlayer,
-    tilesetKeys: [
-      TilesetKey.interior,
-      TilesetKey.exterior,
-      TilesetKey.supplies,
-      TilesetKey.plants,
-    ],
+    layerID: LayerKey.MailboxAbovePlayer,
+    tilesetKeys: [TilesetKey.Exterior],
   },
 
   {
-    layerID: KEY.texture.layer.decorationNonCollidingAbovePlayer,
-    tilesetKeys: [
-      TilesetKey.interior,
-      TilesetKey.exterior,
-      TilesetKey.plants,
-    ],
+    layerID: LayerKey.DecorationNonCollidingBelowPlayer,
+    tilesetKeys: [TilesetKey.Interior, TilesetKey.Exterior, TilesetKey.Supplies, TilesetKey.Plants],
   },
 
   {
-    layerID: KEY.texture.layer.decorationColliding,
+    layerID: LayerKey.DecorationNonCollidingAbovePlayer,
+    tilesetKeys: [TilesetKey.Interior, TilesetKey.Exterior, TilesetKey.Plants],
+  },
+
+  {
+    layerID: LayerKey.DecorationColliding,
     tilesetKeys: [
-      TilesetKey.interior,
-      TilesetKey.exterior,
-      TilesetKey.pines,
-      TilesetKey.supplies,
-      TilesetKey.plants,
+      TilesetKey.Interior,
+      TilesetKey.Exterior,
+      TilesetKey.Pines,
+      TilesetKey.Supplies,
+      TilesetKey.Plants,
     ],
   },
   {
-    layerID: KEY.texture.layer.roof,
-    tilesetKeys: [
-      TilesetKey.houseDetails,
-      TilesetKey.interior,
-      TilesetKey.interior,
-    ],
+    layerID: LayerKey.Roof,
+    tilesetKeys: [TilesetKey.HouseDetails, TilesetKey.Interior, TilesetKey.Interior],
   },
   {
-    layerID: KEY.texture.layer.mapEdgeGrass,
-    tilesetKeys: [TilesetKey.exterior],
+    layerID: LayerKey.MapEdgeGrass,
+    tilesetKeys: [TilesetKey.Exterior],
   },
   {
-    layerID: KEY.texture.layer.forest,
-    tilesetKeys: [TilesetKey.pines, TilesetKey.plants],
+    layerID: LayerKey.Forest,
+    tilesetKeys: [TilesetKey.Pines, TilesetKey.Plants],
   },
   {
-    layerID: KEY.texture.layer.animals,
-    tilesetKeys: [
-      SpritesheetKey.cat,
-      SpritesheetKey.birdJump,
-      SpritesheetKey.birdFly,
-    ],
+    layerID: LayerKey.Animals,
+    tilesetKeys: [SpritesheetKey.Cat, SpritesheetKey.BirdJump, SpritesheetKey.BirdFly],
   },
 ];
