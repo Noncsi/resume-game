@@ -8,18 +8,19 @@ export enum TilesetKey {
   supplies = 'supplies',
 }
 
+export enum SpritesheetKey {
+  exteriorAsSheet = 'exteriorAsSheet',
+  player = 'player',
+  chimney = 'chimney',
+  cat = 'cat',
+  birdFly = 'birdFly',
+  birdJump = 'birdJump',
+  cattle = 'cattle',
+}
+
 export const KEY = {
   map: 'map',
   texture: {
-    spritesheet: {
-      exteriorAsSheet: 'exteriorAsSheet',
-      player: 'player',
-      chimney: 'chimney',
-      cat: 'cat',
-      birdFly: 'birdFly',
-      birdJump: 'birdJump',
-      cattle: 'cattle',
-    },
     layer: {
       path: 'path',
       road: 'road',

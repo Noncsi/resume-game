@@ -1,6 +1,6 @@
 import { Scene } from 'phaser';
 import { IInteractableAreaConfig } from './types';
-import { KEY } from './keys';
+import { SpritesheetKey } from './keys';
 
 export class InteractableArea extends Phaser.GameObjects.Image {
   config: IInteractableAreaConfig;
@@ -12,7 +12,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       scene,
       config.position.x,
       config.position.y,
-      KEY.texture.spritesheet.exteriorAsSheet,
+      SpritesheetKey.exteriorAsSheet,
       955
     );
 
@@ -35,7 +35,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       const cvFragment = scene.add.image(
         config.position.x,
         config.position.y + 19,
-        KEY.texture.spritesheet.exteriorAsSheet,
+        SpritesheetKey.exteriorAsSheet,
         953
       );
 

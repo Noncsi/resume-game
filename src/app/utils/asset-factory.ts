@@ -13,7 +13,7 @@ import { AUDIOS, DYNAMIC_SPRITES, MOVEMENT_MAP, SPRITES } from '../models/collec
 import { DYNAMIC_SPRITE_CONFIGS, SPRITE_CONFIGS } from '../config/sprites';
 import { ANIMATION_CONFIGS, FRAME_RATE, REPEAT } from '../config/animations';
 import { LAYER_CONFIGS } from '../config/layers';
-import { KEY } from '../models/keys';
+import { SpritesheetKey } from '../models/keys';
 import { AUDIO_CONFIGS } from '../config/audios';
 
 export class AssetFactory {
@@ -58,7 +58,7 @@ export class AssetFactory {
   }
 
   private static createCollisions(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
-    const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    const player = DYNAMIC_SPRITES.get(SpritesheetKey.player);
 
     map.layers.forEach((layerData: Phaser.Tilemaps.LayerData) => {
       const layer = layerData.tilemapLayer as Phaser.Tilemaps.TilemapLayer;

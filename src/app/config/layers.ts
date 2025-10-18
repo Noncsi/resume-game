@@ -1,4 +1,4 @@
-import { KEY, TilesetKey } from '../models/keys';
+import { KEY, SpritesheetKey, TilesetKey } from '../models/keys';
 import { ILayerConfig } from '../models/types';
 
 export const LAYER_CONFIGS: ILayerConfig[] = [
@@ -127,9 +127,9 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   {
     layerID: KEY.texture.layer.animals,
     tilesetKeys: [
-      KEY.texture.spritesheet.cat,
-      KEY.texture.spritesheet.birdJump,
-      KEY.texture.spritesheet.birdFly,
+      SpritesheetKey.cat,
+      SpritesheetKey.birdJump,
+      SpritesheetKey.birdFly,
     ],
   },
 ];

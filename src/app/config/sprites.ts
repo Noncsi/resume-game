@@ -1,42 +1,42 @@
-import { KEY } from '../models/keys';
+import { SpritesheetKey } from '../models/keys';
 import { IDynamicSpriteConfig, ISpriteConfig } from '../models/types';
 
 export const SPRITE_CONFIGS: ISpriteConfig[] = [
   {
-    spriteName: KEY.texture.spritesheet.chimney,
+    spriteName: SpritesheetKey.chimney,
     position: { x: 136, y: 104 },
-    texture: KEY.texture.spritesheet.chimney,
+    texture: SpritesheetKey.chimney,
   },
   {
-    spriteName: KEY.texture.spritesheet.cat,
+    spriteName: SpritesheetKey.cat,
     position: { x: 160, y: 269 },
-    texture: KEY.texture.spritesheet.cat,
+    texture: SpritesheetKey.cat,
   },
   {
-    spriteName: KEY.texture.spritesheet.birdFly,
+    spriteName: SpritesheetKey.birdFly,
     position: { x: 374, y: 400 },
-    texture: KEY.texture.spritesheet.birdFly,
+    texture: SpritesheetKey.birdFly,
   },
   {
-    spriteName: KEY.texture.spritesheet.birdJump,
+    spriteName: SpritesheetKey.birdJump,
     position: { x: 284, y: 654 },
-    texture: KEY.texture.spritesheet.birdJump,
+    texture: SpritesheetKey.birdJump,
   },
   {
-    spriteName: KEY.texture.spritesheet.cattle,
+    spriteName: SpritesheetKey.cattle,
     position: { x: 460, y: 510 },
-    texture: KEY.texture.spritesheet.cattle,
+    texture: SpritesheetKey.cattle,
   },
 ];
 
 export const DYNAMIC_SPRITE_CONFIGS: IDynamicSpriteConfig[] = [
   {
-    spriteName: KEY.texture.spritesheet.player,
+    spriteName: SpritesheetKey.player,
     position: {
       x: 150,
       y: 225,
     },
-    texture: KEY.texture.spritesheet.player,
+    texture: SpritesheetKey.player,
     bodySize: { width: 12, height: 8 },
     bodyOffset: { x: 24, y: 33 },
     origin: { x: 0.5, y: 0.5 },

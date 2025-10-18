@@ -1,4 +1,4 @@
-import { KEY, TilesetKey } from '../models/keys';
+import { SpritesheetKey, TilesetKey } from '../models/keys';
 import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
 
 export const ASSET_PATH = {
@@ -21,42 +21,42 @@ export const TILESET_IMAGE_CONFIGS: TilesetImageConfig[] = [
 
 export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
   {
-    key: KEY.texture.spritesheet.chimney,
+    key: SpritesheetKey.chimney,
     url: `${ASSET_PATH.spritesheets}/chimney.png`,
     frameConfig: { frameWidth: 48, frameHeight: 48 },
   },
   {
-    key: KEY.texture.spritesheet.player,
+    key: SpritesheetKey.player,
     url: `${ASSET_PATH.spritesheets}/player.png`,
     frameConfig: { frameWidth: 64, frameHeight: 64 },
   },
   {
-    key: KEY.texture.spritesheet.player,
+    key: SpritesheetKey.player,
     url: `${ASSET_PATH.spritesheets}/player.png`,
     frameConfig: { frameWidth: 64, frameHeight: 64 },
   },
   {
-    key: KEY.texture.spritesheet.cat,
+    key: SpritesheetKey.cat,
     url: `${ASSET_PATH.spritesheets}/cat.png`,
     frameConfig: { frameWidth: 32, frameHeight: 32 },
   },
   {
-    key: KEY.texture.spritesheet.birdFly,
+    key: SpritesheetKey.birdFly,
     url: `${ASSET_PATH.spritesheets}/bird-fly.png`,
     frameConfig: { frameWidth: 144, frameHeight: 64 },
   },
   {
-    key: KEY.texture.spritesheet.birdJump,
+    key: SpritesheetKey.birdJump,
     url: `${ASSET_PATH.spritesheets}/bird-jump.png`,
     frameConfig: { frameWidth: 32, frameHeight: 32 },
   },
   {
-    key: KEY.texture.spritesheet.exteriorAsSheet,
+    key: SpritesheetKey.exteriorAsSheet,
     url: `${ASSET_PATH.tilesets}/exterior.png`,
     frameConfig: { frameWidth: 16, frameHeight: 16 },
   },
   {
-    key: KEY.texture.spritesheet.cattle,
+    key: SpritesheetKey.cattle,
     url: `${ASSET_PATH.spritesheets}/grey-cattle.png`,
     frameConfig: { frameWidth: 64, frameHeight: 64 },
   },

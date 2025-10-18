@@ -9,7 +9,7 @@ import {
   CursorKeys,
   Audio,
 } from '../models/types';
-import { KEY } from '../models/keys';
+import { KEY, SpritesheetKey } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
 import { AssetFactory } from '../utils/asset-factory';
@@ -82,7 +82,7 @@ export class MainScene extends Phaser.Scene {
     new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundSounds());
 
     AssetPlayer.playAll();
-    this.player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    this.player = DYNAMIC_SPRITES.get(SpritesheetKey.player);
 
     // create interaction for [E]
     this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
