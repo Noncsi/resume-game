@@ -1,8 +1,8 @@
 import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
 import { SPRITESHEET_IMAGE_CONFIGS, TILESET_IMAGE_CONFIGS } from '../config/textures';
 import { Scene } from 'phaser';
-import { KEY } from '../models/keys';
 import { AUDIO_CONFIGS } from '../config/audios';
+import { MapKey } from '../models/keys';
 
 export class AssetLoader {
   static loadAll(scene: Scene): void {
@@ -13,7 +13,7 @@ export class AssetLoader {
   }
 
   private static loadTiledMapJSON(scene: Scene): void {
-    scene.load.tilemapTiledJSON(KEY.map, `assets/${KEY.map}.json`);
+    scene.load.tilemapTiledJSON(MapKey.Map, `assets/${MapKey.Map}.json`);
   }
 
   private static loadTilesets(scene: Scene): void {

@@ -1,4 +1,4 @@
-import { KEY, LayerKey, SpritesheetKey, TilesetKey } from '../models/keys';
+import { LayerKey, SpritesheetKey, TilesetKey } from '../models/keys';
 import { ILayerConfig } from '../models/types';
 
 export const LAYER_CONFIGS: ILayerConfig[] = [

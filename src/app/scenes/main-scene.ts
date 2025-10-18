@@ -9,7 +9,7 @@ import {
   CursorKeys,
   Audio,
 } from '../models/types';
-import { AudioKey, ButtonKey, KEY, SpritesheetKey, TextKey } from '../models/keys';
+import { AudioKey, ButtonKey, MapKey, SpritesheetKey, TextKey } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
 import { AssetFactory } from '../utils/asset-factory';
@@ -53,7 +53,7 @@ export class MainScene extends Phaser.Scene {
   create() {
     this.input.setDefaultCursor('url("/assets/cursors/pixel.cur"), pointer');
     // create Non-reactive assets
-    const map = this.make.tilemap({ key: KEY.map });
+    const map = this.make.tilemap({ key: MapKey.Map });
     AssetFactory.createAll(this, map);
 
     // create Interactable Areas

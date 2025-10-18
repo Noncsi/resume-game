@@ -58,7 +58,7 @@ export class AssetFactory {
   }
 
   private static createCollisions(scene: Scene, map: Phaser.Tilemaps.Tilemap): void {
-    const player = DYNAMIC_SPRITES.get(SpritesheetKey.player);
+    const player = DYNAMIC_SPRITES.get(SpritesheetKey.Player);
 
     map.layers.forEach((layerData: Phaser.Tilemaps.LayerData) => {
       const layer = layerData.tilemapLayer as Phaser.Tilemaps.TilemapLayer;

@@ -1,3 +1,7 @@
+export enum MapKey {
+  Map = 'map',
+}
+
 export enum TilesetKey {
   Exterior = 'exterior',
   Interior = 'interior',
@@ -73,7 +77,3 @@ export enum ButtonKey {
   MuteMusic = 'muteMusic',
   MuteSounds = 'muteSounds',
 }
-
-export const KEY = {
-  map: 'map',
-} as const;
