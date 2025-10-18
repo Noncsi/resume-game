@@ -122,13 +122,16 @@ export class MainScene extends Phaser.Scene {
       (area) => this.physics.overlap(this.player, area)
     ) as InteractableArea;
     
+    if (this.previousZone !== currentZone) {
     currentZone ? this.gameService.enterArea(currentZone.config) : this.gameService.leaveArea();
+      this.previousZone = currentZone;
+    }
     
     // Player movement
     this.player.setVelocity(0);
-    const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
-      return key.isDown && !!MOVEMENT_MAP.get(Direction[keyName]);
-    });
+    const pressedMovementKeys = Object.entries(this.cursors).filter(
+      ([keyName, key]) => key.isDown && !!MOVEMENT_MAP.get(Direction[keyName])
+    );
 
     const newlyPressedKey = pressedMovementKeys[0]?.[0];
 
