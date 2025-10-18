@@ -7,17 +7,14 @@ import { selectIsPromptVisible, selectPromptPosition } from '../store/prompt/pro
 
 @Injectable({ providedIn: 'root' })
 export class PromptService {
-  store = inject(Store);
-  prompt: Text;
+  private prompt: Text;
+  private store = inject(Store);
 
   constructor() {
     this.store
       .select(selectIsPromptVisible)
       .pipe(
-        tap((isVisible: boolean) => {
-          console.log('Setting prompt visibility to:', isVisible);
-          this.prompt?.setVisible(isVisible);
-        }),
+        tap((isVisible: boolean) => this.prompt?.setVisible(isVisible)),
         takeUntilDestroyed()
       )
       .subscribe();
@@ -25,11 +22,13 @@ export class PromptService {
     this.store
       .select(selectPromptPosition)
       .pipe(
-        tap((position: ICoordinate) => {
-          this.prompt?.setPosition(position.x, position.y);
-        }),
+        tap((position: ICoordinate) => this.prompt?.setPosition(position.x, position.y)),
         takeUntilDestroyed()
       )
       .subscribe();
+  }
+
+  setPrompt(prompt: Text): void {
+    this.prompt = prompt;
   }
 }

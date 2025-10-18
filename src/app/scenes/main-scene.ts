@@ -33,6 +33,7 @@ export class MainScene extends Phaser.Scene {
   private player: DynamicSprite;
   private interactableAreaZones: StaticGroup;
   private cursors: CursorKeys;
+  private previousZone: InteractableArea | null;
   overlay: Phaser.GameObjects.Graphics;
   lastPressedKey = null;
   footstepsSound: Audio;
@@ -59,17 +60,14 @@ export class MainScene extends Phaser.Scene {
     // create Interactable Areas
     this.interactableAreaZones = this.physics.add.staticGroup();
     INTERACTABLE_AREA_CONFIGS.forEach((config) => {
-      this.interactableAreaZones.add(
-        new InteractableArea(this, config)
-      );
+      this.interactableAreaZones.add(new InteractableArea(this, config));
     });
 
     // create prompt
     const promptConfig = TEXT_CONFIGS.get(TextKey.Prompt);
-    this.promptService.prompt = this.add
-      .text(0, 0, promptConfig.text, promptConfig.style)
-      .setDepth(1000)
-      .setVisible(false);
+    this.promptService.setPrompt(
+      this.add.text(0, 0, promptConfig.text, promptConfig.style).setDepth(1000).setVisible(false)
+    );
 
     new Help(this);
 
@@ -121,12 +119,12 @@ export class MainScene extends Phaser.Scene {
     const currentZone: InteractableArea | null = this.interactableAreaZones.children.entries.find(
       (area) => this.physics.overlap(this.player, area)
     ) as InteractableArea;
-    
+
     if (this.previousZone !== currentZone) {
-    currentZone ? this.gameService.enterArea(currentZone.config) : this.gameService.leaveArea();
+      currentZone ? this.gameService.enterArea(currentZone.config) : this.gameService.leaveArea();
       this.previousZone = currentZone;
     }
-    
+
     // Player movement
     this.player.setVelocity(0);
     const pressedMovementKeys = Object.entries(this.cursors).filter(
