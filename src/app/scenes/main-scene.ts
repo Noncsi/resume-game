@@ -35,7 +35,7 @@ export class MainScene extends Phaser.Scene {
   private cursors: CursorKeys;
   private previousZone: InteractableArea | null;
   private overlay: Phaser.GameObjects.Graphics;
-  private lastPressedKey = null;
+  private lastPressedKey: string = '';
   private footstepsSound: Audio;
   private isFootstepsSoundAlreadyPlaying: boolean;
 
@@ -136,7 +136,7 @@ export class MainScene extends Phaser.Scene {
     if (pressedMovementKeys.length === 1) {
       this.lastPressedKey = newlyPressedKey;
     } else {
-      const idx = pressedMovementKeys.findIndex((a) => a[0] === this.lastPressedKey);
+      const idx = pressedMovementKeys.findIndex((kv) => kv[0] === this.lastPressedKey);
       pressedMovementKeys.splice(idx, 1);
     }
 
