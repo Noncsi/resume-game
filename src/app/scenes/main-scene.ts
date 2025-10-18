@@ -9,7 +9,7 @@ import {
   CursorKeys,
   Audio,
 } from '../models/types';
-import { KEY, SpritesheetKey } from '../models/keys';
+import { AudioKey, KEY, SpritesheetKey } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
 import { AssetFactory } from '../utils/asset-factory';
@@ -105,7 +105,7 @@ export class MainScene extends Phaser.Scene {
     mask.invertAlpha = true;
     this.overlay.setMask(mask);
 
-    this.footstepsSound = AUDIOS.get('footsteps');
+    this.footstepsSound = AUDIOS.get(AudioKey.Footsteps);
 
     this.cameras.main.fadeIn(800);
   }

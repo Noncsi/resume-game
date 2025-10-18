@@ -24,7 +24,7 @@ import {
   selectIsGameEnded,
 } from './game.selector';
 import { AUDIOS } from '../../models/collections';
-import { KEY } from '../../models/keys';
+import { AudioKey } from '../../models/keys';
 import { concatLatestFrom } from '@ngrx/operators';
 
 @Injectable()
@@ -37,7 +37,7 @@ export class GameEffects {
       ofType(toggleMusic),
       concatLatestFrom(() => this.store.select(selectIsMusicOn)),
       switchMap(([, isOn]) => {
-        const backgroundMusic = AUDIOS.get(KEY.audio.backgroundMusic);
+        const backgroundMusic = AUDIOS.get(AudioKey.BackgroundMusic);
         if (!backgroundMusic) return throwError(() => 'Background music not found');
         isOn ? backgroundMusic.stop() : backgroundMusic.play();
         return of(toggleMusicSuccess());
@@ -85,7 +85,7 @@ export class GameEffects {
       ofType(openOverlay),
       concatLatestFrom(() => [this.store.select(selectIsSoundsOn)]),
       filter(([, isOn]) => isOn),
-      map(() => playSound({ soundKey: KEY.audio.hey }))
+      map(() => playSound({ soundKey: AudioKey.Hey }))
     )
   );
 

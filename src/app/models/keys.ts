@@ -49,12 +49,14 @@ export enum LayerKey {
   MailboxAbovePlayer = 'mailboxAbovePlayer',
 }
 
+export enum AudioKey {
+  BackgroundMusic = 'backgroundMusic',
+  Hey = 'hey',
+  Footsteps = 'footsteps',
+}
+
 export const KEY = {
   map: 'map',
-  audio: {
-    backgroundMusic: 'backgroundMusic',
-    hey: 'hey',
-  },
   area: {
     house: 'house',
     well: 'well',
