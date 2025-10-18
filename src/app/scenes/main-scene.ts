@@ -34,10 +34,10 @@ export class MainScene extends Phaser.Scene {
   private interactableAreaZones: StaticGroup;
   private cursors: CursorKeys;
   private previousZone: InteractableArea | null;
-  overlay: Phaser.GameObjects.Graphics;
-  lastPressedKey = null;
-  footstepsSound: Audio;
-  isFootstepsSoundAlreadyPlaying: boolean;
+  private overlay: Phaser.GameObjects.Graphics;
+  private lastPressedKey = null;
+  private footstepsSound: Audio;
+  private isFootstepsSoundAlreadyPlaying: boolean;
 
   constructor(injector: Injector) {
     super({ key: 'main' });
@@ -54,8 +54,8 @@ export class MainScene extends Phaser.Scene {
   create() {
     this.input.setDefaultCursor('url("/assets/cursors/pixel.cur"), pointer');
     // create Non-reactive assets
-    const map = this.make.tilemap({ key: MapKey.Map });
-    AssetFactory.createAll(this, map);
+    const tileMap = this.make.tilemap({ key: MapKey.Map });
+    AssetFactory.createAll(this, tileMap);
 
     // create Interactable Areas
     this.interactableAreaZones = this.physics.add.staticGroup();
@@ -116,8 +116,8 @@ export class MainScene extends Phaser.Scene {
     }
 
     // Area detection
-    const currentZone: InteractableArea | null = this.interactableAreaZones.children.entries.find(
-      (area) => this.physics.overlap(this.player, area)
+    const currentZone: InteractableArea = this.interactableAreaZones.children.entries.find((area) =>
+      this.physics.overlap(this.player, area)
     ) as InteractableArea;
 
     if (this.previousZone !== currentZone) {
@@ -151,11 +151,12 @@ export class MainScene extends Phaser.Scene {
       return this.player.anims.stop();
     }
 
-    const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0][0]]);
-    if (!this.intro.visible) {
+    if (!this.intro.visible && !this.gameService.isOverlayOpen()) {
+      const movement: IMovement = MOVEMENT_MAP.get(Direction[pressedMovementKeys[0][0]]);
       this.player.setVelocity(movement.velocity.x, movement.velocity.y);
+      this.player.anims.play(movement.animationKey, true);
     }
 
-    return this.player.anims.play(movement.animationKey, true);
+    return true;
   }
 }

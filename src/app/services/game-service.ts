@@ -2,10 +2,12 @@ import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IInteractableAreaConfig } from '../models/types';
 import { toggleMusic, setCurrentArea, interact, toggleSounds } from '../store/game/game.actions';
+import { selectIsOverlayOpen } from '../store/game/game.selector';
 
 @Injectable({ providedIn: 'root' })
 export class GameService {
   store = inject(Store);
+  isOverlayOpen = this.store.selectSignal(selectIsOverlayOpen);
 
   toggleBackgroundMusic(): void {
     this.store.dispatch(toggleMusic());
