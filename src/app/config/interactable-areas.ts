@@ -32,7 +32,10 @@ I've spent years creating from here, building worlds line by line.`,
     title: 'The Mushroom Grove',
     subTitle: '"Hidden among the roots, small wonders thrive."',
     category: 'Projects:',
-    content: `    ■ Resume Game (You are here!) (Angular20 + Phaser3)`,
+    content: `    ■ Resume Game (You are here!) (Angular20 + Phaser3)<br>
+■ Hangman (Python)<br>
+■ Hangman (JavaScript)<br>
+■ Hangman (C#)`,
     containsCVFragment: false,
     footer: `Each project is a curious little mushroom - 
     some small, some towering, all grown with care.`,
