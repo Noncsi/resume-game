@@ -13,16 +13,6 @@ export const selectCurrentArea = createSelector(
   (state: GameState) => state.currentArea
 );
 
-export const selectIsPromptVisible = createSelector(
-  selectGameState,
-  (state: GameState) => state.isPromptVisible
-);
-
-export const selectPromptPosition = createSelector(
-  selectGameState,
-  (state: GameState) => state.promptPosition
-);
-
 export const selectIsMusicOn = createSelector(
   selectGameState,
   (state: GameState) => state.isMusicOn

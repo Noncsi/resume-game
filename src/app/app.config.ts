@@ -13,6 +13,7 @@ import { gameReducer } from './store/game/game.reducer';
 import { provideEffects } from '@ngrx/effects';
 import { GameEffects } from './store/game/game.effects';
 import { promptReducer } from './store/prompt/prompt.reducer';
+import { PromptEffects } from './store/prompt/prompt.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideStore({ game: gameReducer, prompt: promptReducer }),
-    provideEffects([GameEffects]),
+    provideEffects([GameEffects, PromptEffects]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

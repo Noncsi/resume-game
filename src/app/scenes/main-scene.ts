@@ -31,7 +31,7 @@ export class MainScene extends Phaser.Scene {
   private keyE: Phaser.Input.Keyboard.Key;
   private intro: IntroSpeech;
   private player: DynamicSprite;
-  private collidingAreas: StaticGroup;
+  private interactableAreaZones: StaticGroup;
   private cursors: CursorKeys;
   overlay: Phaser.GameObjects.Graphics;
   lastPressedKey = null;
@@ -57,17 +57,19 @@ export class MainScene extends Phaser.Scene {
     AssetFactory.createAll(this, map);
 
     // create Interactable Areas
-    this.collidingAreas = this.physics.add.staticGroup();
-    const player = DYNAMIC_SPRITES.get(KEY.texture.spritesheet.player);
+    this.interactableAreaZones = this.physics.add.staticGroup();
     INTERACTABLE_AREA_CONFIGS.forEach((config) => {
-      this.collidingAreas.add(
-        new InteractableArea(this, config, player, () => this.gameService.enterArea(config))
+      this.interactableAreaZones.add(
+        new InteractableArea(this, config)
       );
     });
 
     // create prompt
     const promptConfig = TEXT_CONFIGS.get(KEY.text.prompt);
-    this.promptService.prompt = this.add.text(0, 0, promptConfig.text, promptConfig.style).setDepth(1000);
+    this.promptService.prompt = this.add
+      .text(0, 0, promptConfig.text, promptConfig.style)
+      .setDepth(1000)
+      .setVisible(false);
 
     new Help(this);
 
@@ -114,11 +116,16 @@ export class MainScene extends Phaser.Scene {
       this.keyE.on('down', () => this.gameService.interact());
       this.overlay.setVisible(false);
     }
-    // check walking out of area
-    if (!this.physics.overlap(this.player, this.collidingAreas)) this.gameService.leaveArea();
 
+    // Area detection
+    const currentZone: InteractableArea | null = this.interactableAreaZones.children.entries.find(
+      (area) => this.physics.overlap(this.player, area)
+    ) as InteractableArea;
+    
+    currentZone ? this.gameService.enterArea(currentZone.config) : this.gameService.leaveArea();
+    
+    // Player movement
     this.player.setVelocity(0);
-
     const pressedMovementKeys = Object.entries(this.cursors).filter(([keyName, key]) => {
       return key.isDown && !!MOVEMENT_MAP.get(Direction[keyName]);
     });

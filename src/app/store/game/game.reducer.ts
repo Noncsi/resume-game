@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import * as action from './game.actions';
-import { ICoordinate, ICVFragment, IInteractableAreaConfig } from '../../models/types';
+import { ICVFragment, IInteractableAreaConfig } from '../../models/types';
 import { INTERACTABLE_AREA_CONFIGS } from '../../config/interactable-areas';
 
 export interface GameState {
@@ -8,8 +8,6 @@ export interface GameState {
   isSoundOn: boolean;
   currentArea: IInteractableAreaConfig;
   isOverlayOpen: boolean;
-  isPromptVisible: boolean;
-  promptPosition: ICoordinate;
   collectibleFragments: ICVFragment[];
   isGameEnded?: boolean;
 }
@@ -19,8 +17,6 @@ export const initialGameState: GameState = {
   isSoundOn: true,
   currentArea: null,
   isOverlayOpen: false,
-  isPromptVisible: false,
-  promptPosition: { x: 0, y: 0 },
   collectibleFragments: INTERACTABLE_AREA_CONFIGS.filter((area) => area.containsCVFragment).map(
     (area) => ({ areaKey: area.key, isCollected: false } as ICVFragment)
   ),

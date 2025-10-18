@@ -1,13 +1,12 @@
 import { Scene } from 'phaser';
-import { DynamicSprite, IInteractableAreaConfig } from './types';
+import { IInteractableAreaConfig } from './types';
 import { KEY } from './keys';
 
 export class InteractableArea extends Phaser.GameObjects.Image {
+  config: IInteractableAreaConfig;
   constructor(
     scene: Scene,
     config: IInteractableAreaConfig,
-    player: DynamicSprite,
-    onEnter: () => void
   ) {
     super(
       scene,
@@ -16,6 +15,8 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       KEY.texture.spritesheet.exteriorAsSheet,
       955
     );
+
+    this.config = config;
 
     scene.tweens.add({
       targets: this,
@@ -58,7 +59,5 @@ export class InteractableArea extends Phaser.GameObjects.Image {
 
     const customOffset = config.customOffset;
     if (customOffset) body.setOffset(customOffset.x, customOffset.y);
-
-    scene.physics.add.overlap(player, this, () => onEnter());
   }
 }
