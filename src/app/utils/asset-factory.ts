@@ -73,14 +73,16 @@ export class AssetFactory {
 
       customProps.isBelowPlayer ? layer.setDepth(0) : layer.setDepth(1000);
 
+      // DEBUG
       // value.forEachTile((tile: Phaser.Tilemaps.Tile) => {
       //   tile.setSize(10, 10, 16, 16);
       // });
 
-      const debugGraphics = scene.add.graphics().setAlpha(0.5);
-      layer.renderDebug(debugGraphics, {
-        tileColor: null,
-      });
+      // DEBUG
+      // const debugGraphics = scene.add.graphics().setAlpha(0.5);
+      // layer.renderDebug(debugGraphics, {
+      //   tileColor: null,
+      // });
     });
   }
 
@@ -99,7 +101,7 @@ export class AssetFactory {
   }
 
   private static createMovements(): void {
-    const VELOCITY = 75;
+    const VELOCITY = 80;
     MOVEMENT_MAP.set(Direction.left, {
       velocity: { x: -VELOCITY, y: 0 },
       animationKey: Direction.left,
@@ -120,7 +122,7 @@ export class AssetFactory {
 
   private static createAudios(scene: Scene): void {
     AUDIO_CONFIGS.forEach(({ key, IsLooping, volume, rate }: IAudioConfig) => {
-      const audio = scene.sound.add(key, { loop: IsLooping, volume: volume ?? 1 , rate: rate ?? 1});
+      const audio = scene.sound.add(key, { loop: IsLooping, volume: volume ?? 1, rate: rate ?? 1 });
       AUDIOS.set(key, audio);
     });
   }
