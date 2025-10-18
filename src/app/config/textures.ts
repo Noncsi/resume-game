@@ -1,4 +1,4 @@
-import { KEY } from '../models/keys';
+import { KEY, TilesetKey } from '../models/keys';
 import { SpriteSheetImageConfig, TilesetImageConfig } from '../models/types';
 
 export const ASSET_PATH = {
@@ -7,14 +7,14 @@ export const ASSET_PATH = {
 } as const;
 
 export const TILESET_IMAGE_CONFIGS: TilesetImageConfig[] = [
-  { key: KEY.texture.tileset.exterior, url: `${ASSET_PATH.tilesets}/exterior.png` },
-  { key: KEY.texture.tileset.interior, url: `${ASSET_PATH.tilesets}/interior.png` },
-  { key: KEY.texture.tileset.houseDetails, url: `${ASSET_PATH.tilesets}/house-details.png` },
-  { key: KEY.texture.tileset.pines, url: `${ASSET_PATH.tilesets}/pines.png` },
-  { key: KEY.texture.tileset.plants, url: `${ASSET_PATH.tilesets}/plants.png` },
-  { key: KEY.texture.tileset.supplies, url: `${ASSET_PATH.tilesets}/supplies.png` },
+  { key: TilesetKey.exterior, url: `${ASSET_PATH.tilesets}/exterior.png` },
+  { key: TilesetKey.interior, url: `${ASSET_PATH.tilesets}/interior.png` },
+  { key: TilesetKey.houseDetails, url: `${ASSET_PATH.tilesets}/house-details.png` },
+  { key: TilesetKey.pines, url: `${ASSET_PATH.tilesets}/pines.png` },
+  { key: TilesetKey.plants, url: `${ASSET_PATH.tilesets}/plants.png` },
+  { key: TilesetKey.supplies, url: `${ASSET_PATH.tilesets}/supplies.png` },
   {
-    key: KEY.texture.tileset.groundGrassDetails,
+    key: TilesetKey.groundGrassDetails,
     url: `${ASSET_PATH.tilesets}/ground-grass-details.png`,
   },
 ];

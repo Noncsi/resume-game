@@ -1,15 +1,16 @@
+export enum TilesetKey {
+  exterior = 'exterior',
+  interior = 'interior',
+  houseDetails = 'houseDetails',
+  pines = 'pines',
+  groundGrassDetails = 'groundGrassDetails',
+  plants = 'plants',
+  supplies = 'supplies',
+}
+
 export const KEY = {
   map: 'map',
   texture: {
-    tileset: {
-      exterior: 'exterior',
-      interior: 'interior',
-      houseDetails: 'houseDetails',
-      pines: 'pines',
-      groundGrassDetails: 'groundGrassDetails',
-      plants: 'plants',
-      supplies: 'supplies',
-    },
     spritesheet: {
       exteriorAsSheet: 'exteriorAsSheet',
       player: 'player',
@@ -70,5 +71,5 @@ export const KEY = {
     muteMusic: 'muteMusic',
     muteSounds: 'muteSounds',
     restart: 'restart',
-  }
+  },
 } as const;
