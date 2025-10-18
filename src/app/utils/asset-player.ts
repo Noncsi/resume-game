@@ -1,6 +1,6 @@
 import { Sprite } from '../models/types';
-import { KEY } from '../models/keys';
 import { AUDIOS, SPRITES } from '../models/collections';
+import { AudioKey } from '../models/keys';
 
 export class AssetPlayer {
   static playAll(): void {
@@ -15,6 +15,6 @@ export class AssetPlayer {
   }
 
   private static playAudios(): void {
-    AUDIOS.get(KEY.audio.backgroundMusic).play();
+    AUDIOS.get(AudioKey.BackgroundMusic).play();
   }
 }
