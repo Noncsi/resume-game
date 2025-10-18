@@ -9,7 +9,7 @@ import {
   CursorKeys,
   Audio,
 } from '../models/types';
-import { AudioKey, KEY, SpritesheetKey } from '../models/keys';
+import { AudioKey, ButtonKey, KEY, SpritesheetKey, TextKey } from '../models/keys';
 import { GameService } from '../services/game-service';
 import { AssetLoader } from '../utils/asset-loader';
 import { AssetFactory } from '../utils/asset-factory';
@@ -65,7 +65,7 @@ export class MainScene extends Phaser.Scene {
     });
 
     // create prompt
-    const promptConfig = TEXT_CONFIGS.get(KEY.text.prompt);
+    const promptConfig = TEXT_CONFIGS.get(TextKey.Prompt);
     this.promptService.prompt = this.add
       .text(0, 0, promptConfig.text, promptConfig.style)
       .setDepth(1000)
@@ -74,9 +74,9 @@ export class MainScene extends Phaser.Scene {
     new Help(this);
 
     // create Buttons
-    const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === KEY.button.muteMusic);
+    const muteButtonConfig = BUTTON_CONFIGS.find((button) => button.key === ButtonKey.MuteMusic);
     const muteSoundsButtonConfig = BUTTON_CONFIGS.find(
-      (button) => button.key === KEY.button.muteSounds
+      (button) => button.key === ButtonKey.MuteSounds
     );
     new Button(this, muteButtonConfig, () => this.gameService.toggleBackgroundMusic());
     new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundSounds());

@@ -65,14 +65,15 @@ export enum InteractableAreaKey {
   Country = 'country',
 }
 
+export enum TextKey {
+  Prompt = 'prompt',
+}
+
+export enum ButtonKey {
+  MuteMusic = 'muteMusic',
+  MuteSounds = 'muteSounds',
+}
+
 export const KEY = {
   map: 'map',
-  text: {
-    prompt: 'prompt',
-  },
-  button: {
-    muteMusic: 'muteMusic',
-    muteSounds: 'muteSounds',
-    restart: 'restart',
-  },
 } as const;

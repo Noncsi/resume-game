@@ -1,4 +1,4 @@
-import { KEY } from '../models/keys';
+import { TextKey } from '../models/keys';
 
 const defaultStyle = {
   fontSize: '16px',
@@ -9,7 +9,7 @@ const defaultStyle = {
 
 export const TEXT_CONFIGS = new Map([
   [
-    KEY.text.prompt,
+    TextKey.Prompt,
     {
       text: '[E] interact',
       style: defaultStyle,
