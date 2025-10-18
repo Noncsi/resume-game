@@ -12,7 +12,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       scene,
       config.position.x,
       config.position.y,
-      SpritesheetKey.exteriorAsSheet,
+      SpritesheetKey.ExteriorAsSheet,
       955
     );
 
@@ -35,7 +35,7 @@ export class InteractableArea extends Phaser.GameObjects.Image {
       const cvFragment = scene.add.image(
         config.position.x,
         config.position.y + 19,
-        SpritesheetKey.exteriorAsSheet,
+        SpritesheetKey.ExteriorAsSheet,
         953
       );
 

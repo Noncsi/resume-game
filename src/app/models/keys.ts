@@ -1,14 +1,23 @@
 export enum TilesetKey {
-  exterior = 'exterior',
-  interior = 'interior',
-  houseDetails = 'houseDetails',
-  pines = 'pines',
-  groundGrassDetails = 'groundGrassDetails',
-  plants = 'plants',
-  supplies = 'supplies',
+  Exterior = 'exterior',
+  Interior = 'interior',
+  HouseDetails = 'houseDetails',
+  Pines = 'pines',
+  GroundGrassDetails = 'groundGrassDetails',
+  Plants = 'plants',
+  Supplies = 'supplies',
 }
 
 export enum SpritesheetKey {
+  ExteriorAsSheet = 'exteriorAsSheet',
+  Player = 'player',
+  Chimney = 'chimney',
+  Cat = 'cat',
+  BirdFly = 'birdFly',
+  BirdJump = 'birdJump',
+  Cattle = 'cattle',
+}
+
 export enum LayerKey {
   Path = 'path',
   Road = 'road',

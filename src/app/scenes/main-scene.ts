@@ -82,7 +82,7 @@ export class MainScene extends Phaser.Scene {
     new Button(this, muteSoundsButtonConfig, () => this.gameService.toggleBackgroundSounds());
 
     AssetPlayer.playAll();
-    this.player = DYNAMIC_SPRITES.get(SpritesheetKey.player);
+    this.player = DYNAMIC_SPRITES.get(SpritesheetKey.Player);
 
     // create interaction for [E]
     this.keyE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
