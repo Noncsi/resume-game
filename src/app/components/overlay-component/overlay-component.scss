@@ -1,7 +1,7 @@
 .overlay-root {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 99999;
   pointer-events: auto;
   color: #333;
 
@@ -13,6 +13,7 @@
   }
 
   .card {
+    scale: 1.3;
     font-family: 'Press Start 2P', system-ui;
     position: absolute;
     left: 50%;
