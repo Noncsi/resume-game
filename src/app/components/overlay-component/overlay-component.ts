@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { IInteractableAreaConfig } from '../../models/types';
 import { ResumeContentComponent } from '../resume-content-component/resume-content-component';
-import { selectCurrentArea, selectIsGameEnded, selectIsOverlayOpen } from '../../store/game/game.selector';
+import { selectCurrentArea, selectIsCongratulationsVisible, selectIsGameEnded, selectIsOverlayOpen } from '../../store/game/game.selector';
 import { closeOverlay } from '../../store/game/game.actions';
 
 @Component({
@@ -16,7 +16,7 @@ export class OverlayComponent {
   store = inject(Store);
   isOverlayOpen: Signal<boolean> = this.store.selectSignal(selectIsOverlayOpen);
   area: Signal<IInteractableAreaConfig | null> = this.store.selectSignal(selectCurrentArea);
-  isGameEnded: Signal<boolean> = this.store.selectSignal(selectIsGameEnded);
+  IsCongratulationsVisible: Signal<boolean> = this.store.selectSignal(selectIsCongratulationsVisible);
 
   @HostListener(`document:keydown.escape`)
   handleEscKey() {

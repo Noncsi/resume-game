@@ -3,9 +3,11 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   closeOverlay,
   gameEnd,
+  hideCongratulations,
   interact,
   openOverlay,
   playSound,
+  showCongratulations,
   toggleMusic,
   toggleMusicError,
   toggleMusicSuccess,
@@ -95,8 +97,13 @@ export class GameEffects {
       concatLatestFrom(() => this.store.select(selectIsEveryFragmentCollected)),
       filter(([, isEveryFragmentCollected]) => isEveryFragmentCollected),
       concatLatestFrom(() => this.store.select(selectIsGameEnded)),
-      filter(([, isEnded]) => isEnded === false),
-      map(() => gameEnd())
+      map(([, isEnded]) => {
+        if (isEnded) {
+          return hideCongratulations();
+        } else {
+          return gameEnd();
+        }
+      })
     )
   );
 
@@ -105,7 +112,14 @@ export class GameEffects {
       ofType(gameEnd),
       concatLatestFrom(() => this.store.select(selectIsGameEnded)),
       filter(([, isEnded]) => isEnded),
-      map((a) => openOverlay())
+      map(() => showCongratulations())
+    )
+  );
+
+  showCongratulations$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(showCongratulations),
+      map(() => openOverlay())
     )
   );
 

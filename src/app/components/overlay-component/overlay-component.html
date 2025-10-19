@@ -3,7 +3,7 @@
   <div class="overlay-backdrop" (click)="close()"></div>
   <div class="card" role="dialog">
     <button (click)="close()">X</button>
-    @if (isGameEnded()) {
+    @if (IsCongratulationsVisible()) {
     <h1>Congratulations!</h1>
     <p>
       Well done, explorer! You've gathered every scroll, every spark of who I am.<br />

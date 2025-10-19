@@ -9,7 +9,8 @@ export interface GameState {
   currentArea: IInteractableAreaConfig;
   isOverlayOpen: boolean;
   collectibleFragments: ICVFragment[];
-  isGameEnded?: boolean;
+  isGameEnded: boolean;
+  IsCongratulationsVisible: boolean;
 }
 
 export const initialGameState: GameState = {
@@ -21,6 +22,7 @@ export const initialGameState: GameState = {
     (area) => ({ areaKey: area.key, isCollected: false } as ICVFragment)
   ),
   isGameEnded: false,
+  IsCongratulationsVisible: false,
 };
 
 export const gameReducer = createReducer(
@@ -57,6 +59,13 @@ export const gameReducer = createReducer(
   on(action.gameEnd, (state) => ({
     ...state,
     isGameEnded: true,
-    currentArea: null,
+  })),
+  on(action.showCongratulations, (state) => ({
+    ...state,
+    IsCongratulationsVisible: true,
+  })),
+  on(action.hideCongratulations, (state) => ({
+    ...state,
+    IsCongratulationsVisible: false,
   }))
 );

@@ -38,3 +38,8 @@ export const selectIsGameEnded = createSelector(
   selectGameState,
   (state: GameState) => state.isGameEnded
 );
+
+export const selectIsCongratulationsVisible = createSelector(
+  selectGameState,
+  (state: GameState) => state.IsCongratulationsVisible
+);
