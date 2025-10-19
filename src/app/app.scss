@@ -1,7 +1,25 @@
 div {
+  display: flex;
+  height: 100%;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.warning {
+  display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  .warning {
     display: flex;
-    height: 100%;
-    gap: 32px;
-    justify-content: center;
-    align-items: center;
+    background-color: #ffffffa1;
+    font-size: 2vw;
+    font-family: 'Press Start 2P';
+    position: absolute;
+    top: 0;
+    padding-left: 8vw;
+    z-index: 99999;
+    padding-right: 8vw;
+  }
 }
