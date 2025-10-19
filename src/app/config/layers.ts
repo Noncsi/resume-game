@@ -71,6 +71,10 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
     tilesetKeys: [TilesetKey.Exterior],
   },
   {
+    layerID: LayerKey.MapEdgeGrass,
+    tilesetKeys: [TilesetKey.Exterior],
+  },
+  {
     layerID: LayerKey.MailboxBelowPlayer,
     tilesetKeys: [TilesetKey.Exterior],
   },
@@ -102,10 +106,6 @@ export const LAYER_CONFIGS: ILayerConfig[] = [
   {
     layerID: LayerKey.Roof,
     tilesetKeys: [TilesetKey.HouseDetails, TilesetKey.Interior, TilesetKey.Interior],
-  },
-  {
-    layerID: LayerKey.MapEdgeGrass,
-    tilesetKeys: [TilesetKey.Exterior],
   },
   {
     layerID: LayerKey.Forest,
