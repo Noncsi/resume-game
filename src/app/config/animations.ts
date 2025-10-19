@@ -34,13 +34,13 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
     key: SpritesheetKey.Cat,
     spritesheetKey: SpritesheetKey.Cat,
     frameConfig: { frames: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51] },
-    repeatDelay: 5000,
+    repeatDelay: 3000,
   },
   {
     key: SpritesheetKey.BirdFly,
     spritesheetKey: SpritesheetKey.BirdFly,
     frameConfig: {
-      frames: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45],
+      frames: [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 0],
     },
     repeatDelay: 10000,
   },
