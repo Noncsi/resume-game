@@ -1,6 +1,10 @@
 div {
-  font-family: "Press Start 2P";
-  font-size: 10px;
+  font-family: 'Press Start 2P';
+  font-size: 13px;
   line-height: 1.6;
   margin-bottom: 1rem;
+
+  @media (max-width: 1400px) {
+    margin-bottom: unset;
+  }
 }

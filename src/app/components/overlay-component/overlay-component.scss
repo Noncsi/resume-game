@@ -13,7 +13,6 @@
   }
 
   .card {
-    scale: 1.3;
     font-family: 'Press Start 2P', system-ui;
     position: absolute;
     left: 50%;
@@ -22,7 +21,7 @@
     width: min(620px, 70vw);
     background: #e5d6a1;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 1.5rem;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
     border: 4px solid #825c2f;
     border-top: 20px solid #825c2f;
@@ -38,21 +37,21 @@
     }
 
     h1 {
-      font-size: 18px;
+      font-size: 24px;
       margin-bottom: 16px;
     }
 
     h2 {
-      font-size: 12px;
+      font-size: 16px;
       margin-bottom: 32px;
     }
 
     h3 {
-      font-size: 10px;
+      font-size: 13px;
     }
 
     p {
-      font-size: 14px;
+      font-size: 18px;
       line-height: 1.5;
     }
 

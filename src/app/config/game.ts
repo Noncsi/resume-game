@@ -7,7 +7,6 @@ export const GAME_CONFIG: GameConfig = {
   height: 820,
   scale: {
     mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.CENTER_VERTICALLY,
   },
   scene: [MainScene],
   physics: {
