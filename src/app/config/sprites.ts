@@ -27,6 +27,16 @@ export const SPRITE_CONFIGS: ISpriteConfig[] = [
     position: { x: 460, y: 510 },
     texture: SpritesheetKey.Cattle,
   },
+    {
+    spriteName: SpritesheetKey.Chick,
+    position: { x: 350, y: 260 },
+    texture: SpritesheetKey.Chick,
+  },
+    {
+    spriteName: SpritesheetKey.Rooster,
+    position: { x: 330, y: 250 },
+    texture: SpritesheetKey.Rooster,
+  },
 ];
 
 export const DYNAMIC_SPRITE_CONFIGS: IDynamicSpriteConfig[] = [

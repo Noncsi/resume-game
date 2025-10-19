@@ -20,6 +20,8 @@ export enum SpritesheetKey {
   BirdFly = 'birdFly',
   BirdJump = 'birdJump',
   Cattle = 'cattle',
+  Chick = 'chick',
+  Rooster = 'rooster',
 }
 
 export enum LayerKey {

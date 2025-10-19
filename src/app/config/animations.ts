@@ -56,4 +56,15 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
     frameConfig: { frames: [42, 43, 44, 45] },
     customFrameRate: 4,
   },
+  {
+    key: SpritesheetKey.Chick,
+    spritesheetKey: SpritesheetKey.Chick,
+    frameConfig: { frames: [36, 37, 38, 39] },
+    customFrameRate: 4,
+  },
+  {
+    key: SpritesheetKey.Rooster,
+    spritesheetKey: SpritesheetKey.Rooster,
+    frameConfig: { frames: [43, 44, 45, 46, 47, 48] },
+  },
 ];

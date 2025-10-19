@@ -60,4 +60,14 @@ export const SPRITESHEET_IMAGE_CONFIGS: SpriteSheetImageConfig[] = [
     url: `${ASSET_PATH.spritesheets}/grey-cattle.png`,
     frameConfig: { frameWidth: 64, frameHeight: 64 },
   },
+    {
+    key: SpritesheetKey.Chick,
+    url: `${ASSET_PATH.spritesheets}/chick.png`,
+    frameConfig: { frameWidth: 16, frameHeight: 16 },
+  },
+    {
+    key: SpritesheetKey.Rooster,
+    url: `${ASSET_PATH.spritesheets}/rooster.png`,
+    frameConfig: { frameWidth: 32, frameHeight: 32 },
+  },
 ];
