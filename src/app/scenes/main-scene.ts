@@ -142,7 +142,12 @@ export class MainScene extends Phaser.Scene {
 
     const isMovementKeyPressed = pressedMovementKeys.length > 0 && !this.intro.visible;
 
-    if (isMovementKeyPressed && !this.isFootstepsSoundAlreadyPlaying && !this.gameService.isOverlayOpen()) {
+    if (
+      isMovementKeyPressed &&
+      !this.isFootstepsSoundAlreadyPlaying &&
+      !this.gameService.isOverlayOpen() &&
+      this.gameService.IsSoundsOn()
+    ) {
       this.footstepsSound.play();
       this.isFootstepsSoundAlreadyPlaying = true;
     } else if (!isMovementKeyPressed) {

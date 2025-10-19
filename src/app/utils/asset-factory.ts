@@ -72,17 +72,6 @@ export class AssetFactory {
       scene.physics.add.collider(player, layer);
 
       customProps.isBelowPlayer ? layer.setDepth(0) : layer.setDepth(1000);
-
-      // DEBUG
-      // value.forEachTile((tile: Phaser.Tilemaps.Tile) => {
-      //   tile.setSize(10, 10, 16, 16);
-      // });
-
-      // DEBUG
-      // const debugGraphics = scene.add.graphics().setAlpha(0.5);
-      // layer.renderDebug(debugGraphics, {
-      //   tileColor: null,
-      // });
     });
   }
 
