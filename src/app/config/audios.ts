@@ -6,7 +6,7 @@ export const AUDIO_CONFIGS: IAudioConfig[] = [
     key: AudioKey.BackgroundMusic,
     url: 'assets/audios/background-music.mp3',
     IsLooping: true,
-    volume: 0.5,
+    volume: 0.3,
   },
   {
     key: AudioKey.Hey,
