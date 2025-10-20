@@ -65,6 +65,6 @@ export const ANIMATION_CONFIGS: IAnimationConfig[] = [
   {
     key: SpritesheetKey.Rooster,
     spritesheetKey: SpritesheetKey.Rooster,
-    frameConfig: { frames: [43, 44, 45, 46, 47, 48] },
+    frameConfig: { frames: [42, 43, 44, 45, 46, 47] },
   },
 ];
