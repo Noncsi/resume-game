@@ -46,9 +46,10 @@ I've spent years creating from here, building worlds line by line.`,
     title: 'The Blooming Meadow',
     subTitle: '"Every petal tells a story of growth."',
     category: 'Soft Skills:',
-    content: `    ■ Crafting user-friendly experiences<br>
-    ■ Writing clean, maintainable code<br>
-    ■ Blending creativity with logic`,
+    content: `    ■ Remote collaboration - communicating clearly across time zones<br>
+    ■ Empathy - understanding user needs and team perspectives<br>
+    ■ Self-motivation - driving progress without constant supervision<br>
+    ■ Teamwork - working harmoniously in cross-functional teams`,
     containsCVFragment: true,
   },
   {
