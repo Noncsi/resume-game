@@ -8,7 +8,7 @@ export const INTERACTABLE_AREA_CONFIGS: IInteractableAreaConfig[] = [
     title: 'The Well of Knowledge',
     subTitle: '"Clear waters run deep; every ripple holds a lesson."',
     category: 'Skills:',
-    content: `    ■ JavaScript, TypeScript, Node.js<br>
+    content: `    ■ JavaScript, TypeScript<br>
     ■ Angular, RxJs, NgRx<br>
     ■ HTML5, CSS + preprocessors`,
     containsCVFragment: true,
@@ -46,9 +46,9 @@ I've spent years creating from here, building worlds line by line.`,
     title: 'The Blooming Meadow',
     subTitle: '"Every petal tells a story of growth."',
     category: 'Soft Skills:',
-    content: `    ■ Remote collaboration - communicating clearly across time zones<br>
-    ■ Empathy - understanding user needs and team perspectives<br>
-    ■ Self-motivation - driving progress without constant supervision`,
+    content: `    ■ Remote collaboration: communicating clearly across time zones<br>
+    ■ Empathy: understanding user needs and team perspectives<br>
+    ■ Self-motivation: driving progress without constant supervision`,
     containsCVFragment: true,
   },
   {
@@ -57,10 +57,10 @@ I've spent years creating from here, building worlds line by line.`,
     title: 'The Circle of Stones',
     subTitle: '"Silent witnesses to time and perseverance."',
     category: 'Experience:',
-    content: `    ■ Optin - Fullstack Developer<br>
-    ■ Cloudera - Software Developer<br>
-    ■ Asura Technologies - Frontend Developer<br>
-    ■ Digic Pictures - Production Developer`,
+    content: `    ■ Optin: Fullstack Developer<br>
+    ■ Cloudera: Software Developer<br>
+    ■ Asura Technologies: Frontend Developer<br>
+    ■ Digic Pictures: Production Developer`,
     containsCVFragment: true,
     footer: `Every stone stands for a milestone - solid, enduring.`,
   },
