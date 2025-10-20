@@ -48,8 +48,7 @@ I've spent years creating from here, building worlds line by line.`,
     category: 'Soft Skills:',
     content: `    ■ Remote collaboration - communicating clearly across time zones<br>
     ■ Empathy - understanding user needs and team perspectives<br>
-    ■ Self-motivation - driving progress without constant supervision<br>
-    ■ Teamwork - working harmoniously in cross-functional teams`,
+    ■ Self-motivation - driving progress without constant supervision`,
     containsCVFragment: true,
   },
   {
